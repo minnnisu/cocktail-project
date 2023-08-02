@@ -145,6 +145,17 @@ app.post("/cocktail", async (req, res) => {
   try {
     const database = client.db("cocktail_project");
 
+    const cocktailName = await database
+      .collection("cocktail")
+      .findOne({ "name.en": cocktail.name.en });
+    if (cocktailName !== null) {
+      res.status(403).json({
+        error: "validationError",
+        message: "This cocktail already exists.",
+      });
+      return;
+    }
+
     await Promise.all(
       cocktail.ingredients.map(async (ingredient, index) => {
         const filter = { "name.en": ingredient.base_spirit_name };
