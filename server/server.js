@@ -30,6 +30,7 @@ app.post("/base-spirit-type", async (req, res) => {
         error: "validationError",
         message: "This base spirit type already exists.",
       });
+      return;
     }
 
     await database.collection("base_spirit_type").insertOne({
@@ -37,7 +38,7 @@ app.post("/base-spirit-type", async (req, res) => {
       base_spirit: [],
     });
 
-    res.status(200).send();
+    res.status(201).send();
   } finally {
     await client.close();
   }
@@ -60,6 +61,7 @@ app.post("/base-spirit", async (req, res) => {
         error: "validationError",
         message: "This base spirit type already exists.",
       });
+      return;
     }
 
     await database.collection("base_spirit").insertOne({
@@ -79,7 +81,7 @@ app.post("/base-spirit", async (req, res) => {
 
     await database.collection("base_spirit_type").updateOne(filter, update);
 
-    res.status(200).send();
+    res.status(201).send();
   } finally {
     await client.close();
   }
@@ -127,6 +129,7 @@ app.get("/cocktail/name/validation", async (req, res) => {
         error: "validationError",
         message: "This cocktail already exists.",
       });
+      return;
     }
 
     res.status(200).send();
@@ -158,7 +161,7 @@ app.post("/cocktail", async (req, res) => {
     );
 
     await database.collection("cocktail").insertOne(cocktail);
-    res.status(200).send();
+    res.status(201).send();
   } finally {
     await client.close();
   }
