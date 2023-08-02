@@ -1,17 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./config/mongodb");
+var cors = require("cors");
 const { MongoClient, ObjectId } = require("mongodb");
 
 const app = express();
 const port = 8080;
 const uri = db.MongoURI;
 
+app.use(cors());
 app.use(bodyParser.json());
 
-// 새로운 base-liquor-type 추가(테스트 완료)
-app.post("/base-liquor-type", async (req, res) => {
-  const newBaseLiquorType = req.body;
+// 알코올 값 추가
+
+// 새로운 base-spirit-type 추가(테스트 완료)
+app.post("/base-spirit-type", async (req, res) => {
+  const newBaseSpiritType = req.body;
   const client = new MongoClient(uri);
 
   try {
@@ -19,18 +23,18 @@ app.post("/base-liquor-type", async (req, res) => {
 
     //유효성 검증
     const cocktailName = await database
-      .collection("base_liquor_type")
-      .findOne({ "name.en": newBaseLiquorType.name.en });
+      .collection("base_spirit_type")
+      .findOne({ "name.en": newBaseSpiritType.name.en });
     if (cocktailName !== null) {
       res.status(403).json({
         error: "validationError",
-        message: "This base liquor type already exists.",
+        message: "This base spirit type already exists.",
       });
     }
 
-    await database.collection("base_liquor_type").insertOne({
-      name: { en: newBaseLiquorType.name.en, ko: newBaseLiquorType.name.ko },
-      base_liquor: [],
+    await database.collection("base_spirit_type").insertOne({
+      name: { en: newBaseSpiritType.name.en, ko: newBaseSpiritType.name.ko },
+      base_spirit: [],
     });
 
     res.status(200).send();
@@ -39,9 +43,9 @@ app.post("/base-liquor-type", async (req, res) => {
   }
 });
 
-// 새로운 base-liquor 추가(테스트 완료)
-app.post("/base-liquor", async (req, res) => {
-  const newBaseLiquor = req.body;
+// 새로운 base-spirit 추가(테스트 완료)
+app.post("/base-spirit", async (req, res) => {
+  const newBaseSpirit = req.body;
   const client = new MongoClient(uri);
 
   try {
@@ -49,31 +53,31 @@ app.post("/base-liquor", async (req, res) => {
 
     //유효성 검증
     const cocktailName = await database
-      .collection("base_liquor")
-      .findOne({ "name.en": newBaseLiquor.name.en });
+      .collection("base_spirit")
+      .findOne({ "name.en": newBaseSpirit.name.en });
     if (cocktailName !== null) {
       res.status(403).json({
         error: "validationError",
-        message: "This base liquor type already exists.",
+        message: "This base spirit type already exists.",
       });
     }
 
-    await database.collection("base_liquor").insertOne({
-      name: { en: newBaseLiquor.name.en, ko: newBaseLiquor.name.ko },
-      type: newBaseLiquor.type,
+    await database.collection("base_spirit").insertOne({
+      name: { en: newBaseSpirit.name.en, ko: newBaseSpirit.name.ko },
+      type: newBaseSpirit.type,
       cocktails: [],
     });
 
-    const filter = { "name.en": newBaseLiquor.type };
+    const filter = { "name.en": newBaseSpirit.type };
     const update = {
       $push: {
-        base_liquor: {
-          name: newBaseLiquor.name.en,
+        base_spirit: {
+          name: newBaseSpirit.name.en,
         },
       },
     };
 
-    await database.collection("base_liquor_type").updateOne(filter, update);
+    await database.collection("base_spirit_type").updateOne(filter, update);
 
     res.status(200).send();
   } finally {
@@ -81,13 +85,13 @@ app.post("/base-liquor", async (req, res) => {
   }
 });
 
-// 모든 술에 대한 정보 가져오기(테스트 완료)
-app.get("/base-liquor-type", async (req, res) => {
+// 모든 기주에 해당하는 술에 대한 정보 가져오기(테스트 완료)
+app.get("/base-spirit-type", async (req, res) => {
   const client = new MongoClient(uri);
   try {
     const database = client.db("cocktail_project");
     const result = await database
-      .collection("base_liquor_type")
+      .collection("base_spirit_type")
       .find({})
       .toArray();
 
@@ -97,22 +101,14 @@ app.get("/base-liquor-type", async (req, res) => {
   }
 });
 
-// 칵테일 이름 유효성 검증(테스트 완료)
-app.get("/cocktail/name/validation", async (req, res) => {
+// 모든 술에 대한 정보 가져오기
+app.get("/base-spirit", async (req, res) => {
   const client = new MongoClient(uri);
   try {
     const database = client.db("cocktail_project");
-    const cocktailName = await database
-      .collection("cocktail")
-      .findOne({ "name.en": req.query.name });
-    if (cocktailName !== null) {
-      res.status(403).json({
-        error: "validationError",
-        message: "This cocktail already exists.",
-      });
-    }
+    const result = await database.collection("base_spirit").find({}).toArray();
 
-    res.status(200).send();
+    res.status(200).json(result);
   } finally {
     await client.close();
   }
@@ -148,7 +144,7 @@ app.post("/cocktail", async (req, res) => {
 
     await Promise.all(
       cocktail.ingredients.map(async (ingredient, index) => {
-        const filter = { "name.en": ingredient.base_liquor_name };
+        const filter = { "name.en": ingredient.base_spirit_name };
         const update = {
           $push: {
             cocktails: {
@@ -157,7 +153,7 @@ app.post("/cocktail", async (req, res) => {
           },
         };
 
-        await database.collection("base_liquor").updateOne(filter, update);
+        await database.collection("base_spirit").updateOne(filter, update);
       })
     );
 
