@@ -17,10 +17,8 @@ function TasteForm({ tastes, setCocktailInfo }) {
 
   const tasteFields = tastes.map((taste, index) => {
     return (
-      <div className="d-flex">
-        <div key={index} className="me-3">
-          {taste}
-        </div>
+      <div key={index} className="d-flex">
+        <div className="me-3">{taste}</div>
         <div onClick={() => deleteTaste(index)}>x</div>
       </div>
     );

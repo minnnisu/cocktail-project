@@ -3,25 +3,34 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function BaseSpiritTypeAppend() {
+function BaseSpiritTypeAppend({ baseSpiritTypes, setBaseSpiritTypes }) {
   const [newBaseSpiritType, setNewBaseSpiritType] = useState({
     en: "",
     ko: "",
   });
 
   const submitNewBaseSpiritType = async () => {
-    const result = await axios.post("http://localhost:8080/base-spirit-type", {
-      name: newBaseSpiritType,
-      base_spirit: [],
-    });
-    if (result.status === 201) {
-      alert("등록이 성공적으로 완료되었습니다.");
-      setNewBaseSpiritType({
-        en: "",
-        ko: "",
-      });
-    } else {
-      alert("등록에 실패하였습니다.");
+    try {
+      const result = await axios.post(
+        "http://localhost:8080/base-spirit-type",
+        {
+          name: newBaseSpiritType,
+          base_spirit: [],
+        }
+      );
+      if (result.status === 201) {
+        alert("등록이 성공적으로 완료되었습니다.");
+        setNewBaseSpiritType({
+          en: "",
+          ko: "",
+        });
+        setBaseSpiritTypes({
+          state: "loading",
+          value: [],
+        });
+      }
+    } catch (error) {
+      alert("등록을 실패하였습니다.");
     }
   };
 

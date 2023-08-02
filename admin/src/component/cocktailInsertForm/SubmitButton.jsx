@@ -48,23 +48,25 @@ function SubmitButton({ cocktailInfo, setCocktailInfo }) {
       return;
     }
 
-    const result = await axios.post(
-      "http://localhost:8080/cocktail",
-      cocktailInfo
-    );
-    if (result.status === 201) {
-      alert("등록이 성공적으로 완료되었습니다.");
-      setCocktailInfo({
-        name: { en: "", ko: "" },
-        ingredients: [],
-        tastes: [],
-        garnish: { en: "", ko: "" },
-        glass: "",
-        cocktailMake: "",
-        image_url: "",
-      });
-    } else {
-      alert("등록에 실패하였습니다.");
+    try {
+      const result = await axios.post(
+        "http://localhost:8080/cocktail",
+        cocktailInfo
+      );
+      if (result.status === 201) {
+        alert("등록이 성공적으로 완료되었습니다.");
+        setCocktailInfo({
+          name: { en: "", ko: "" },
+          ingredients: [],
+          tastes: [],
+          garnish: { en: "", ko: "" },
+          glass: "",
+          cocktailMake: "",
+          image_url: "",
+        });
+      }
+    } catch (error) {
+      alert("등록을 실패하였습니다.");
     }
   };
 

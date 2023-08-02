@@ -1,14 +1,18 @@
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import BaseSpiritTypeSelect from "./BaseSpiritTypeSelect";
 import { useState } from "react";
 import BaseSpiritInput from "./BaseSpiritInput";
+import BaseSpiritAppendBtn from "./BaseSpiritAppendBtn";
 
-function BaseSpiritAppendModal({ show, setShow }) {
-  const handleClose = () => setShow(false);
+function BaseSpiritAppendModal({ show, setShow, setBaseSpirits }) {
+  const handleClose = () => {
+    setShow(false);
+  };
+
   const [baseSpiritInfo, setBaseSpiritInfo] = useState({
     base_spirit: { en: "", ko: "" },
     base_spirit_type: "",
+    alcohol: "",
   });
 
   return (
@@ -22,12 +26,11 @@ function BaseSpiritAppendModal({ show, setShow }) {
           <BaseSpiritInput setBaseSpiritInfo={setBaseSpiritInfo} />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+          <BaseSpiritAppendBtn
+            baseSpiritInfo={baseSpiritInfo}
+            setBaseSpiritInfo={setBaseSpiritInfo}
+            setBaseSpirits={setBaseSpirits}
+          />
         </Modal.Footer>
       </Modal>
     </>

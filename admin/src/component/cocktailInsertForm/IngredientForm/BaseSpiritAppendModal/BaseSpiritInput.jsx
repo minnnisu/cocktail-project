@@ -13,6 +13,10 @@ function BaseSpiritInput({ setBaseSpiritInfo }) {
     });
   };
 
+  const changeAlcohol = (e) => {
+    setBaseSpiritInfo((prev) => ({ ...prev, alcohol: e.target.value }));
+  };
+
   return (
     <Form.Group>
       <Form.Label className="label">술 이름 입력</Form.Label>
@@ -26,6 +30,8 @@ function BaseSpiritInput({ setBaseSpiritInfo }) {
           <Form.Control name="ko" onChange={changeBaseSpirit} />
         </div>
       </div>
+      <Form.Label className="label">도수</Form.Label>
+      <Form.Control name="alcohol" onChange={changeAlcohol} />
     </Form.Group>
   );
 }
