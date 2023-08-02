@@ -1,0 +1,11 @@
+.App {
+  width: 60%;
+  height: 100vh;
+  padding: 10px 10px 0 10px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.App .label {
+  font-weight: 700;
+}
