@@ -20,12 +20,12 @@ function CockTailFormContainer(params) {
     image_url: "",
   });
 
-  console.log(cocktailInfo);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   return (
     <>
       <NameForm setCocktailInfo={setCocktailInfo} />
-      <ImageForm setCocktailInfo={setCocktailInfo} />
+      <ImageForm setSelectedImage={setSelectedImage} />
       {/* 엔터 클릭 시 새로고침 되어버림 */}
       <TasteForm
         tastes={cocktailInfo.tastes}
@@ -39,6 +39,8 @@ function CockTailFormContainer(params) {
       <GlassForm setCocktailInfo={setCocktailInfo} />
       <CocktailMakeForm setCocktailInfo={setCocktailInfo} />
       <SubmitButton
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
         cocktailInfo={cocktailInfo}
         setCocktailInfo={setCocktailInfo}
       />

@@ -19,11 +19,13 @@ function BaseSpiritTypeList({
       }
     };
     fetchBaseSpiritTypes();
-  }, [baseSpiritTypes]);
+  }, [baseSpiritTypes.value.length]);
 
   const changeBaseSpiritType = (e) => {
     setBaseSpiritInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  console.log(baseSpiritTypes);
 
   return (
     <>

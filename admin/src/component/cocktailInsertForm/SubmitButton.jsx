@@ -1,7 +1,12 @@
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 
-function SubmitButton({ cocktailInfo, setCocktailInfo }) {
+function SubmitButton({
+  selectedImage,
+  setSelectedImage,
+  cocktailInfo,
+  setCocktailInfo,
+}) {
   const submitCocktailInfo = async () => {
     if (cocktailInfo.name.ko === "") {
       alert("칵테일 한글이름을 입력하세요.");
@@ -43,17 +48,31 @@ function SubmitButton({ cocktailInfo, setCocktailInfo }) {
       return;
     }
 
-    if (cocktailInfo.image_url === "") {
-      alert("이미지를 추가해주세요.");
+    if (selectedImage === null) {
+      alert("이미지를 선택하세요");
       return;
     }
 
+    const userConfirmation = window.confirm(
+      "등록할 데이터는 다음과 같습니다?\n등록하시겠습니까?\n" +
+        JSON.stringify(cocktailInfo)
+    );
+    if (!userConfirmation) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+    formData.append("data", JSON.stringify(cocktailInfo));
+
     try {
-      const result = await axios.post(
-        "http://localhost:8080/cocktail",
-        cocktailInfo
-      );
-      if (result.status === 201) {
+      const response = axios.post("http://localhost:8080/cocktail", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 201) {
         alert("등록이 성공적으로 완료되었습니다.");
         setCocktailInfo({
           name: { en: "", ko: "" },
@@ -64,6 +83,7 @@ function SubmitButton({ cocktailInfo, setCocktailInfo }) {
           cocktailMake: "",
           image_url: "",
         });
+        setSelectedImage(null);
       }
     } catch (error) {
       alert("등록을 실패하였습니다.");
