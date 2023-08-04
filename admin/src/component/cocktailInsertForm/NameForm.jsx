@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 
 function NameForm({ setCocktailInfo }) {
-  const changeName = (e) => {
+  const handleNameChange = (e) => {
     setCocktailInfo((prev) => {
       const prevValue = prev.name;
       const updatedValue = {
@@ -18,11 +18,19 @@ function NameForm({ setCocktailInfo }) {
       <div className="d-flex">
         <div className="cocktail_name_ko me-3">
           <Form.Label className="label">칵테일 이름-한글</Form.Label>
-          <Form.Control onChange={changeName} name="ko" placeholder="모히토" />
+          <Form.Control
+            onChange={handleNameChange}
+            name="ko"
+            placeholder="모히토"
+          />
         </div>
         <div className="cocktail_name_en">
           <Form.Label className="label">칵테일 이름-영문</Form.Label>
-          <Form.Control onChange={changeName} name="en" placeholder="Mojito" />
+          <Form.Control
+            onChange={handleNameChange}
+            name="en"
+            placeholder="Mojito"
+          />
         </div>
       </div>
     </Form.Group>

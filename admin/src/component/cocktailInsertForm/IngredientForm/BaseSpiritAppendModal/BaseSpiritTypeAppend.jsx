@@ -34,7 +34,7 @@ function BaseSpiritTypeAppend({ baseSpiritTypes, setBaseSpiritTypes }) {
     }
   };
 
-  const changeNewBaseSpiritType = (e) => {
+  const handleNewBaseSpiritTypeChange = (e) => {
     setNewBaseSpiritType({
       ...newBaseSpiritType,
       [e.target.name]: e.target.value,
@@ -47,7 +47,7 @@ function BaseSpiritTypeAppend({ baseSpiritTypes, setBaseSpiritTypes }) {
         <Form.Control
           className="me-1"
           name="en"
-          onChange={changeNewBaseSpiritType}
+          onChange={handleNewBaseSpiritTypeChange}
         />
       </div>
       <div className="wrapper me-1">
@@ -55,7 +55,7 @@ function BaseSpiritTypeAppend({ baseSpiritTypes, setBaseSpiritTypes }) {
         <Form.Control
           className="me-1"
           name="ko"
-          onChange={changeNewBaseSpiritType}
+          onChange={handleNewBaseSpiritTypeChange}
         />
       </div>
       <Button
