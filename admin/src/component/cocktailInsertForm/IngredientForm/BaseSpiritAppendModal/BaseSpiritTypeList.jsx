@@ -21,7 +21,7 @@ function BaseSpiritTypeList({
     fetchBaseSpiritTypes();
   }, [baseSpiritTypes.value.length]);
 
-  const changeBaseSpiritType = (e) => {
+  const handleBaseSpiritTypeChange = (e) => {
     setBaseSpiritInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -42,7 +42,7 @@ function BaseSpiritTypeList({
                   name="base_spirit_type"
                   label={baseSpiritType.name.ko}
                   value={baseSpiritType.name.en}
-                  onChange={changeBaseSpiritType}
+                  onChange={handleBaseSpiritTypeChange}
                 />
               </div>
             ))}

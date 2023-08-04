@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 
 function GlassForm({ setCocktailInfo }) {
-  const changeGlass = (e) => {
+  const handleGlassChange = (e) => {
     setCocktailInfo((prev) => ({ ...prev, glass: e.target.value }));
   };
 
@@ -17,7 +17,7 @@ function GlassForm({ setCocktailInfo }) {
               name="glass"
               label={item}
               value={item}
-              onChange={changeGlass}
+              onChange={handleGlassChange}
             />
           </div>
         ))}

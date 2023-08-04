@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 
 function Garnish({ setCocktailInfo }) {
-  const changeGarnish = (e) => {
+  const handleGarnishChange = (e) => {
     setCocktailInfo((prev) => {
       const prevValue = prev.name;
       const updatedValue = {
@@ -19,7 +19,7 @@ function Garnish({ setCocktailInfo }) {
         <div className="garnish_ko me-3">
           <Form.Label className="label">가니쉬 이름-한글</Form.Label>
           <Form.Control
-            onChange={changeGarnish}
+            onChange={handleGarnishChange}
             name="ko"
             placeholder="파인애플"
           />
@@ -27,7 +27,7 @@ function Garnish({ setCocktailInfo }) {
         <div className="garnish_en">
           <Form.Label className="label">가니쉬 이름-영문</Form.Label>
           <Form.Control
-            onChange={changeGarnish}
+            onChange={handleGarnishChange}
             name="en"
             placeholder="pineapple"
           />

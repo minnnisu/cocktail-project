@@ -13,10 +13,6 @@ function IngredientForm({ ingredients, setCocktailInfo }) {
     volume: "",
   });
 
-  console.log(newIngredient);
-
-  console.log(ingredients);
-
   const [baseSpirits, setBaseSpirits] = useState({
     state: "loading",
     value: [],

@@ -3,16 +3,20 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 function TasteForm({ tastes, setCocktailInfo }) {
-  const [tasteInput, setTasteInput] = useState("");
+  const [newTaste, setNewTaste] = useState("");
 
   const addNewTaste = () => {
-    const updatedTaste = [...tastes, tasteInput];
+    const updatedTaste = [...tastes, newTaste];
     setCocktailInfo((prev) => ({ ...prev, tastes: updatedTaste }));
   };
 
   const deleteTaste = (targetIndex) => {
     const updatedTaste = tastes.filter((item, index) => index !== targetIndex);
     setCocktailInfo((prev) => ({ ...prev, tastes: updatedTaste }));
+  };
+
+  const handleNewTasteChange = (e) => {
+    setNewTaste(e.target.value);
   };
 
   const tasteFields = tastes.map((taste, index) => {
@@ -31,8 +35,8 @@ function TasteForm({ tastes, setCocktailInfo }) {
       <div className="taste_input_container d-flex">
         <Form.Control
           className="taste_input me-1"
-          value={tasteInput}
-          onChange={(e) => setTasteInput(e.target.value)}
+          value={taste}
+          onChange={handleNewTasteChange}
         />
         <Button
           className="flex-shrink-0"
