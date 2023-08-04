@@ -8,16 +8,18 @@ import CocktailMakeForm from "./CocktailMakeForm";
 import SubmitButton from "./SubmitButton";
 import { useState } from "react";
 import CocktailInfoViewer from "./CocktailInfoViewer";
+import CommentForm from "./CommentForm";
 
 function CockTailFormContainer(params) {
   const [cocktailInfo, setCocktailInfo] = useState({
     name: { en: "", ko: "" },
     ingredients: [],
     tastes: [],
-    garnish: { en: "", ko: "" },
+    garnishs: [],
     glass: "",
     cocktailMake: "",
     image_url: "",
+    comments: [],
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -26,7 +28,6 @@ function CockTailFormContainer(params) {
     <>
       <NameForm setCocktailInfo={setCocktailInfo} />
       <ImageForm setSelectedImage={setSelectedImage} />
-      {/* 엔터 클릭 시 새로고침 되어버림 */}
       <TasteForm
         tastes={cocktailInfo.tastes}
         setCocktailInfo={setCocktailInfo}
@@ -35,9 +36,16 @@ function CockTailFormContainer(params) {
         ingredients={cocktailInfo.ingredients}
         setCocktailInfo={setCocktailInfo}
       />
-      <GarnishForm setCocktailInfo={setCocktailInfo} />
+      <GarnishForm
+        garnishs={cocktailInfo.garnishs}
+        setCocktailInfo={setCocktailInfo}
+      />
       <GlassForm setCocktailInfo={setCocktailInfo} />
       <CocktailMakeForm setCocktailInfo={setCocktailInfo} />
+      <CommentForm
+        comments={cocktailInfo.comments}
+        setCocktailInfo={setCocktailInfo}
+      />
       <SubmitButton
         selectedImage={selectedImage}
         setSelectedImage={setSelectedImage}
