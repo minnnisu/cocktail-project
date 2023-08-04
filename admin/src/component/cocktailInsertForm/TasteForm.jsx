@@ -35,7 +35,7 @@ function TasteForm({ tastes, setCocktailInfo }) {
       <div className="taste_input_container d-flex">
         <Form.Control
           className="taste_input me-1"
-          value={taste}
+          value={newTaste}
           onChange={handleNewTasteChange}
         />
         <Button
