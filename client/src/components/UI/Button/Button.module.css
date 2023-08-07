@@ -3,8 +3,7 @@
   padding: 5px 16px;
   display: inline-block;
   border-radius: 5px;
-  margin: 0 16px;
-  color: #fff;
+  cursor: pointer;
 }
 .value {
   font-size: 1em;

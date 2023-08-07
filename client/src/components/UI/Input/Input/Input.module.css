@@ -1,0 +1,22 @@
+.input_container {
+  display: flex;
+  align-items: center;
+}
+
+.input_name {
+  font-weight: 600;
+  font-size: 1em;
+  margin-right: 16px;
+}
+
+.input_value {
+  padding: 7px 5px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 16px;
+  background-color: #515151;
+  font-size: 1em;
+  font-weight: 600;
+  color: #fff;
+  outline: none;
+}

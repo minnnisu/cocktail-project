@@ -1,8 +1,7 @@
 .multiple_select_chip_container {
   display: inline-flex;
-  margin: 0 16px;
+  margin: 0 16px 8px 0;
   padding: 6px 30px;
-  color: #fff;
   background-color: #659ae3;
   font-size: 1em;
   font-weight: 600;
@@ -11,4 +10,8 @@
 
 .name {
   margin-right: 15px;
+}
+
+.remove_button {
+  cursor: pointer;
 }
