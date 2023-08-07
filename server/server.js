@@ -186,6 +186,37 @@ app.post("/cocktail", upload.single("image"), async (req, res) => {
   }
 });
 
+// 모든 칵테일 정보 가져오기
+app.get("/cocktail", async (req, res) => {
+  const client = new MongoClient(uri);
+  try {
+    const database = client.db("cocktail_project");
+    const result = await database.collection("cocktail").find({}).toArray();
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send();
+  } finally {
+    await client.close();
+  }
+});
+
+app.get("/static/images/cocktails/:imageName", (req, res) => {
+  const imageName = req.params.imageName;
+  const imagePath = path.join("./static/images/cocktails/", imageName);
+
+  fs.readFile(imagePath, (err, data) => {
+    if (err) {
+      res.status(404).send("Image not found");
+      console.log(err);
+    } else {
+      res.writeHead(200, { "Content-Type": "image/jpeg" }); // 이미지의 Content-Type을 설정
+      res.end(data); // 이미지 데이터를 클라이언트에게 전송
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
