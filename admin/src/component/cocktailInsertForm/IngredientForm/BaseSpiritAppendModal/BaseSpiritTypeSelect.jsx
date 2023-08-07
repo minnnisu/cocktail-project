@@ -11,16 +11,17 @@ function BaseSpiritTypeSelect({ setBaseSpiritInfo }) {
 
   return (
     <Form.Group className="base_spirit_container mb-3">
-      <Form.Label className="label">기주 선택</Form.Label>
       <BaseSpiritTypeAppend
         baseSpiritTypes={baseSpiritTypes}
         setBaseSpiritTypes={setBaseSpiritTypes}
       />
+      <hr />
       <BaseSpiritTypeList
         baseSpiritTypes={baseSpiritTypes}
         setBaseSpiritTypes={setBaseSpiritTypes}
         setBaseSpiritInfo={setBaseSpiritInfo}
       />
+      <hr />
     </Form.Group>
   );
 }

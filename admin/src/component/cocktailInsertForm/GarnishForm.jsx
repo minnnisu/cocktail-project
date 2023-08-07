@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 function Garnish({ garnishs, setCocktailInfo }) {
-  const [newGarnish, setNewGarnish] = useState({ en: "", ko: "" });
+  const [newGarnish, setNewGarnish] = useState("");
 
   const addNewGarnish = () => {
     const updatedTaste = [...garnishs, newGarnish];
@@ -18,7 +18,7 @@ function Garnish({ garnishs, setCocktailInfo }) {
   };
 
   const handleNewGarnishChange = (e) => {
-    setNewGarnish((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setNewGarnish(e.target.value);
   };
 
   return (
@@ -26,26 +26,16 @@ function Garnish({ garnishs, setCocktailInfo }) {
       <Form.Label className="label">가니쉬</Form.Label>
       {garnishs.map((garnish, index) => (
         <div key={index} className="d-flex">
-          <div className="me-3">{garnish.en}</div>
-          <div className="me-3">{garnish.ko}</div>
+          <div className="me-3">{garnish}</div>
           <div onClick={() => deleteNewGarnish(index)}>x</div>
         </div>
       ))}
       <div className="d-flex">
         <div className="garnish_ko me-3">
-          <Form.Label className="label">가니쉬 이름-한글</Form.Label>
           <Form.Control
             onChange={handleNewGarnishChange}
-            name="ko"
+            name="garnish"
             placeholder="파인애플"
-          />
-        </div>
-        <div className="garnish_en">
-          <Form.Label className="label">가니쉬 이름-영문</Form.Label>
-          <Form.Control
-            onChange={handleNewGarnishChange}
-            name="en"
-            placeholder="pineapple"
           />
         </div>
         <Button

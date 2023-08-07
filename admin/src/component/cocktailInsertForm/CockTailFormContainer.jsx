@@ -7,22 +7,23 @@ import ImageForm from "./ImageForm";
 import CocktailMakeForm from "./CocktailMakeForm";
 import SubmitButton from "./SubmitButton";
 import { useState } from "react";
-import CocktailInfoViewer from "./CocktailInfoViewer";
+import Viewer from "./Viewer/Viewer";
 import CommentForm from "./CommentForm";
 
 function CockTailFormContainer(params) {
   const [cocktailInfo, setCocktailInfo] = useState({
-    name: { en: "", ko: "" },
+    name: "",
     ingredients: [],
     tastes: [],
     garnishs: [],
     glass: "",
     cocktailMake: "",
-    image_url: "",
     comments: [],
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
+
+  console.log(cocktailInfo);
 
   return (
     <>
@@ -52,7 +53,7 @@ function CockTailFormContainer(params) {
         cocktailInfo={cocktailInfo}
         setCocktailInfo={setCocktailInfo}
       />
-      <CocktailInfoViewer />
+      <Viewer />
     </>
   );
 }

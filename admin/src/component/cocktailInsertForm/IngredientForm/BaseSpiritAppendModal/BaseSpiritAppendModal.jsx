@@ -10,7 +10,7 @@ function BaseSpiritAppendModal({ show, setShow, setBaseSpirits }) {
   };
 
   const [baseSpiritInfo, setBaseSpiritInfo] = useState({
-    base_spirit: { en: "", ko: "" },
+    base_spirit: "",
     base_spirit_type: "",
     alcohol: "",
   });

@@ -1,5 +1,6 @@
 import axios from "axios";
 import Button from "react-bootstrap/Button";
+const domain = require("../../config/domain");
 
 function SubmitButton({
   selectedImage,
@@ -28,13 +29,8 @@ function SubmitButton({
       return;
     }
 
-    if (cocktailInfo.garnish.ko === "") {
+    if (cocktailInfo.garnish === []) {
       alert("가니쉬 한글이름을 입력하세요.");
-      return;
-    }
-
-    if (cocktailInfo.garnish.en === "") {
-      alert("가니쉬 영어이름을 입력하세요.");
       return;
     }
 
@@ -66,7 +62,7 @@ function SubmitButton({
     formData.append("data", JSON.stringify(cocktailInfo));
 
     try {
-      const response = axios.post("http://localhost:8080/cocktail", formData, {
+      const response = axios.post(`${domain.url}/cocktail`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

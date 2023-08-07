@@ -1,8 +1,6 @@
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-
-// base_spirit: { en: "", ko: "" },
-//     base_spirit_type: "",
+const domain = require("../../../../config/domain");
 
 function BaseSpiritAppendBtn({
   baseSpiritInfo,
@@ -10,13 +8,8 @@ function BaseSpiritAppendBtn({
   setBaseSpirits,
 }) {
   const submitNewBaseSpirit = async () => {
-    if (baseSpiritInfo.base_spirit.en === "") {
-      alert("술의 영어이름을 입력해주세요.");
-      return;
-    }
-
-    if (baseSpiritInfo.base_spirit.ko === "") {
-      alert("술의 한글이름을 입력해주세요.");
+    if (baseSpiritInfo.base_spirit === "") {
+      alert("술의 이름을 입력해주세요.");
       return;
     }
 
@@ -31,9 +24,9 @@ function BaseSpiritAppendBtn({
     }
 
     try {
-      const result = await axios.post("http://localhost:8080/base-spirit", {
+      const result = await axios.post(`${domain.url}/base-spirit`, {
         name: baseSpiritInfo.base_spirit,
-        type: baseSpiritInfo.base_spirit_type,
+        base_spirit_type: baseSpiritInfo.base_spirit_type,
         alcohol: baseSpiritInfo.alcohol,
         cocktails: [],
       });
@@ -41,7 +34,7 @@ function BaseSpiritAppendBtn({
         alert("등록이 성공적으로 완료되었습니다.");
 
         setBaseSpiritInfo({
-          base_spirit: { en: "", ko: "" },
+          base_spirit: "",
           base_spirit_type: "",
           alcohol: "",
         });

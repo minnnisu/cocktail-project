@@ -2,28 +2,23 @@ import axios from "axios";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+const domain = require("../../../../config/domain");
 
 function BaseSpiritTypeAppend({ baseSpiritTypes, setBaseSpiritTypes }) {
-  const [newBaseSpiritType, setNewBaseSpiritType] = useState({
-    en: "",
-    ko: "",
-  });
+  const [newBaseSpiritType, setNewBaseSpiritType] = useState("");
+  const handleNewBaseSpiritTypeChange = (e) => {
+    setNewBaseSpiritType(e.target.value);
+  };
 
   const submitNewBaseSpiritType = async () => {
     try {
-      const result = await axios.post(
-        "http://localhost:8080/base-spirit-type",
-        {
-          name: newBaseSpiritType,
-          base_spirit: [],
-        }
-      );
+      const result = await axios.post(`${domain.url}/base-spirit-type`, {
+        name: newBaseSpiritType,
+        base_spirit: [],
+      });
       if (result.status === 201) {
         alert("등록이 성공적으로 완료되었습니다.");
-        setNewBaseSpiritType({
-          en: "",
-          ko: "",
-        });
+        setNewBaseSpiritType("");
         setBaseSpiritTypes({
           state: "loading",
           value: [],
@@ -34,27 +29,13 @@ function BaseSpiritTypeAppend({ baseSpiritTypes, setBaseSpiritTypes }) {
     }
   };
 
-  const handleNewBaseSpiritTypeChange = (e) => {
-    setNewBaseSpiritType({
-      ...newBaseSpiritType,
-      [e.target.name]: e.target.value,
-    });
-  };
   return (
     <div className="new_base_spirit_append_container d-flex mb-3">
       <div className="wrapper me-1">
-        <Form.Label className="label">기주 이름 - 영문</Form.Label>
+        <Form.Label className="label">기주 추가</Form.Label>
         <Form.Control
           className="me-1"
-          name="en"
-          onChange={handleNewBaseSpiritTypeChange}
-        />
-      </div>
-      <div className="wrapper me-1">
-        <Form.Label className="label">기주 선택 - 한글</Form.Label>
-        <Form.Control
-          className="me-1"
-          name="ko"
+          name="base-spirit-type"
           onChange={handleNewBaseSpiritTypeChange}
         />
       </div>

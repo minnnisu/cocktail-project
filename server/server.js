@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 var cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./config/mongodb");
@@ -41,17 +42,16 @@ app.post("/base-spirit-type", async (req, res) => {
     //유효성 검증
     const cocktailName = await database
       .collection("base_spirit_type")
-      .findOne({ "name.en": newBaseSpiritType.name.en });
+      .findOne({ name: newBaseSpiritType.name });
     if (cocktailName !== null) {
       return res.status(403).json({
-        error: "validationError",
         message: "This base spirit type already exists.",
       });
     }
 
     await database.collection("base_spirit_type").insertOne({
-      name: { en: newBaseSpiritType.name.en, ko: newBaseSpiritType.name.ko },
-      base_spirit: [],
+      name: newBaseSpiritType.name,
+      base_spirits: [],
     });
 
     res.status(201).send();
@@ -73,7 +73,7 @@ app.post("/base-spirit", async (req, res) => {
     //유효성 검증
     const cocktailName = await database
       .collection("base_spirit")
-      .findOne({ "name.en": newBaseSpirit.name.en });
+      .findOne({ name: newBaseSpirit.name });
     if (cocktailName !== null) {
       return res.status(403).json({
         error: "validationError",
@@ -82,17 +82,16 @@ app.post("/base-spirit", async (req, res) => {
     }
 
     await database.collection("base_spirit").insertOne({
-      name: { en: newBaseSpirit.name.en, ko: newBaseSpirit.name.ko },
-      type: newBaseSpirit.type,
+      name: newBaseSpirit.name,
+      base_spirit_type: newBaseSpirit.base_spirit_type,
+      alcohol: newBaseSpirit.alcohol,
       cocktails: [],
     });
 
-    const filter = { "name.en": newBaseSpirit.type };
+    const filter = { name: newBaseSpirit.base_spirit_type };
     const update = {
       $push: {
-        base_spirit: {
-          name: newBaseSpirit.name.en,
-        },
+        base_spirits: newBaseSpirit.name,
       },
     };
 
@@ -139,46 +138,25 @@ app.get("/base-spirit", async (req, res) => {
   }
 });
 
-// 칵테일 이름 유효성 검증(테스트 완료)
-app.get("/cocktail/name/validation", async (req, res) => {
-  const client = new MongoClient(uri);
-  try {
-    const database = client.db("cocktail_project");
-    const cocktailName = await database
-      .collection("cocktail")
-      .findOne({ "name.en": req.query.name });
-    if (cocktailName !== null) {
-      return res.status(403).json({
-        error: "validationError",
-        message: "This cocktail already exists.",
-      });
-    }
-
-    res.status(200).send();
-  } catch (error) {
-    res.status(500).send();
-  } finally {
-    await client.close();
-  }
-});
-
 // 칵테일 추가(테스트 완료)
 app.post("/cocktail", upload.single("image"), async (req, res) => {
   const cocktail = JSON.parse(req.body.data);
   const client = new MongoClient(uri);
 
+  // 칵테일 이미지 확인
   if (!req.file) {
     return res.status(400).send({ message: "please upload with image" });
   }
 
-  console.log(cocktail);
+  cocktail.image_path = `${req.file.path}`;
 
   try {
     const database = client.db("cocktail_project");
 
+    // 칵테일 이름 유효성 검사
     const cocktailName = await database
       .collection("cocktail")
-      .findOne({ "name.en": cocktail.name.en });
+      .findOne({ name: cocktail.name });
     if (cocktailName !== null) {
       return res.status(403).json({
         error: "validationError",
@@ -188,12 +166,10 @@ app.post("/cocktail", upload.single("image"), async (req, res) => {
 
     await Promise.all(
       cocktail.ingredients.map(async (ingredient, index) => {
-        const filter = { "name.en": ingredient.base_spirit_name.en };
+        const filter = { name: ingredient.base_spirit_name };
         const update = {
           $push: {
-            cocktails: {
-              name: cocktail.name.en,
-            },
+            cocktails: cocktail.name,
           },
         };
 
