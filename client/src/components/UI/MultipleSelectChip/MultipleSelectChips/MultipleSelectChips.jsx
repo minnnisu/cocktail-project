@@ -1,4 +1,4 @@
-import MultipleSelectChip from "../MultipleSelectChip/MultipleSelectChip";
+import MultipleSelectChip from "../MultipleSelectChip";
 import style from "./MultipleSelectChips.module.css";
 
 function MultipleSelectChips({ selectChips, setSelectChips }) {

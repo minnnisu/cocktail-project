@@ -1,0 +1,7 @@
+.buttons_container > * {
+  margin-right: 16px;
+}
+
+.buttons_container > *:last-child {
+  margin-right: 0;
+}

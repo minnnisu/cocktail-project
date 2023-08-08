@@ -1,9 +1,24 @@
 import style from "./Button.module.css";
 
-function Button({ value, onClickButton }) {
+function Button({ onClickButton, children, backgroundColor = "blue" }) {
+  const getBackgroundColorCode = () => {
+    switch (backgroundColor) {
+      case "blue":
+        return "#4083e0";
+      case "red":
+        return "#ce3f3f";
+      default:
+        return "#4083e0";
+    }
+  };
+
   return (
-    <div className={style.button_container} onClick={onClickButton}>
-      <div className={style.value}>{value}</div>
+    <div
+      style={{ backgroundColor: `${getBackgroundColorCode()}` }}
+      className={style.button_container}
+      onClick={onClickButton}
+    >
+      <div className={style.value}>{children}</div>
     </div>
   );
 }

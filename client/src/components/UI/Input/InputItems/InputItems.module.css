@@ -1,3 +1,11 @@
 .input_items_container {
   display: flex;
 }
+
+.input_items_container > * {
+  margin-right: 16px;
+}
+
+.input_items_container > *:last-child {
+  margin-right: 0;
+}

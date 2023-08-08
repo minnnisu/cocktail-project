@@ -1,21 +1,20 @@
 import style from "./InputItems.module.css";
-import Input from "../Input/Input";
-import { useState } from "react";
+import Input from "../Input";
 
-function InputItems({ items, inputItemsResult, setInputItemsResult }) {
+function InputItems({ inputNames, inputValues, setInputValues }) {
   const handleInputItemsChange = (value) => {
-    setInputItemsResult((prev) => ({ ...prev, ...value }));
+    setInputValues((prev) => ({ ...prev, ...value }));
   };
 
   return (
     <div className={style.input_items_container}>
-      {items.map((item, index) => (
+      {inputNames.map((names, index) => (
         <Input
           key={index}
-          value={inputItemsResult[item]}
+          value={inputValues[names]}
           onChangeValue={handleInputItemsChange}
         >
-          {item}
+          {names}
         </Input>
       ))}
     </div>

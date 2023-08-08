@@ -1,0 +1,11 @@
+.radio_buttons_container {
+  display: flex;
+}
+
+.radio_buttons_container > * {
+  margin-right: 16px;
+}
+
+.radio_buttons_container > *:last-child {
+  margin-right: 0;
+}

@@ -1,32 +1,27 @@
 import style from "./Title.module.css";
 
-// 1.32px/ 2. 28px/ 3. 24px/ 4. 16px/ 5. 12px
-
 function Title({ size, children }) {
-  let fsize = 32;
-  switch (size) {
-    case 1:
-      fsize = 32;
-      break;
-    case 2:
-      fsize = 28;
-      break;
-    case 3:
-      fsize = 24;
-      break;
-    case 4:
-      fsize = 16;
-      break;
-    case 5:
-      fsize = 12;
-      break;
-
-    default:
-      break;
-  }
+  const getTitleSize = () => {
+    switch (size) {
+      case 1:
+        return 32;
+      case 2:
+        return 28;
+      case 3:
+        return 24;
+      case 4:
+        return 18;
+      case 5:
+        return 16;
+      case 6:
+        return 12;
+      default:
+        return 32;
+    }
+  };
 
   return (
-    <div className={style.title} style={{ fontSize: `${fsize}px` }}>
+    <div className={style.title} style={{ fontSize: `${getTitleSize()}px` }}>
       {children}
     </div>
   );
