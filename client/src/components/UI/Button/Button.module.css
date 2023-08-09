@@ -1,5 +1,6 @@
 .button_container {
-  padding: 5px 16px;
+  height: 1em;
+  padding: 5px 16px 6px 16px;
   display: inline-block;
   border-radius: 5px;
   cursor: pointer;

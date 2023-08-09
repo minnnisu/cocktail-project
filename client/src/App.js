@@ -1,13 +1,10 @@
 import "./App.css";
-import MultipleSelectChip from "./components/Atoms/MultipleSelectChip/MultipleSelectChip";
-function App() {
-  const handleInputItemsSubmit = (items) => {
-    console.log(items);
-  };
+import CocktailAppendFormPage from "./pages/CocktailAppendFormPage/CocktailAppendFormPage";
 
+function App() {
   return (
     <div className="App">
-      <MultipleSelectChip name={"민트"} />
+      <CocktailAppendFormPage />
     </div>
   );
 }

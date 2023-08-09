@@ -1,0 +1,11 @@
+.column {
+  margin: 20px;
+}
+
+.column > * {
+  margin-bottom: 16px;
+}
+
+.column > *:last-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,9 @@
+.cocktail_append_from_container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.cocktail_append_from_container > * {
+  width: 50%;
+}

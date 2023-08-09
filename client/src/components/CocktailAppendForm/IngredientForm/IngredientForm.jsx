@@ -4,16 +4,19 @@ import MultipleSelectChips from "../../UI/MultipleSelectChip/MultipleSelectChips
 import Inner from "../../../layouts/CocktailAppendForm/Inner";
 import RadioButtons from "../../UI/RadioButton/RadioButtons/RadioButtons";
 import InputSubmit from "../../UI/Input/InputSubmit/InputSubmit";
+import useApiGetQuery from "../../../hooks/useApiGetQuery";
+import { useBaseSpiritGetApi } from "../../../hooks/useBaseSpiritApi";
 
 function IngredientForm({ ingredients, setIngredients }) {
-  const [baseSpiritNames, setBaseSpiritNames] = useState([
-    "버건 위스키",
-    "화이트 럼",
-    "진",
-  ]); // 수정 필요
-  const [selectedBaseSpirit, setSelectedBaseSpirit] = useState(
-    baseSpiritNames[0]
-  );
+  const [selectedBaseSpirit, setSelectedBaseSpirit] = useState(null);
+
+  const { isLoading, isSuccess, isError, data, _ } = useBaseSpiritGetApi();
+
+  if (isSuccess) {
+    if (selectedBaseSpirit === null) {
+      setSelectedBaseSpirit(data[0]);
+    }
+  }
 
   const handleVolume = (volume) => {
     if (volume === "f") return "Full up";
@@ -38,15 +41,23 @@ function IngredientForm({ ingredients, setIngredients }) {
         />
       )}
       <Inner title={"술 목록"}>
-        <RadioButtons
-          radioButtonNames={baseSpiritNames}
-          selectedValue={selectedBaseSpirit}
-          setSelectedValue={setSelectedBaseSpirit}
-        />
-        <InputSubmit
-          items={["용량"]}
-          onSubmitInputItems={handleInputItemsSubmit}
-        />
+        {isLoading && <div>데이터를 불러오는 중입니다.</div>}
+        {isError && (
+          <div>데이터를 불러오는 과정에서 에러가 발생하였습니다.</div>
+        )}
+        {data && (
+          <RadioButtons
+            radioButtonNames={data}
+            selectedValue={selectedBaseSpirit}
+            setSelectedValue={setSelectedBaseSpirit}
+          />
+        )}
+        {data && (
+          <InputSubmit
+            items={["용량"]}
+            onSubmitInputItems={handleInputItemsSubmit}
+          />
+        )}
       </Inner>
     </Outer>
   );
