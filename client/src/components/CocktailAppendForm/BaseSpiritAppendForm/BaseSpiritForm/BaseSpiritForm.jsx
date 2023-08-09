@@ -20,6 +20,14 @@ function BaseSpirtForm() {
   const mutation = useBaseSpiritPostApi();
 
   const handleBaseSpiritSumbit = (value) => {
+    if (!value["이름"] || value["이름"] === "") {
+      return alert("이름을 입력하세요.");
+    }
+
+    if (!value["알코올"] || value["알코올"] === "") {
+      return alert("알코올을 입력하세요.");
+    }
+
     const body = {
       name: value["이름"],
       base_spirit_type: selectedBaseSpiritType,
@@ -45,6 +53,7 @@ function BaseSpirtForm() {
         <InputSubmit
           items={["이름", "알코올"]}
           onSubmitInputItems={handleBaseSpiritSumbit}
+          buttonName={"추가"}
         />
       )}
     </Inner>
