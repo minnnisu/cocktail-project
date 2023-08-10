@@ -1,10 +1,10 @@
+import Router from "./routes/Router";
 import "./App.css";
-import CocktailAppendFormPage from "./pages/CocktailAppendFormPage/CocktailAppendFormPage";
 
 function App() {
   return (
     <div className="App">
-      <CocktailAppendFormPage />
+      <Router />
     </div>
   );
 }
