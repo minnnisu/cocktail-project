@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./CocktailAppendColumnLayout.module.css";
+import style from "./AlcoholAppendColumnLayout.module.css";
 
 function CocktailAppendColumnLayout({ children }) {
   return (

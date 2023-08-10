@@ -1,0 +1,8 @@
+.submit_button_container {
+  display: flex;
+  justify-content: right;
+}
+
+.submit_button_container > * {
+  margin-left: 16px;
+}

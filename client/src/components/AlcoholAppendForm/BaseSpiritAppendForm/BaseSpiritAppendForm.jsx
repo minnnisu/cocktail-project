@@ -1,4 +1,4 @@
-import Outer from "../../../layouts/CocktailAppendForm/Outer";
+import Outer from "../../../layouts/AlcoholAppendFormLayout/Outer";
 import BaseSpirtTypeForm from "./BaseSpirtTypeForm/BaseSpirtTypeForm";
 import BaseSpirtForm from "./BaseSpiritForm/BaseSpiritForm";
 

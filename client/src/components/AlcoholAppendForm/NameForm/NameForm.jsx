@@ -1,13 +1,13 @@
-import Outer from "../../../layouts/CocktailAppendForm/Outer";
+import Outer from "../../../layouts/AlcoholAppendFormLayout/Outer";
 import InputItems from "../../UI/Input/InputItems/InputItems";
 
-function NameForm({ nameForm, setNameForm }) {
+function NameForm({ cocktailName, setCocktailName }) {
   return (
     <Outer title={"이름"}>
       <InputItems
         inputNames={["이름"]}
-        inputValues={nameForm}
-        setInputValues={setNameForm}
+        inputValues={cocktailName}
+        setInputValues={setCocktailName}
       />
     </Outer>
   );

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Outer from "../../../layouts/CocktailAppendForm/Outer";
+import Outer from "../../../layouts/AlcoholAppendFormLayout/Outer";
 import MultipleSelectChips from "../../UI/MultipleSelectChip/MultipleSelectChips/MultipleSelectChips";
-import Inner from "../../../layouts/CocktailAppendForm/Inner";
+import Inner from "../../../layouts/AlcoholAppendFormLayout/Inner";
 import RadioButtons from "../../UI/RadioButton/RadioButtons/RadioButtons";
 import InputSubmit from "../../UI/Input/InputSubmit/InputSubmit";
 import useApiGetQuery from "../../../hooks/useApiGetQuery";
@@ -23,12 +23,17 @@ function IngredientForm({ ingredients, setIngredients }) {
     else return "ml";
   };
 
-  const handleInputItemsSubmit = (value) => {
-    const volume = handleVolume(value["용량"]);
+  const ingredientsChips = ingredients.map((ingredient, index) => {
+    const unit = handleVolume(ingredient.volume);
+    return `${ingredient.base_spirit_name} ${
+      unit === "ml" ? ingredient.volume : ""
+    }${unit}`;
+  });
 
+  const handleInputItemsSubmit = (value) => {
     setIngredients((prev) => [
       ...prev,
-      `${selectedBaseSpirit} ${volume === "ml" ? value["용량"] : ""}${volume}`,
+      { base_spirit_name: selectedBaseSpirit, volume: value["용량"] },
     ]);
   };
 
@@ -36,7 +41,7 @@ function IngredientForm({ ingredients, setIngredients }) {
     <Outer title={"재료 및 용량"}>
       {ingredients.length > 0 && (
         <MultipleSelectChips
-          selectChips={ingredients}
+          selectChips={ingredientsChips}
           setSelectChips={setIngredients}
         />
       )}
@@ -56,6 +61,7 @@ function IngredientForm({ ingredients, setIngredients }) {
           <InputSubmit
             items={["용량"]}
             onSubmitInputItems={handleInputItemsSubmit}
+            buttonName={"추가"}
           />
         )}
       </Inner>

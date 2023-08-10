@@ -1,4 +1,4 @@
-import Outer from "../../../layouts/CocktailAppendForm/Outer";
+import Outer from "../../../layouts/AlcoholAppendFormLayout/Outer";
 
 import Image from "../../UI/Image/Image";
 import { useRef } from "react";

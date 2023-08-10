@@ -1,9 +1,6 @@
-import Card from "../../UI/Wrapper/Card/Card";
-import Title from "../../UI/Title/Title";
-import Margin16 from "../../UI/Wrapper/Margin/Margin16/Margin16";
 import InputSubmit from "../../UI/Input/InputSubmit/InputSubmit";
 import MultipleSelectChips from "../../UI/MultipleSelectChip/MultipleSelectChips/MultipleSelectChips";
-import Outer from "../../../layouts/CocktailAppendForm/Outer";
+import Outer from "../../../layouts/AlcoholAppendFormLayout/Outer";
 
 function MultipleSelectChipForm({ title, selectChips, setSelectChips }) {
   const handleInputItemsSubmit = (selectChips) => {
@@ -11,13 +8,16 @@ function MultipleSelectChipForm({ title, selectChips, setSelectChips }) {
   };
   return (
     <Outer title={title}>
-      <MultipleSelectChips
-        selectChips={selectChips}
-        setSelectChips={setSelectChips}
-      />
+      {selectChips.length > 0 && (
+        <MultipleSelectChips
+          selectChips={selectChips}
+          setSelectChips={setSelectChips}
+        />
+      )}
       <InputSubmit
         items={[title]}
         onSubmitInputItems={handleInputItemsSubmit}
+        buttonName={"추가"}
       />
     </Outer>
   );

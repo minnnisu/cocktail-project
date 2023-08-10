@@ -1,5 +1,5 @@
 import { useBaseSpiritTypePostApi } from "../../../../hooks/useBaseSpiritTypeApi";
-import Inner from "../../../../layouts/CocktailAppendForm/Inner";
+import Inner from "../../../../layouts/AlcoholAppendFormLayout/Inner";
 import InputSubmit from "../../../UI/Input/InputSubmit/InputSubmit";
 
 function BaseSpirtTypeForm() {

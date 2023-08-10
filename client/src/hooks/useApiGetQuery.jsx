@@ -3,7 +3,6 @@ import { useQuery } from "react-query";
 const { url } = require("../../src/apis/config/domain");
 
 const fetchData = async (path) => {
-  console.log("실행");
   return axios.get(`${url}${path}`); // 이부분은 api 폴더 내 모듈로 수정
 };
 

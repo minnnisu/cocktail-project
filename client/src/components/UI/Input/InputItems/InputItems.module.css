@@ -1,5 +1,6 @@
 .input_items_container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .input_items_container > * {

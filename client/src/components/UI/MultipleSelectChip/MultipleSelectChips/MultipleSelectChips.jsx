@@ -8,12 +8,12 @@ function MultipleSelectChips({ selectChips, setSelectChips }) {
 
   return (
     <div className={style.multiple_select_chips_container}>
-      {selectChips.map((taste, index) => (
+      {selectChips.map((selectChip, index) => (
         <div key={index} className="d-flex">
           <MultipleSelectChip
             onClickRemoveButton={() => handleRemoveButtonClick(index)}
           >
-            {taste}
+            {selectChip}
           </MultipleSelectChip>
         </div>
       ))}

@@ -1,6 +1,6 @@
 import InputSubmit from "../../../UI/Input/InputSubmit/InputSubmit";
 import RadioButtons from "../../../UI/RadioButton/RadioButtons/RadioButtons";
-import Inner from "../../../../layouts/CocktailAppendForm/Inner";
+import Inner from "../../../../layouts/AlcoholAppendFormLayout/Inner";
 
 import { useBaseSpiritTypeGetApi } from "../../../../hooks/useBaseSpiritTypeApi";
 import { useState } from "react";

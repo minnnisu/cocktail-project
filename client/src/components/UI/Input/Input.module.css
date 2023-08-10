@@ -1,16 +1,19 @@
 .input_container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
 .input_name {
+  margin-right: 16px;
+  margin-bottom: 10px;
   font-weight: 600;
   font-size: 1em;
-  margin-right: 16px;
 }
 
 .input_value {
   padding: 7px 5px;
+  margin-bottom: 10px;
   border: none;
   border-radius: 5px;
   background-color: #515151;

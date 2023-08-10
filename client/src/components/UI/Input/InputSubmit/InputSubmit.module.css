@@ -3,3 +3,11 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
+.input_submit_container > * {
+  margin-right: 16px;
+}
+
+.input_submit_container > *:last-child {
+  margin-right: 0px;
+}
