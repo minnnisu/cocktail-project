@@ -1,0 +1,10 @@
+.viewer_container {
+  display: flex;
+  background-color: #fff;
+  color: #000;
+}
+
+.viewer_container > * {
+  flex-basis: 30%;
+  margin: 0 10px;
+}
