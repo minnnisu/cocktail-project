@@ -3,7 +3,7 @@ import style from "./MultipleSelectChips.module.css";
 
 function MultipleSelectChips({ selectChips, setSelectChips }) {
   const handleRemoveButtonClick = (targetIndex) => {
-    setSelectChips(prev => prev.filter((_, index) => index !== targetIndex));
+    setSelectChips((prev) => prev.filter((_, index) => index !== targetIndex));
   };
 
   return (

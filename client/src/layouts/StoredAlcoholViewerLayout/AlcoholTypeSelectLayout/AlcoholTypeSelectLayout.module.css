@@ -1,0 +1,11 @@
+.alcohol_type_select_layout {
+  display: flex;
+}
+
+.alcohol_type_select_layout > * {
+  margin-right: 8px;
+}
+
+.alcohol_type_select_layout > *:last-child {
+  margin-right: 0;
+}
