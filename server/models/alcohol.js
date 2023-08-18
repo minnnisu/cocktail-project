@@ -1,18 +1,21 @@
 const mongoose = require("mongoose");
 const Schema = require("mongoose").Schema;
 
-const subAlcoholSchema = new Schema({
-  name: { type: String, required: true },
-  abv: { type: Number, required: true },
-  cocktail: [{ type: Schema.Types.ObjectId, ref: "Cocktail" }],
-});
+const subAlcoholSchema = new Schema(
+  {
+    name: { type: String, required: true, unique: true, sparse: true },
+    abv: { type: Number, required: true },
+    cocktail: [{ type: Schema.Types.ObjectId, ref: "Cocktail" }],
+  },
+  { _id: false }
+);
 
 // Define Schemes
 const AlcoholSchema = new Schema(
   {
-    name: { type: String, required: true },
-    abv: { type: Number, required: false },
-    subAlcohol: [subAlcoholSchema],
+    name: { type: String, required: true, unique: true, sparse: true },
+    abv: { type: Number, required: false, sparse: true },
+    subAlcohol: [subAlcoholSchema], // unique를 설정하여도 같은 배열 내 subAlcohol의 name의 중복성은 체크하지 못함
     cocktail: [{ type: Schema.Types.ObjectId, ref: "Cocktail" }],
   },
   {

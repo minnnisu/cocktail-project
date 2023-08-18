@@ -4,11 +4,11 @@ const Schema = require("mongoose").Schema;
 // Define Schemes
 const CocktailSchema = new Schema(
   {
-    name: String,
+    name: { type: String, unique: true, sparse: true },
     alcohol: [
       {
         id: { type: Schema.Types.ObjectId, ref: "Alcohol" },
-        name: String,
+        name: { type: String, unique: true, sparse: true },
         isSub: Boolean,
         volume: Number,
         unit: String,
@@ -17,7 +17,7 @@ const CocktailSchema = new Schema(
     nonAlcohol: [
       {
         id: { type: Schema.Types.ObjectId, ref: "NonAlcohol" },
-        name: String,
+        name: { type: String, unique: true, sparse: true },
         volume: Number,
         unit: String,
       },
