@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const db = require("./config/mongodb");
 const mongoose = require("mongoose");
 const alcoholRouter = require("./api/routes/alcoholRouter");
+const nonAlcoholRouter = require("./api/routes/nonAlcoholRouter");
 
 const app = express();
 const port = 8080;
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 app.use("/api/alcohol", alcoholRouter);
+app.use("/api/non-alcohol", nonAlcoholRouter);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
