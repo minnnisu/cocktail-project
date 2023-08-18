@@ -14,7 +14,7 @@ const subAlcoholSchema = new Schema(
 const AlcoholSchema = new Schema(
   {
     name: { type: String, required: true, unique: true, sparse: true },
-    abv: { type: Number, required: false, sparse: true },
+    abv: { type: Number, required: false },
     subAlcohol: [subAlcoholSchema], // unique를 설정하여도 같은 배열 내 subAlcohol의 name의 중복성은 체크하지 못함
     cocktail: [{ type: Schema.Types.ObjectId, ref: "Cocktail" }],
   },
