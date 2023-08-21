@@ -7,24 +7,25 @@ const CocktailSchema = new Schema(
     name: { type: String, unique: true, sparse: true },
     alcohol: [
       {
-        id: { type: Schema.Types.ObjectId, ref: "Alcohol" },
+        alcoholID: { type: Schema.Types.ObjectId, ref: "Alcohol" },
         name: { type: String, unique: true, sparse: true },
-        isSub: Boolean,
+        subAlcoholName: String,
         volume: Number,
         unit: String,
       },
     ],
     nonAlcohol: [
       {
-        id: { type: Schema.Types.ObjectId, ref: "NonAlcohol" },
+        nonAlcoholID: { type: Schema.Types.ObjectId, ref: "NonAlcohol" },
         name: { type: String, unique: true, sparse: true },
         volume: Number,
         unit: String,
       },
     ],
+    taste: Array,
     garnish: Array,
     recipe: String,
-    image: String,
+    image_url: String,
   },
   {
     versionKey: false,
