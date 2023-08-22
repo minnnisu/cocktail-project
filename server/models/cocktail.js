@@ -27,7 +27,7 @@ const CocktailSchema = new Schema(
         },
         name: { type: String, required: true, unique: true, sparse: true },
         volume: { type: Number, required: true },
-        nit: { type: String, required: true },
+        unit: { type: String, required: true },
       },
     ],
     taste: { type: Array, required: true },
