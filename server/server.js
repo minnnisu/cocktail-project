@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const db = require("./config/mongodb");
 const mongoose = require("mongoose");
 const alcoholRouter = require("./api/routes/alcoholRouter");
-const nonAlcoholRouter = require("./api/routes/nonAlcoholRouter");
 
 const app = express();
 const port = 8080;
@@ -25,8 +24,7 @@ app.use(bodyParser.json());
 //사용자가 127.0.0.1:3000/images/cat.jpg 로 접근한다면, 해당 파일을 public/images/cat.jpg에 존재하는지 검색한다.
 app.use(express.static("public"));
 
-app.use("/api/alcohol", alcoholRouter);
-app.use("/api/non-alcohol", nonAlcoholRouter);
+app.use("/api/alcohol-management", alcoholRouter);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
