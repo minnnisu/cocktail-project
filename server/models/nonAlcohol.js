@@ -5,7 +5,7 @@ const Schema = require("mongoose").Schema;
 const NonAlcoholSchema = new Schema(
   {
     name: { type: String, unique: true, sparse: true },
-    cocktail: [{ type: Schema.Types.ObjectId, ref: "Cocktail" }],
+    cocktails: [{ type: Schema.Types.ObjectId, ref: "Cocktail" }],
   },
   {
     versionKey: false,
