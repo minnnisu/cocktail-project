@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useCocktailGetApi } from "../../../hooks/useCocktailApi";
+import {
+  useCocktailGetApi,
+  useCocktailImagePostApi,
+  useCocktailPostApi,
+} from "../../../hooks/useCocktailApi";
 import Button from "../../UI/Button/Button";
 import style from "./CocktailControl.module.css";
 
@@ -62,24 +66,17 @@ function CocktailControl({ submitData, submitImageData }) {
         if (alcohol.unit !== "Fill up") {
           if (alcohol.volume === "") {
             valid = false;
-            return alert(`기타재료 ${alcohol.name}의 용량을 입력해주세요.`);
+            return alert(`술 ${alcohol.name}의 용량을 입력해주세요.`);
           }
 
           if (!Number(alcohol.volume)) {
             valid = false;
             return alert(
-              `기타재료 ${alcohol.name}의 도수가 숫자인지 다시 한번 체크해주세요.`
+              `술 ${alcohol.name}의 도수가 숫자인지 다시 한번 체크해주세요.`
             );
           }
-        } else {
-          if (alcohol.volume !== "") {
-            alert(
-              `단위가 Fill up이면 기타재료 ${alcohol.name}의 용량은 없어야 합니다.`
-            );
-          }
+          newAlcohol.volume = alcohol.volume;
         }
-
-        newAlcohol.volume = alcohol.volume;
 
         return newAlcohol;
       });
@@ -88,11 +85,13 @@ function CocktailControl({ submitData, submitImageData }) {
     }
 
     if (submitData.nonAlcohols.length > 0) {
-      submitData.nonAlcohols.map((nonAlcohol) => {
+      submitData.nonAlcohols = submitData.nonAlcohols.map((nonAlcohol) => {
+        const newNonAlcohol = {};
         if (nonAlcohol.name === "") {
           valid = false;
           return alert("기타재료 이름을 입력해주세요.");
         }
+        newNonAlcohol.name = nonAlcohol.name;
 
         if (nonAlcohol.unit === "") {
           valid = false;
@@ -109,6 +108,7 @@ function CocktailControl({ submitData, submitImageData }) {
             );
           }
         }
+        newNonAlcohol.unit = nonAlcohol.unit;
 
         if (nonAlcohol.unit !== "Fill up") {
           if (nonAlcohol.volume === "") {
@@ -122,20 +122,18 @@ function CocktailControl({ submitData, submitImageData }) {
               `기타재료 ${nonAlcohol.name}의 도수가 숫자인지 다시 한번 체크해주세요.`
             );
           }
-        } else {
-          if (nonAlcohol.volume !== "") {
-            alert(
-              `단위가 Fill up이면 기타재료 ${nonAlcohol.name}의 용량은 없어야 합니다.`
-            );
-          }
+          newNonAlcohol.volume = nonAlcohol.volume;
         }
+
+        return newNonAlcohol;
       });
     }
 
     return valid;
   };
 
-  const mutation = useCocktailGetApi();
+  const cocktailMutation = useCocktailPostApi();
+  const cocktailImageMutation = useCocktailImagePostApi();
   const navigate = useNavigate();
 
   const handleAlcoholViewerMove = () => {
@@ -147,11 +145,14 @@ function CocktailControl({ submitData, submitImageData }) {
       console.log(submitData);
       console.log(submitImageData);
 
-      const formData = new FormData();
-      formData.append("image", submitImageData);
-      formData.append("data", JSON.stringify(submitData));
-
-      mutation.mutate(formData);
+      cocktailMutation.mutate(submitData, {
+        onSuccess: (data) => {
+          const formData = new FormData();
+          formData.append("image", submitImageData);
+          formData.append("data", JSON.stringify({ id: data.data._id }));
+          cocktailImageMutation.mutate(formData);
+        },
+      });
     }
   };
   return (
