@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const ValidationError = require("./ErrorHandler");
 
 function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
@@ -37,6 +38,7 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
         );
       }
       alcohol.subAlcohols = data.subAlcohols;
+      alcohol.cocktails = undefined;
     } else {
       if (!data.abv) {
         throw new ValidationError("abv의 값이 없습니다.");
@@ -53,20 +55,6 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     return alcoholModel.find(makeFilter(qurey)).exec();
   }
 
-  // async function updateAlcohol(filter, update) {
-  //   return alcoholModel.findOneAndUpdate(
-  //     makeFilter(filter),
-  //     { ...update },
-  //     { upsert: false }
-  //   );
-  // }
-
-  // async function deleteAlcohol(filter) {
-  //   return alcoholModel.findOneAndDelete(makeFilter(filter));
-  // }
-
-  // ---
-
   async function addNonAlcohol(data) {
     const nonAlcohol = new nonAlcoholModel();
     nonAlcohol.name = data.name;
@@ -78,33 +66,13 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     return nonAlcoholModel.find(makeFilter(qurey)).exec();
   }
 
-  // async function updateNonAlcohol(filter, update) {
-  //   return nonAlcoholModel.findOneAndUpdate(
-  //     makeFilter(filter),
-  //     { ...update },
-  //     { upsert: false }
-  //   );
-  // }
-
-  // async function deleteNonAlcohol(filter) {
-  //   return nonAlcoholModel.findOneAndDelete(makeFilter(filter));
-  // }
-
-  // ---
-
-  async function addCocktail(file, data) {
+  async function addCocktail(data) {
     const cocktail = new cocktailModel(data);
     cocktail.name = data.name;
     cocktail.tastes = data.tastes;
     cocktail.garnishes = data.garnishes;
     cocktail.recipe = data.recipe;
-
-    // 칵테일 이미지 확인
-    if (!file) {
-      throw new ValidationError("이미지가 없습니다.");
-    }
-
-    cocktail.image_path = `${file.path}`;
+    cocktail.image_path = "";
 
     cocktail.alcohols = await Promise.all(
       data.alcohols.map(async (alcohol) => {
@@ -208,8 +176,22 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     return savedCocktail;
   }
 
-  async function getCocktail() {
-    return cocktailModel.find().exec();
+  async function addCocktailImage(filter, file) {
+    console.log(filter);
+    console.log(file);
+    if (!file) {
+      throw new ValidationError("이미지가 없습니다.");
+    }
+
+    return cocktailModel.findOneAndUpdate(
+      makeFilter(filter),
+      { $set: { image_path: `${file.path}` } },
+      { upsert: false }
+    );
+  }
+
+  async function getCocktail(qurey) {
+    return cocktailModel.find(makeFilter(qurey)).exec();
   }
 
   async function updateCocktail(filter, update) {
@@ -226,6 +208,7 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     addNonAlcohol,
     getNonAlcohol,
     addCocktail,
+    addCocktailImage,
     getCocktail,
     updateCocktail,
     deleteCocktail,

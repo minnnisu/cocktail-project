@@ -10,7 +10,10 @@ const app = express();
 const port = 8080;
 
 mongoose
-  .connect(db.MongoURI, { dbName: "cocktail_project" })
+  .connect(db.MongoURI, {
+    dbName: "cocktail_project",
+    autoIndex: true,
+  })
   .then(() => {
     console.log("Successfully connected to mongodb");
   })

@@ -80,12 +80,10 @@ router
         next(err);
       });
   })
-  .post("/cocktail", upload.single("image"), (req, res, next) => {
-    const cocktail = JSON.parse(req.body.data);
+  .post("/cocktail", (req, res, next) => {
     AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel })
-      .addCocktail(req.file, cocktail)
+      .addCocktail(req.body)
       .then((result) => {
-        console.log(result);
         res.status(201).send(result);
       })
       .catch((err) => {
@@ -93,6 +91,18 @@ router
         next(err);
       });
   });
+
+router.post("/cocktail/image", upload.single("image"), (req, res, next) => {
+  AlcoholService({ cocktailModel })
+    .addCocktailImage(JSON.parse(req.body.data), req.file)
+    .then(() => {
+      res.status(201).send();
+    })
+    .catch((err) => {
+      console.error(err);
+      next(err);
+    });
+});
 
 // error handling 미들웨어
 router.use((err, req, res, next) => {
