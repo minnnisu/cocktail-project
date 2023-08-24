@@ -1,0 +1,12 @@
+.header {
+  margin-bottom: 10px;
+}
+
+.header > * {
+  margin-right: 16px;
+}
+
+.input_container {
+  margin-right: 16px;
+  display: inline-block;
+}

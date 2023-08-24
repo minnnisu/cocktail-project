@@ -1,0 +1,7 @@
+.text_area_container {
+  margin-top: 16px;
+}
+
+.text_area_container > textarea {
+  width: calc(100% - 20px);
+}

@@ -1,17 +1,14 @@
 import style from "./Input.module.css";
 
-function Input({ value, onChangeValue, children }) {
-  const handleValueChange = (e) => {
-    onChangeValue({ [children]: e.target.value });
-  };
-
+function Input({ title, name, value, onChangeValue }) {
   return (
     <div className={style.input_container}>
-      <div className={style.input_name}>{children}</div>
+      <div className={style.input_name}>{title}</div>
       <input
+        name={name}
         className={style.input_value}
-        value={value === undefined ? "" : value}
-        onChange={handleValueChange}
+        value={value}
+        onChange={onChangeValue}
       />
     </div>
   );

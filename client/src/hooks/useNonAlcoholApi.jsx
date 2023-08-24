@@ -1,7 +1,8 @@
 import { useQueryClient } from "react-query";
+import useApiGetQuery from "./useApiGetQuery";
 import useApiPostQuery from "./useApiPostQuery";
 
-export const useCocktailGetApi = () => {
+export const useNonAlcoholPostApi = () => {
   const queryClient = useQueryClient();
 
   const onError = (error) => {
@@ -9,11 +10,12 @@ export const useCocktailGetApi = () => {
   };
 
   const onSuccess = (data) => {
-    alert("칵테일을 추가였습니다.");
+    queryClient.invalidateQueries("getNonAlcohol");
+    alert("기타재료를 추가였습니다.");
   };
 
   return useApiPostQuery(
-    "/api/alcohol-management/cocktail",
+    "/api/alcohol-management/non-alcohol",
     onSuccess,
     onError
   );
