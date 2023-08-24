@@ -37,7 +37,7 @@ const CocktailSchema = new Schema(
     tastes: { type: Array, required: true },
     garnishes: { type: Array, required: true },
     recipe: { type: String, required: true },
-    image_path: { type: String, required: true },
+    image_path: { type: String },
     alcohols: [alcoholSchema],
     nonAlcohols: [nonAlcoholSchema],
   },
