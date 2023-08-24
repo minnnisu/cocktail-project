@@ -92,13 +92,19 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
 
   // ---
 
-  async function addCocktail(data) {
+  async function addCocktail(file, data) {
     const cocktail = new cocktailModel(data);
     cocktail.name = data.name;
     cocktail.tastes = data.tastes;
     cocktail.garnishes = data.garnishes;
     cocktail.recipe = data.recipe;
-    cocktail.image_url = data.image_url;
+
+    // 칵테일 이미지 확인
+    if (!file) {
+      throw new ValidationError("이미지가 없습니다.");
+    }
+
+    cocktail.image_path = `${file.path}`;
 
     cocktail.alcohols = await Promise.all(
       data.alcohols.map(async (alcohol) => {
@@ -111,6 +117,7 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
 
         const targetAlcoholDoc = alcoholDocs[0];
         alcohol.alcoholID = targetAlcoholDoc._id;
+        console.log(targetAlcoholDoc);
 
         if (alcohol.subAlcoholName) {
           for (const targetSubAlcohol of targetAlcoholDoc.subAlcohols) {
@@ -122,6 +129,15 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
           throw new ValidationError(
             `${alcohol.subAlcoholName}에 대한 데이터가 등록되어 있지 않습니다.`
           );
+        } else {
+          if (
+            targetAlcoholDoc.subAlcohols &&
+            targetAlcoholDoc.subAlcohols.length > 0
+          ) {
+            throw new ValidationError(
+              `${alcohol.name}은 하위 알코올이 존재합니다.`
+            );
+          }
         }
 
         return alcohol;
@@ -131,7 +147,11 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     cocktail.nonAlcohols = await Promise.all(
       data.nonAlcohols.map(async (nonAlcohol) => {
         const nonAlcoholDocs = await getNonAlcohol({ name: nonAlcohol.name });
-
+        if (nonAlcoholDocs.length < 1) {
+          throw new ValidationError(
+            `${nonAlcohol.name}에 대한 데이터가 등록되어 있지 않습니다.`
+          );
+        }
         const targetNonAlcoholDoc = nonAlcoholDocs[0];
         nonAlcohol.nonAlcoholID = targetNonAlcoholDoc._id;
 

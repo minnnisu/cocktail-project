@@ -3,6 +3,8 @@ const alcoholModel = require("../../models/alcohol");
 const nonAlcoholModel = require("../../models/nonAlcohol");
 const cocktailModel = require("../../models/cocktail");
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
 const router = express.Router();
 
 router
@@ -20,34 +22,6 @@ router
       .addAlcohol(req.body)
       .then((result) => {
         res.status(201).send(result);
-      })
-      .catch((err) => {
-        console.error(err);
-        next(err);
-      });
-  })
-  .put("/alcohol", (req, res, next) => {
-    AlcoholService({ alcoholModel })
-      .updateAlcohol(req.query, req.body)
-      .then((doc) => {
-        if (doc === null) {
-          return res.status(403).send("조건에 만족하는 데이터가 없습니다");
-        }
-        res.status(200).send();
-      })
-      .catch((err) => {
-        console.error(err);
-        next(err);
-      });
-  })
-  .delete("/alcohol", (req, res, next) => {
-    AlcoholService({ alcoholModel })
-      .deleteAlcohol(req.query)
-      .then((doc) => {
-        if (doc === null) {
-          return res.status(403).send("조건에 만족하는 데이터가 없습니다");
-        }
-        res.status(200).send();
       })
       .catch((err) => {
         console.error(err);
@@ -78,35 +52,20 @@ router
         console.error(err);
         next(err);
       });
-  })
-  .put("/non-alcohol", (req, res, next) => {
-    AlcoholService({ nonAlcoholModel })
-      .updateNonAlcohol(req.query, req.body)
-      .then((doc) => {
-        if (doc === null) {
-          return res.status(403).send("조건에 만족하는 데이터가 없습니다");
-        }
-        res.status(200).send();
-      })
-      .catch((err) => {
-        console.error(err);
-        next(err);
-      });
-  })
-  .delete("/non-alcohol", (req, res, next) => {
-    NonAlcoholService({ nonAlcoholModel })
-      .deleteNonAlcohol(req.query)
-      .then((doc) => {
-        if (doc === null) {
-          return res.status(403).send("조건에 만족하는 데이터가 없습니다");
-        }
-        res.status(200).send();
-      })
-      .catch((err) => {
-        console.error(err);
-        next(err);
-      });
   });
+
+// 이미지 업로드를 위한 설정
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "static/images/cocktails"); // 업로드된 파일을 저장할 디렉토리 경로
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + path.extname(file.originalname)); // 저장될 파일명 설정
+  },
+});
+
+const upload = multer({ storage });
 
 router
   .get("/cocktail", (req, res, next) => {
@@ -121,9 +80,10 @@ router
         next(err);
       });
   })
-  .post("/cocktail", (req, res, next) => {
+  .post("/cocktail", upload.single("image"), (req, res, next) => {
+    const cocktail = JSON.parse(req.body.data);
     AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel })
-      .addCocktail(req.body)
+      .addCocktail(req.file, cocktail)
       .then((result) => {
         console.log(result);
         res.status(201).send(result);
