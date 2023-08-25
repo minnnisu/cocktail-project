@@ -1,10 +1,10 @@
 const express = require("express");
-const morgan = require("morgan");
 var cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./config/mongodb");
 const mongoose = require("mongoose");
 const alcoholRouter = require("./api/routes/alcoholRouter");
+const staticRouter = require("./api/routes/staticRouter");
 
 const app = express();
 const port = 8080;
@@ -28,6 +28,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 app.use("/api/alcohol-management", alcoholRouter);
+app.use("/static", staticRouter);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
