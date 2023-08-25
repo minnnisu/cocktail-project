@@ -1,5 +1,26 @@
 import { useQueryClient } from "react-query";
 import useApiPostQuery from "./useApiPostQuery";
+import useApiGetQuery from "./useApiGetQuery";
+
+const filterCocktail = (alcohols) => {
+  return alcohols;
+};
+
+export const useCocktailGetApi = () => {
+  return useApiGetQuery(
+    "getCocktail",
+    "/api/alcohol-management/cocktail",
+    filterCocktail
+  );
+};
+
+export const useCocktailImageGetApi = (imageName) => {
+  return useApiGetQuery(
+    "getCocktailImage",
+    `/api/alcohol-management/cocktail/image/${imageName}`,
+    filterCocktail
+  );
+};
 
 export const useCocktailPostApi = () => {
   const queryClient = useQueryClient();

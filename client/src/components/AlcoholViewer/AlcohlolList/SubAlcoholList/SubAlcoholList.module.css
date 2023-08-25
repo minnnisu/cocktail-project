@@ -1,0 +1,8 @@
+.title_container {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.sub_alcohol_container > *:last-child {
+  margin-bottom: 0;
+}

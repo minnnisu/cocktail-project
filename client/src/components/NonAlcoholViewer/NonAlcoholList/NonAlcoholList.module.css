@@ -1,0 +1,12 @@
+.non_alcohol_container {
+  margin-bottom: 16px;
+}
+
+.non_alcohol_inner > *:last-child {
+  margin-bottom: 0;
+}
+
+.title_container {
+  margin-top: 16px;
+  margin-left: 10px;
+}

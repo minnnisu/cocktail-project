@@ -1,0 +1,15 @@
+.title_container {
+  margin-bottom: 16px;
+}
+
+.alcohols_container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.alcohol_container {
+  border-radius: 15px;
+  margin: 0 20px 20px 0;
+  padding: 14px;
+  background-color: #2c2c2c;
+}

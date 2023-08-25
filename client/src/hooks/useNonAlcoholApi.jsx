@@ -2,6 +2,18 @@ import { useQueryClient } from "react-query";
 import useApiGetQuery from "./useApiGetQuery";
 import useApiPostQuery from "./useApiPostQuery";
 
+const filterNonAlcohol = (alcohols) => {
+  return alcohols;
+};
+
+export const useNonAlcoholGetApi = () => {
+  return useApiGetQuery(
+    "getNonAlcohol",
+    "/api/alcohol-management/non-alcohol",
+    filterNonAlcohol
+  );
+};
+
 export const useNonAlcoholPostApi = () => {
   const queryClient = useQueryClient();
 

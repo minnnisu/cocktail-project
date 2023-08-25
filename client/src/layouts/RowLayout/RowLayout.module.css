@@ -1,0 +1,11 @@
+.scroll_container {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgb(67, 67, 67);
+  margin-bottom: 15px;
+}
+
+.scroll_container > * {
+  width: 24%;
+  margin: 8px;
+}

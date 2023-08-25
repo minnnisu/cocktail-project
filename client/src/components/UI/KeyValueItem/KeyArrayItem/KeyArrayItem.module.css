@@ -1,0 +1,21 @@
+.item_container {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.key {
+  font-weight: 600;
+  margin-right: 16px;
+}
+
+.array_container > * {
+  margin-right: 0.5em;
+}
+
+.array_container > *:last-child {
+  margin-right: 0;
+}
+
+.array_item {
+  display: inline-block;
+}

@@ -3,9 +3,7 @@ import useApiGetQuery from "./useApiGetQuery";
 import useApiPostQuery from "./useApiPostQuery";
 
 const filterAlcohol = (alcohols) => {
-  // return baseSpirits.map((baseSpirit) => {
-  //   return baseSpirit.name;
-  // });
+  return alcohols;
 };
 
 export const useAlcoholGetApi = () => {
