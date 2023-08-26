@@ -18,7 +18,7 @@ export const useNonAlcoholPostApi = () => {
   const queryClient = useQueryClient();
 
   const onError = (error) => {
-    alert("오류가 발생했습니다.");
+    alert(error.response.data.message);
   };
 
   const onSuccess = (data) => {

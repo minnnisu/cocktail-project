@@ -6,10 +6,10 @@ const filterCocktail = (alcohols) => {
   return alcohols;
 };
 
-export const useCocktailGetApi = () => {
+export const useCocktailGetApi = (qurey = "") => {
   return useApiGetQuery(
     "getCocktail",
-    "/api/alcohol-management/cocktail",
+    `/api/alcohol-management/cocktail${qurey}`,
     filterCocktail
   );
 };
@@ -26,7 +26,7 @@ export const useCocktailPostApi = () => {
   const queryClient = useQueryClient();
 
   const onError = (error) => {
-    alert("오류가 발생했습니다.");
+    alert(error.response.data.message);
   };
 
   const onSuccess = (data) => {
