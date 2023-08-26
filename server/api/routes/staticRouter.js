@@ -3,9 +3,9 @@ const path = require("path");
 const fs = require("fs");
 const router = express.Router();
 
-router.get("/image/cocktail/:imageName", (req, res) => {
+router.get("/images/cocktails/:imageName", (req, res) => {
   const imageName = req.params.imageName;
-  const imagePath = path.join("./static/image/cocktail/", imageName);
+  const imagePath = path.join("./static/images/cocktails/", imageName);
 
   fs.readFile(imagePath, (err, data) => {
     if (err) {
