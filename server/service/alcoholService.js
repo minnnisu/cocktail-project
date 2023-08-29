@@ -20,35 +20,18 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     const alcohol = new alcoholModel();
 
     alcohol.name = data.name;
-
-    if (data.subAlcohols && data.subAlcohols.length > 0) {
-      if (data.abv) {
-        throw new ValidationError(
-          "subAlcohols과 abv는 둘 중 하나만 존재해야합니다."
-        );
-      }
-
-      const subAlcoholNames = data.subAlcohols.map((subAlcohol) => {
-        return subAlcohol.name;
-      });
-      const subAlcoholNameSet = new Set(subAlcoholNames);
-      if (subAlcoholNames.length !== subAlcoholNameSet.size) {
-        throw new ValidationError(
-          `${data.name}의 하위 술 중에서 중복된 것이 있습니다.`
-        );
-      }
-      alcohol.subAlcohols = data.subAlcohols;
+    alcohol.abv = data.abv;
+    alcohol.subAlcohols = data.subAlcohols;
+    if (alcohol.subAlcohols) {
       alcohol.cocktails = undefined;
-    } else {
-      if (!data.abv) {
-        throw new ValidationError("abv의 값이 없습니다.");
-      }
-
-      alcohol.abv = data.abv;
-      alcohol.subAlcohols = undefined;
     }
 
-    return alcohol.save();
+    try {
+      const result = await alcohol.save();
+      return result;
+    } catch (err) {
+      throw err;
+    }
   }
 
   async function getAlcohol(qurey) {
