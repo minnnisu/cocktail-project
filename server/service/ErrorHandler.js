@@ -5,8 +5,6 @@ class ValidationError extends Error {
   }
 }
 
-module.exports = ValidationError;
-
 class NotFoundError extends Error {
   constructor(message) {
     super(message);
@@ -14,4 +12,4 @@ class NotFoundError extends Error {
   }
 }
 
-module.exports = NotFoundError;
+module.exports = { ValidationError, NotFoundError };

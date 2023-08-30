@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb");
-const ValidationError = require("./ErrorHandler");
+const { ValidationError } = require("./ErrorHandler");
 
 function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
   function makeFilter(filter) {
@@ -34,8 +34,60 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     }
   }
 
-  async function getAlcohol(qurey) {
-    return alcoholModel.find(makeFilter(qurey)).exec();
+  async function getAlcohol(query) {
+    return alcoholModel.find(makeFilter(query)).exec();
+  }
+
+  async function updateAlcohol(filter, update) {
+    if (!filter.id) {
+      throw new ValidationError("id를 전달해주세요.");
+    }
+    const alcohol = await alcoholModel.findById(filter.id);
+
+    if (!alcohol) {
+      throw new ValidationError("알코올이 존재하지않습니다.");
+    }
+
+    if (update.abv) {
+      if (!alcohol.abv) {
+        throw new ValidationError(
+          "기존에 도수가 존재하지 않기 때문에 도수를 수정할 수 없습니다."
+        );
+      }
+
+      alcohol.abv = update.abv;
+      alcohol.subAlcohols = undefined;
+    }
+
+    if (update.subAlcohols) {
+      console.log(alcohol);
+
+      if (!alcohol.subAlcohols || alcohol.subAlcohols.length < 1) {
+        throw new ValidationError(
+          "기존에 하위 알코올이 존재하지 않기 때문에 하위 알코올을 수정할 수 없습니다."
+        );
+      }
+
+      if (!Array.isArray(update.subAlcohols)) {
+        throw new ValidationError(
+          "추가로 삽입할 하위 알코올은 배열이여야합니다"
+        );
+      }
+
+      update.subAlcohols.map((subAlcohol) => {
+        alcohol.subAlcohols.push(subAlcohol);
+      });
+
+      alcohol.abv = undefined;
+      alcohol.cocktails = undefined;
+    }
+
+    try {
+      const result = await alcohol.save();
+      return result;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async function addNonAlcohol(data) {
@@ -45,8 +97,8 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     return nonAlcohol.save();
   }
 
-  async function getNonAlcohol(qurey) {
-    return nonAlcoholModel.find(makeFilter(qurey)).exec();
+  async function getNonAlcohol(query) {
+    return nonAlcoholModel.find(makeFilter(query)).exec();
   }
 
   async function addCocktail(data) {
@@ -111,6 +163,10 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     );
     const savedCocktail = await cocktail.save();
 
+    const updateData = {
+      cocktailID: cocktail._id,
+      name: cocktail.name,
+    };
     await Promise.all(
       cocktail.alcohols.map(async (alcohol) => {
         if (alcohol.subAlcoholName) {
@@ -120,7 +176,7 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
           };
           const update = {
             $push: {
-              "subAlcohols.$.cocktails": cocktail._id,
+              "subAlcohols.$.cocktails": updateData,
             },
           };
           await alcoholModel.findOneAndUpdate(filter, update, {
@@ -135,7 +191,7 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
         };
         const update = {
           $push: {
-            cocktails: cocktail._id,
+            cocktails: updateData,
           },
         };
         await alcoholModel.findOneAndUpdate(filter, update, { upsert: false });
@@ -147,7 +203,7 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
         const filter = { _id: nonAlcohol.nonAlcoholID };
         const update = {
           $push: {
-            cocktails: cocktail._id,
+            cocktails: updateData,
           },
         };
         await nonAlcoholModel.findOneAndUpdate(filter, update, {
@@ -173,8 +229,8 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
     );
   }
 
-  async function getCocktail(qurey) {
-    return cocktailModel.find(makeFilter(qurey)).exec();
+  async function getCocktail(query) {
+    return cocktailModel.find(makeFilter(query)).exec();
   }
 
   async function updateCocktail(filter, update) {
@@ -188,6 +244,7 @@ function AlcoholService({ alcoholModel, nonAlcoholModel, cocktailModel }) {
   return {
     addAlcohol,
     getAlcohol,
+    updateAlcohol,
     addNonAlcohol,
     getNonAlcohol,
     addCocktail,

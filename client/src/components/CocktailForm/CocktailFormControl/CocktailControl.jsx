@@ -53,17 +53,17 @@ function CocktailControl({ submitData, submitImageData }) {
           if (
             alcohol.unit !== "ml" &&
             alcohol.unit !== "dash" &&
-            alcohol.unit !== "Fill up"
+            alcohol.unit !== "fill up"
           ) {
             valid = false;
             return alert(
-              `술 ${alcohol.name}의 단위는 ml, dash, Fill up만 가능합니다.`
+              `술 ${alcohol.name}의 단위는 ml, dash, fill up만 가능합니다.`
             );
           }
         }
         newAlcohol.unit = alcohol.unit;
 
-        if (alcohol.unit !== "Fill up") {
+        if (alcohol.unit !== "fill up") {
           if (alcohol.volume === "") {
             valid = false;
             return alert(`술 ${alcohol.name}의 용량을 입력해주세요.`);
@@ -100,17 +100,17 @@ function CocktailControl({ submitData, submitImageData }) {
           if (
             nonAlcohol.unit !== "ml" &&
             nonAlcohol.unit !== "dash" &&
-            nonAlcohol.unit !== "Fill up"
+            nonAlcohol.unit !== "fill up"
           ) {
             valid = false;
             return alert(
-              `기타재료 ${nonAlcohol.name}의 단위는 ml, dash, Fill up만 가능합니다.`
+              `기타재료 ${nonAlcohol.name}의 단위는 ml, dash, fill up만 가능합니다.`
             );
           }
         }
         newNonAlcohol.unit = nonAlcohol.unit;
 
-        if (nonAlcohol.unit !== "Fill up") {
+        if (nonAlcohol.unit !== "fill up") {
           if (nonAlcohol.volume === "") {
             valid = false;
             return alert(`기타재료 ${nonAlcohol.name}의 용량을 입력해주세요.`);

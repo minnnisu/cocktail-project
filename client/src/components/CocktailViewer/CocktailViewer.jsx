@@ -3,7 +3,6 @@ import CocktailList from "./CocktailList/CocktailList";
 
 function CocktailViewer() {
   const { isLoading, isSuccess, isError, data } = useCocktailGetApi();
-  console.log(data);
   return (
     <>
       {isLoading && <div>데이터를 불러오는 중입니다.</div>}

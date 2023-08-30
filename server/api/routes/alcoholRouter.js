@@ -27,6 +27,17 @@ router
         console.error(err);
         next(err);
       });
+  })
+  .put("/alcohol", (req, res, next) => {
+    AlcoholService({ alcoholModel })
+      .updateAlcohol(req.body.filter, req.body.update)
+      .then((result) => {
+        res.status(203).send(result);
+      })
+      .catch((err) => {
+        console.error(err);
+        next(err);
+      });
   });
 
 router
@@ -34,7 +45,6 @@ router
     AlcoholService({ nonAlcoholModel })
       .getNonAlcohol(req.query)
       .then((data) => {
-        console.log(data);
         res.status(200).send(data);
       })
       .catch((err) => {
@@ -57,7 +67,7 @@ router
 // 이미지 업로드를 위한 설정
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "static/images/cocktails"); // 업로드된 파일을 저장할 디렉토리 경로
+    cb(null, "static/image/cocktail"); // 업로드된 파일을 저장할 디렉토리 경로
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -72,7 +82,6 @@ router
     AlcoholService({ cocktailModel })
       .getCocktail(req.query)
       .then((data) => {
-        console.log(data);
         res.status(200).send(data);
       })
       .catch((err) => {
@@ -106,14 +115,19 @@ router.post("/cocktail/image", upload.single("image"), (req, res, next) => {
 
 // error handling 미들웨어
 router.use((err, req, res, next) => {
-  if (err.name === "ValidationError" ) {
-    return res.status(403).json({name:err.name, message: err.message });
-  }else if(err.name === "MongoServerError" && err.code === 11000){
-    if(Object.values(err.keyValue)[0]){
-      return res.status(403).json({name:"DuplicationError", message: `${Object.values(err.keyValue)[0]}는 이미 있습니다.` });
+  if (err.name === "ValidationError") {
+    return res.status(403).json({ name: err.name, message: err.message });
+  } else if (err.name === "MongoServerError" && err.code === 11000) {
+    if (Object.values(err.keyValue)[0]) {
+      return res.status(403).json({
+        name: "DuplicationError",
+        message: `${Object.values(err.keyValue)[0]}는 이미 있습니다.`,
+      });
     }
-    return res.status(403).json({name:"DuplicationError", message: "중복되는 값이 있습니다" });
-  }else if (err.name === "MongoError") {
+    return res
+      .status(403)
+      .json({ name: "DuplicationError", message: "중복되는 값이 있습니다" });
+  } else if (err.name === "MongoError") {
     return res.status(400).json({ message: err.message });
   }
 

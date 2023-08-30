@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
 const Schema = require("mongoose").Schema;
 
+const cocktailSchema = new Schema(
+  {
+    cocktailID: { type: Schema.Types.ObjectId, ref: "Cocktail" },
+    name: { type: String, require: true },
+  },
+  { _id: false }
+);
+
 const subAlcoholSchema = new Schema(
   {
     name: { type: String, required: true, unique: true, sparse: true },
     abv: { type: Number, required: true },
-    cocktails: [
-      {
-        cocktailID: { type: Schema.Types.ObjectId, ref: "Cocktail" },
-        name: { type: String, require: true },
-      },
-    ],
+    cocktails: [cocktailSchema],
   },
   { _id: false }
 );
@@ -29,12 +32,7 @@ const AlcoholSchema = new Schema(
       ],
     },
     subAlcohols: [subAlcoholSchema],
-    cocktails: [
-      {
-        cocktailID: { type: Schema.Types.ObjectId, ref: "Cocktail" },
-        name: { type: String, require: true },
-      },
-    ],
+    cocktails: [cocktailSchema],
   },
   {
     versionKey: false,

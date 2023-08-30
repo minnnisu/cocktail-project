@@ -1,17 +1,19 @@
-.input_container {
+.dropdown_container {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
 }
 
-.input_name {
+.dropdown_name {
   margin-right: 16px;
+  margin-bottom: 10px;
   font-weight: 600;
   font-size: 1em;
 }
 
-.input_value {
+.dropdown_value {
   padding: 7px 5px;
+  margin-bottom: 10px;
   border: none;
   border-radius: 5px;
   background-color: #515151;

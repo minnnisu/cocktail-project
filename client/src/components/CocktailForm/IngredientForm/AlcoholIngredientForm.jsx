@@ -5,7 +5,12 @@ function AlcoholIngredientForm({ forms, setForms }) {
     { title: "이름", name: "name" },
     { title: "하위 알코올", name: "subAlcoholName" },
     { title: "용량", name: "volume" },
-    { title: "단위", name: "unit" },
+    {
+      title: "단위",
+      name: "unit",
+      type: "dropdown",
+      options: ["ml", "dash", "fill up"],
+    },
   ];
   return (
     <DyanmicInput

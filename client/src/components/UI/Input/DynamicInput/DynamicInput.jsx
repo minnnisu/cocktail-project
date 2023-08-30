@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import style from "./DynamicInput.module.css";
 import Button from "../../Button/Button";
 import Input from "../../Input/Input";
 import Title from "../../Title/Title";
+import Dropdown from "../../Dropdown/Dropdown";
 
 function DyanmicInput({ headerTitle, inputField, forms, setForms }) {
   const handleAddForm = () => {
@@ -38,14 +39,28 @@ function DyanmicInput({ headerTitle, inputField, forms, setForms }) {
       {forms.map((form, index) => (
         <div key={index}>
           {inputField.map((field, indexField) => (
-            <div key={indexField} className={style.input_container}>
-              <Input
-                title={field.title}
-                name={field.name}
-                value={form[field.name]}
-                onChangeValue={(e) => handleChange(e, index)}
-              />
-            </div>
+            <Fragment key={indexField}>
+              {field.type === "dropdown" && (
+                <div className={style.input_container}>
+                  <Dropdown
+                    title={field.title}
+                    name={field.name}
+                    options={field.options}
+                    handleSelectedValueChange={(e) => handleChange(e, index)}
+                  />
+                </div>
+              )}
+              {!field.type && (
+                <div className={style.input_container}>
+                  <Input
+                    title={field.title}
+                    name={field.name}
+                    value={form[field.name]}
+                    onChangeValue={(e) => handleChange(e, index)}
+                  />
+                </div>
+              )}
+            </Fragment>
           ))}
           <Button
             backgroundColor="red"

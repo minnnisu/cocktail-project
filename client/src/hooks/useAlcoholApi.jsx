@@ -1,6 +1,7 @@
 import { useQueryClient } from "react-query";
 import useApiGetQuery from "./useApiGetQuery";
 import useApiPostQuery from "./useApiPostQuery";
+import useApiPutQuery from "./useApiPutQuery";
 
 const filterAlcohol = (alcohols) => {
   return alcohols;
@@ -22,9 +23,24 @@ export const useAlcoholPostApi = () => {
   };
 
   const onSuccess = (data) => {
-    queryClient.invalidateQueries("getBaseSpirit");
+    queryClient.invalidateQueries("getAlcohol");
     alert("술을 추가였습니다.");
   };
 
   return useApiPostQuery("/api/alcohol-management/alcohol", onSuccess, onError);
+};
+
+export const useAlcoholPutApi = () => {
+  const queryClient = useQueryClient();
+
+  const onError = (error) => {
+    alert(error.response.data.message);
+  };
+
+  const onSuccess = (data) => {
+    queryClient.invalidateQueries("getAlcohol");
+    alert("술을 업데이트 하였습니다.");
+  };
+
+  return useApiPutQuery("/api/alcohol-management/alcohol", onSuccess, onError);
 };

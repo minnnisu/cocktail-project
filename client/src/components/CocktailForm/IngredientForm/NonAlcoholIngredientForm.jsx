@@ -4,7 +4,12 @@ function NonAlcoholIngredientForm({ forms, setForms }) {
   const inputField = [
     { title: "이름", name: "name" },
     { title: "용량", name: "volume" },
-    { title: "단위", name: "unit" },
+    {
+      title: "단위",
+      name: "unit",
+      type: "dropdown",
+      options: ["ml", "dash", "fill up"],
+    },
   ];
   return (
     <DyanmicInput
