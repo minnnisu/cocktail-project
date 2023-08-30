@@ -1,8 +1,24 @@
 .title_container {
   margin-top: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
+}
+
+.sub_alcohol_container > * {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 15px;
+  background-color: #2c2c2c;
+  border-radius: 10px;
 }
 
 .sub_alcohol_container > *:last-child {
+  margin-bottom: 0;
+}
+
+.inner_container > * {
+  margin-bottom: 8px;
+}
+
+.inner_container > *:last-child {
   margin-bottom: 0;
 }

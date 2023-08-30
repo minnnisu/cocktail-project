@@ -1,8 +1,8 @@
-.alcohol_container {
-  margin-bottom: 16px;
+.alcohol_container > * {
+  margin-bottom: 8px;
 }
 
-.alcohol_inner > *:last-child {
+.alcohol_container > *:last-child {
   margin-bottom: 0;
 }
 

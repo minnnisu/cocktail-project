@@ -7,9 +7,17 @@
   flex-wrap: wrap;
 }
 
-.non_alcohol_container {
-  border-radius: 15px;
+.non_alcohols_container > * {
+  border-radius: 10px;
   margin: 0 20px 20px 0;
   padding: 14px;
   background-color: #2c2c2c;
+}
+
+.non_alcohol_container > * {
+  margin-bottom: 8px;
+}
+
+.non_alcohol_container > *:last-child {
+  margin-bottom: 0;
 }

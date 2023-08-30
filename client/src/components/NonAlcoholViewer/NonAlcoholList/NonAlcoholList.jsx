@@ -1,9 +1,10 @@
 import RowLayout from "../../../layouts/RowLayout/RowLayout";
+import IngredientCocktailMap from "../../IngredientCocktailMap/IngredientCocktailMap";
 import KeyValueItem from "../../UI/KeyValueItem/KeyValueItem";
 import Title from "../../UI/Title/Title";
-import Card from "../../UI/Wrapper/Card/Card";
 import style from "./NonAlcoholList.module.css";
 
+import Outer from "../../../layouts/AlcoholAppendFormLayout/Outer";
 function NonAlcoholList({ nonAlcohols }) {
   return (
     <>
@@ -12,13 +13,9 @@ function NonAlcoholList({ nonAlcohols }) {
       </div>
       <RowLayout>
         {nonAlcohols.map((nonAlcohol, nonAlcoholIndex) => (
-          <div key={nonAlcoholIndex} className={style.non_alcohol_container}>
-            <Card>
-              <div className={style.non_alcohol_inner}>
-                <KeyValueItem name={"이름"} value={nonAlcohol.name} />
-              </div>
-            </Card>
-          </div>
+          <Outer key={nonAlcoholIndex} title={nonAlcohol.name} size={4}>
+            <IngredientCocktailMap cocktails={nonAlcohol.cocktails} />
+          </Outer>
         ))}
       </RowLayout>
     </>

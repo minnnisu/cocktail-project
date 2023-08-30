@@ -28,9 +28,9 @@ function AbvEditor({ show, setShow, id }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Title>도수 수정</Modal.Title>
       </Modal.Header>
-      <Modal.Body data-bs-theme="dark">
+      <Modal.Body>
         <Input
           title={"도수"}
           name={"abv"}

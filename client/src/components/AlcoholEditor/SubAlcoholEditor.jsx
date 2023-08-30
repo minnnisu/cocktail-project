@@ -32,9 +32,9 @@ function SubAlcoholEditor({ show, setShow, id }) {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} size="xl">
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Title>하위 알코올 수정</Modal.Title>
       </Modal.Header>
       <Modal.Body data-bs-theme="dark">
         <SubAlcoholForm

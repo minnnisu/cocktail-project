@@ -11,12 +11,13 @@ function CocktailAlcoholList({ alcohols }) {
       <div className={style.alcohols_container}>
         {alcohols.map((alcohol, alcoholIndex) => (
           <div key={alcoholIndex} className={style.alcohol_container}>
-            <KeyValueItem name={"이름"} value={alcohol.name} />
-            {alcohol.subAlcoholName && (
+            {alcohol.subAlcoholName ? (
               <KeyValueItem
-                name={"하위 알코올 이름"}
-                value={alcohol.subAlcoholName}
+                name={"이름"}
+                value={`${alcohol.name} (${alcohol.subAlcoholName})`}
               />
+            ) : (
+              <KeyValueItem name={"이름"} value={alcohol.name} />
             )}
             {alcohol.volume ? (
               <KeyValueItem

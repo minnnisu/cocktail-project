@@ -5,9 +5,10 @@ import SubAlcoholEditor from "../../AlcoholEditor/SubAlcoholEditor";
 import Button from "../../UI/Button/Button";
 import KeyValueItem from "../../UI/KeyValueItem/KeyValueItem";
 import Title from "../../UI/Title/Title";
-import Card from "../../UI/Wrapper/Card/Card";
 import style from "./AlcohlolList.module.css";
 import SubAlcoholList from "./SubAlcoholList/SubAlcoholList";
+import IngredientCocktailMap from "../../IngredientCocktailMap/IngredientCocktailMap";
+import Outer from "../../../layouts/AlcoholAppendFormLayout/Outer";
 
 function AlcohlolList({ alcohols }) {
   const [showAbvEditor, setAbvEditorShow] = useState(false);
@@ -31,38 +32,35 @@ function AlcohlolList({ alcohols }) {
       </div>
       <RowLayout>
         {alcohols.map((alcohol, alcoholIndex) => (
-          <div key={alcoholIndex} className={style.alcohol_container}>
-            <Card>
-              <div className={style.alcohol_inner}>
-                <KeyValueItem name={"이름"} value={alcohol.name} />
+          <Outer key={alcoholIndex} title={alcohol.name} size={4}>
+            {alcohol.subAlcohols.length < 1 ? (
+              <div className={style.alcohol_container}>
                 <KeyValueItem name={"도수"} value={alcohol.abv} />
-                {alcohol.subAlcohols.length > 0 && (
-                  <SubAlcoholList subAlcohols={alcohol.subAlcohols} />
-                )}
-                <div className={style.button_container}>
-                  {alcohol.abv ? (
-                    <Button
-                      onClickButton={() => {
-                        setAbvEditorShow(true);
-                        setAlcoholID(alcohol._id);
-                      }}
-                    >
-                      수정
-                    </Button>
-                  ) : (
-                    <Button
-                      onClickButton={() => {
-                        setSubAlcoholEditorShow(true);
-                        setAlcoholID(alcohol._id);
-                      }}
-                    >
-                      수정
-                    </Button>
-                  )}
-                </div>
+                <IngredientCocktailMap cocktails={alcohol.cocktails} />
               </div>
-            </Card>
-          </div>
+            ) : (
+              <SubAlcoholList subAlcohols={alcohol.subAlcohols} />
+            )}
+            {alcohol.abv ? (
+              <Button
+                onClickButton={() => {
+                  setAbvEditorShow(true);
+                  setAlcoholID(alcohol._id);
+                }}
+              >
+                수정
+              </Button>
+            ) : (
+              <Button
+                onClickButton={() => {
+                  setSubAlcoholEditorShow(true);
+                  setAlcoholID(alcohol._id);
+                }}
+              >
+                수정
+              </Button>
+            )}
+          </Outer>
         ))}
       </RowLayout>
     </>
