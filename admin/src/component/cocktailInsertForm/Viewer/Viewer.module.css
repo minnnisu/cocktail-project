@@ -1,8 +1,0 @@
-.viewer_container {
-  display: flex;
-}
-
-.viewer_container > * {
-  flex-basis: 30%;
-  margin: 0 10px;
-}
