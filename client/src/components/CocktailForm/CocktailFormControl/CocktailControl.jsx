@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import {
-  useCocktailGetApi,
   useCocktailImagePostApi,
   useCocktailPostApi,
 } from "../../../hooks/useCocktailApi";
@@ -8,9 +7,6 @@ import Button from "../../UI/Button/Button";
 import style from "./CocktailControl.module.css";
 
 function CocktailControl({ submitData, submitImageData }) {
-  // alcohols,
-  // nonAlcohols,
-
   const checkSubmitDataVaild = () => {
     let valid = true;
     if (submitData.name === "") {
