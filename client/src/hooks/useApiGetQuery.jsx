@@ -3,7 +3,10 @@ import { useQuery } from "react-query";
 const { url } = require("../../src/apis/config/domain");
 
 const fetchData = async (path) => {
-  return axios.get(`${url}${path}`); // 이부분은 api 폴더 내 모듈로 수정
+  return axios.get(`${url}${path}`, {
+    "Content-Type": "application/json",
+    withCredentials: true,
+  }); // 이부분은 api 폴더 내 모듈로 수정
 };
 
 function useApiGetQuery(queryKey, path, filterData) {

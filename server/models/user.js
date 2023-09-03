@@ -10,7 +10,7 @@ const UserSchema = new Schema(
     alias: { type: String, required: true, unique: true, sparse: true },
     telephone: { type: String, required: true },
     email: { type: String, required: true },
-    created_at: { type: Date, required: true },
+    created_at: { type: Date, default: Date.now, required: true },
   },
   {
     versionKey: false,
