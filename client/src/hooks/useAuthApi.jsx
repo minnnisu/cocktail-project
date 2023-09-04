@@ -10,10 +10,10 @@ export const useSignUpPostApi = () => {
     alert("회원가입에 성공했습니다");
   };
 
-  return useApiPostQuery("/api/auth/sign-up", onSuccess, onError);
+  return useApiPostQuery("/api/auth/signup", onSuccess, onError);
 };
 
-export const useLogInPostApi = () => {
+export const useLoginPostApi = () => {
   const onError = (error) => {
     alert(error.response.data.message);
   };
@@ -23,6 +23,18 @@ export const useLogInPostApi = () => {
   };
 
   return useApiPostQuery("/api/auth/login", onSuccess, onError);
+};
+
+export const useLogoutPostApi = () => {
+  const onError = (error) => {
+    alert(error.response.data.message);
+  };
+
+  const onSuccess = (data) => {
+    alert("로그아웃에 성공했습니다");
+  };
+
+  return useApiPostQuery("/api/auth/logout", onSuccess, onError);
 };
 
 const filterAlcohol = (user) => {

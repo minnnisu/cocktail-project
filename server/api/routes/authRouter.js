@@ -1,13 +1,45 @@
 const express = require("express");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
-const { isLoggedIn, isNotLoggedIn } = require("../middlewares/auth"); // 내가 만든 사용자 미들웨어
 const userModel = require("../../models/user");
-const { ValidationError } = require("../../service/ErrorHandler");
+const { isNotLoggedIn, isLoggedIn } = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.post("/sign-up", isNotLoggedIn, async (req, res, next) => {
+router.post("/login", isNotLoggedIn, function (req, res, next) {
+  passport.authenticate("local", function (err, user, info) {
+    // new LocalStrategy(async function verify(username, password, cb){...}) 이후 작업
+    if (err) {
+      console.error(err);
+      return next(err);
+    }
+    if (!user) {
+      console.log(info.message);
+      return res.status(403).send(info.message);
+    }
+
+    // user정보 session storage에 저장
+    return req.login(user, (err) => {
+      if (err) {
+        console.error(err);
+        return next(err);
+      }
+
+      return res.status(200).send("로그인 성공");
+    });
+  })(req, res, next);
+});
+
+router.post("/logout", isLoggedIn, function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).send("로그아웃 성공");
+  });
+});
+
+router.post("/signup", isNotLoggedIn, async (req, res, next) => {
   try {
     const user = await userModel.findOne({ userid: req.body.userid });
     if (user) {
@@ -34,37 +66,7 @@ router.post("/sign-up", isNotLoggedIn, async (req, res, next) => {
   }
 });
 
-router.post("/login", isNotLoggedIn, (req, res, next) => {
-  console.log(req.body);
-  passport.authenticate("local", (authError, user, info) => {
-    if (authError) {
-      // done(err)
-      console.error(authError);
-      return next(authError);
-    }
-    if (!user) {
-      console.log(info.message);
-      return res.status(403).send(info.message);
-    }
-
-    return req.login(user, (loginError) => {
-      // passport.deserializeUser -> done(err)
-      if (loginError) {
-        console.error(loginError);
-        return next(loginError);
-      }
-
-      return res.status(200).send("로그인 성공");
-    });
-  })(req, res, next);
-});
-
-router.get("/logout", isLoggedIn, (req, res) => {
-  req.logout();
-  req.session.destroy();
-  res.status(200).send("로그아웃 성공");
-});
-
+// 세션 저장소에 사용자 ID가 있다면 DB를 조회하여 req.user에 정보를 삽입 (deserializeUser() 함수
 router.get("/user", isLoggedIn, (req, res) => {
   res.status(200).send(req.user);
 });

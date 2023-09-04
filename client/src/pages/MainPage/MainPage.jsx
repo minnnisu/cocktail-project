@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../../components/UI/Button/Button";
 import { useNavigate } from "react-router-dom";
-import { useUserDataGetApi } from "../../hooks/useAuthApi";
+import { useLogoutPostApi, useUserDataGetApi } from "../../hooks/useAuthApi";
 
 function MainPage() {
   const { isLoading, isSuccess, isError, data } = useUserDataGetApi();
@@ -14,7 +14,13 @@ function MainPage() {
   };
 
   const handleSignUpMove = () => {
-    navigate("/sign-up");
+    navigate("/signup");
+  };
+
+  const logoutMutation = useLogoutPostApi();
+
+  const handleLogoutButtonClick = () => {
+    logoutMutation.mutate();
   };
 
   return (
@@ -28,6 +34,7 @@ function MainPage() {
       </>
       <Button onClickButton={handleLoginMove}>로그인</Button>
       <Button onClickButton={handleSignUpMove}>회원가입</Button>
+      <Button onClickButton={handleLogoutButtonClick}>로그아웃</Button>
     </div>
   );
 }

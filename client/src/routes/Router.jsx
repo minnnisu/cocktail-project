@@ -14,7 +14,7 @@ function Router() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/alcohol/form" element={<AlcoholAppendFormPage />} />
           <Route path="/alcohol/viewer" element={<AlcoholViewerPage />} />
         </Routes>

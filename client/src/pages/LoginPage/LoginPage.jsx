@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLogInPostApi } from "../../hooks/useAuthApi";
+import { useLoginPostApi } from "../../hooks/useAuthApi";
 
 function LoginPage() {
   const [loginFormData, setLoginFormData] = useState({
@@ -15,7 +15,7 @@ function LoginPage() {
     });
   };
 
-  const loginMutation = useLogInPostApi();
+  const loginMutation = useLoginPostApi();
 
   const handleSubmit = (e) => {
     e.preventDefault();
