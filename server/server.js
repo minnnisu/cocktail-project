@@ -66,8 +66,28 @@ app.use("/static", staticRouter);
 app.use("/api/alcohol-management", alcoholRouter);
 app.use("/api/auth", authRouter);
 
+// error handling 미들웨어
+app.use((err, req, res, next) => {
+  if (err.name === "ValidationError") {
+    return res.status(403).json({ name: err.name, message: err.message });
+  } else if (err.name === "MongoServerError" && err.code === 11000) {
+    if (Object.values(err.keyValue)[0]) {
+      return res.status(403).json({
+        name: "DuplicationError",
+        message: `${Object.values(err.keyValue)[0]}는 이미 있습니다.`,
+      });
+    }
+    return res
+      .status(403)
+      .json({ name: "DuplicationError", message: "중복되는 값이 있습니다" });
+  } else if (err.name === "MongoError") {
+    return res.status(400).json({ message: err.message });
+  }
+
+  next();
+});
+
 // 정적 파일 제공
-//사용자가 127.0.0.1:3000/images/cat.jpg 로 접근한다면, 해당 파일을 public/images/cat.jpg에 존재하는지 검색한다.
 app.use(express.static("public"));
 
 app.listen(port, () => {

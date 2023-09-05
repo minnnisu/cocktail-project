@@ -1,4 +1,4 @@
-const AlcoholService = require("../../service/alcoholService");
+const AlcoholService = require("../../controller/alcoholService");
 const alcoholModel = require("../../models/alcohol");
 const nonAlcoholModel = require("../../models/nonAlcohol");
 const cocktailModel = require("../../models/cocktail");
@@ -111,27 +111,6 @@ router.post("/cocktail/image", upload.single("image"), (req, res, next) => {
       console.error(err);
       next(err);
     });
-});
-
-// error handling 미들웨어
-router.use((err, req, res, next) => {
-  if (err.name === "ValidationError") {
-    return res.status(403).json({ name: err.name, message: err.message });
-  } else if (err.name === "MongoServerError" && err.code === 11000) {
-    if (Object.values(err.keyValue)[0]) {
-      return res.status(403).json({
-        name: "DuplicationError",
-        message: `${Object.values(err.keyValue)[0]}는 이미 있습니다.`,
-      });
-    }
-    return res
-      .status(403)
-      .json({ name: "DuplicationError", message: "중복되는 값이 있습니다" });
-  } else if (err.name === "MongoError") {
-    return res.status(400).json({ message: err.message });
-  }
-
-  next();
 });
 
 module.exports = router;
