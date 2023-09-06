@@ -46,7 +46,7 @@ app.use(function (req, res, next) {
 
 mongoose
   .connect(config.mongodb_url, {
-    dbName: "cocktail_project",
+    dbName: "cocktail_project_dev",
     autoIndex: true,
   })
   .then(() => {
@@ -82,6 +82,8 @@ app.use((err, req, res, next) => {
       .json({ name: "DuplicationError", message: "중복되는 값이 있습니다" });
   } else if (err.name === "MongoError") {
     return res.status(400).json({ message: err.message });
+  } else if (err.name === "NotFoundError") {
+    return res.status(404).json({ NotFoundError: err.message });
   }
 
   next();
