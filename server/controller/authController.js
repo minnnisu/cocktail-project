@@ -62,7 +62,3 @@ exports.signup = async function (req, res, next) {
     return next(error);
   }
 };
-
-exports.getUser = function (req, res, next) {
-  res.status(200).send(req.user);
-};
