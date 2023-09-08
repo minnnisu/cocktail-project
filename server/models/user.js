@@ -13,10 +13,10 @@ const CocktailSchema = new Schema(
 // Define Schemes
 const UserSchema = new Schema(
   {
-    userid: { type: String, required: true, unique: true, sparse: true },
+    id: { type: String, required: true, unique: true, sparse: true },
     password: { type: String, required: true },
     username: { type: String, required: true },
-    alias: { type: String, required: true, unique: true, sparse: true },
+    nickname: { type: String, required: true, unique: true, sparse: true },
     telephone: { type: String, required: true },
     email: { type: String, required: true },
     makedCocktails: [CocktailSchema],

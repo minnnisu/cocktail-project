@@ -1,4 +1,3 @@
-import useApiGetQuery from "./useApiGetQuery";
 import useApiPostQuery from "./useApiPostQuery";
 
 export const useSignUpPostApi = () => {
@@ -15,7 +14,7 @@ export const useSignUpPostApi = () => {
 
 export const useLoginPostApi = () => {
   const onError = (error) => {
-    alert(error.response.data.message);
+    alert(error.response.data);
   };
 
   const onSuccess = (data) => {
@@ -27,7 +26,7 @@ export const useLoginPostApi = () => {
 
 export const useLogoutPostApi = () => {
   const onError = (error) => {
-    alert(error.response.data.message);
+    alert(error.response.data);
   };
 
   const onSuccess = (data) => {
@@ -35,12 +34,4 @@ export const useLogoutPostApi = () => {
   };
 
   return useApiPostQuery("/api/auth/logout", onSuccess, onError);
-};
-
-const filterAlcohol = (user) => {
-  return user;
-};
-
-export const useUserDataGetApi = () => {
-  return useApiGetQuery("getUserData", "/api/auth/user", filterAlcohol);
 };

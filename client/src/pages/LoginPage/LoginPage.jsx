@@ -26,7 +26,7 @@ function LoginPage() {
       <h2>로그인</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">사용자 이름:</label>
+          <label htmlFor="username">아이디:</label>
           <input
             type="text"
             id="username"

@@ -3,11 +3,9 @@ const local = require("./localStrategy");
 
 module.exports = () => {
   passport.serializeUser(function (user, cb) {
+    const { id, username } = user;
     process.nextTick(function () {
-      console.log(
-        `serializeUser: userid(${user.id}), username(${user.username})`
-      );
-      cb(null, { id: user.userid, username: user.username });
+      cb(null, { id, username });
     });
   });
 

@@ -3,10 +3,10 @@ import { useSignUpPostApi } from "../../hooks/useAuthApi";
 
 const SignUpPage = () => {
   const [signUpFormData, setsignUpFormData] = useState({
-    userid: "",
+    id: "",
     password: "",
     username: "",
-    alias: "",
+    nickname: "",
     email: "",
     telephone: "",
   });
@@ -25,7 +25,7 @@ const SignUpPage = () => {
     e.preventDefault();
 
     // const formData = new FormData();
-    // formData.append("userid", signUpFormData.userid);
+    // formData.append("id", signUpFormData.id);
     // formData.append("password", signUpFormData.password);
     // formData.append("name", signUpFormData.name);
     // formData.append("nickname", signUpFormData.nickname);
@@ -41,12 +41,12 @@ const SignUpPage = () => {
       <h2>회원가입</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="userid">아이디:</label>
+          <label htmlFor="id">아이디:</label>
           <input
             type="text"
-            id="userid"
-            name="userid"
-            value={signUpFormData.userid}
+            id="id"
+            name="id"
+            value={signUpFormData.id}
             onChange={handleChange}
             required
           />
@@ -74,12 +74,12 @@ const SignUpPage = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="alias">닉네임:</label>
+          <label htmlFor="nickname">닉네임:</label>
           <input
             type="text"
-            id="alias"
-            name="alias"
-            value={signUpFormData.alias}
+            id="nickname"
+            name="nickname"
+            value={signUpFormData.nickname}
             onChange={handleChange}
             required
           />

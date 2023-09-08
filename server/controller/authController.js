@@ -37,19 +37,19 @@ exports.logout = function (req, res, next) {
 
 exports.signup = async function (req, res, next) {
   try {
-    const user = await userModel.findOne({ userid: req.body.userid });
+    const user = await userModel.findOne({ id: req.body.id });
     if (user) {
       return next(new ValidationError("이미 존재하는 회원입니다."));
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 12); //hash(패스워드, salt횟수)
-    const { userid, username, alias, telephone, email, created_at } = req.body;
+    const { id, username, nickname, telephone, email, created_at } = req.body;
 
     const newUser = new userModel({
-      userid,
+      id,
       password: hashedPassword,
       username,
-      alias,
+      nickname,
       telephone,
       email,
       created_at,
