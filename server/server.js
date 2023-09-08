@@ -14,6 +14,7 @@ const alcoholRouter = require("./api/routes/alcoholRouter");
 const staticRouter = require("./api/routes/staticRouter");
 const authRouter = require("./api/routes/authRouter");
 const userRouter = require("./api/routes/userRouter");
+const postRouter = require("./api/routes/postRouter");
 
 const app = express();
 const port = 8080;
@@ -67,6 +68,7 @@ app.use("/static", staticRouter);
 app.use("/api/alcohol-management", alcoholRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/post", postRouter);
 
 // error handling 미들웨어
 app.use((err, req, res, next) => {
