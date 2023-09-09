@@ -5,7 +5,9 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const MemoryStore = require("memorystore")(session);
+// pass the session to the connect sqlite3 module
+// allowing it to inherit from session.Store
+var SQLiteStore = require("connect-sqlite3")(session);
 const passport = require("passport");
 const passportConfig = require("./api/passport");
 const config = require("./config/config");
@@ -29,9 +31,7 @@ app.use(
     secret: config.cookie_id,
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // don't create session until something stored
-    store: new MemoryStore({
-      checkPeriod: 86400000, // 24 hours (= 24 * 60 * 60 * 1000 ms)
-    }),
+    store: new SQLiteStore({ db: "sessions.db", dir: "./sessions" }),
     cookie: { maxAge: 3600000 }, // 1 hours (= 1 * 60 * 60 * 1000 ms)
   })
 );
