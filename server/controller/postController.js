@@ -25,7 +25,7 @@ function addPost(user, title, content, files) {
         newPost.images.map(async (filename) => {
           fs.unlink(`static/image/post/${filename}`, function (err) {
             if (err) {
-              console.log("이미지 삭제 에러: ", err);
+              console.error("이미지 삭제 에러: ", err);
             }
           });
         })
