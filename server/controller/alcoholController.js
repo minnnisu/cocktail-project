@@ -226,6 +226,8 @@ async function addCocktailImage(filter, file) {
     throw new ValidationError("이미지가 없습니다.");
   }
 
+  console.log(file.path);
+
   return cocktailModel.findOneAndUpdate(
     makeFilter(filter),
     { $set: { image_path: `${file.path}` } },

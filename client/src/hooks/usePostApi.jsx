@@ -5,10 +5,17 @@ export const usePostPostApi = () => {
     alert(error.response.data.message);
   };
 
-  const onSuccess = (data) => {
-    console.log(data);
+  return useApiPostQuery("/api/post/", null, onError);
+};
+
+export const usePostImagesPostApi = () => {
+  const onError = (error) => {
+    alert(error.response.data.message);
+  };
+
+  const onSuccess = () => {
     alert("게시물을 등록하였습니다.");
   };
 
-  return useApiPostQuery("/api/post/", onSuccess, onError);
+  return useApiPostQuery("/api/post/image", onSuccess, onError);
 };

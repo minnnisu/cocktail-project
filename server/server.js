@@ -1,6 +1,7 @@
 const express = require("express");
-var logger = require("morgan");
-var cors = require("cors");
+const logger = require("morgan");
+const cors = require("cors");
+const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -64,6 +65,9 @@ app.use(
   })
 );
 
+// 정적 파일 제공
+app.use(express.static("public"));
+
 app.use("/static", staticRouter);
 app.use("/api/alcohol-management", alcoholRouter);
 app.use("/api/auth", authRouter);
@@ -90,11 +94,9 @@ app.use((err, req, res, next) => {
     return res.status(404).json({ NotFoundError: err.message });
   }
 
-  next();
+  console.error(err);
+  res.send(err);
 });
-
-// 정적 파일 제공
-app.use(express.static("public"));
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
