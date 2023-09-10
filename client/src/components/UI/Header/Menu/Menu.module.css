@@ -1,0 +1,11 @@
+.menu_container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+
+.menu_container > li {
+  margin: 10px;
+  cursor: pointer;
+}

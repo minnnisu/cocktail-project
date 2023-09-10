@@ -1,7 +1,7 @@
 const fs = require("fs");
 const postModel = require("../models/post");
 const userModel = require("../models/user");
-const { ValidationError, NotFoundError } = require("./ErrorHandler");
+const { ValidationError } = require("./ErrorHandler");
 
 function readPostWithUserid(userId) {
   return postModel.find({ author: userId });

@@ -1,0 +1,10 @@
+.image_list_container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image_wrapper img {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
