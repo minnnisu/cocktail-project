@@ -2,15 +2,11 @@ import Logo from "./Logo/Logo";
 import Menu from "./Menu/Menu";
 import styles from "./Header.module.css";
 
-function Header({ setSelectedMenu, isLogined, setIsLogined }) {
+function Header({ user, setUser }) {
   return (
     <div className={styles.header_container}>
-      <Logo setSelectedMenu={setSelectedMenu} />
-      <Menu
-        isLogined={isLogined}
-        setIsLogined={setIsLogined}
-        setSelectedMenu={setSelectedMenu}
-      />
+      <Logo />
+      <Menu user={user} setUser={setUser} />
     </div>
   );
 }

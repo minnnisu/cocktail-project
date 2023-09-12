@@ -4,8 +4,9 @@ import styles from "./LoginForm.module.css";
 import Input from "../UI/Input/Input";
 import Outer from "../UI/Outer/Outer";
 import Button from "../UI/Button/Button";
+import { useNavigate } from "react-router-dom";
 
-function LoginForm({ setIsLogined, setSelectedMenu }) {
+function LoginForm({ setUser }) {
   const [loginFormData, setLoginFormData] = useState({
     username: "",
     password: "",
@@ -20,12 +21,17 @@ function LoginForm({ setIsLogined, setSelectedMenu }) {
   };
 
   const loginMutation = useLoginPostApi();
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     loginMutation.mutate(loginFormData, {
       onSuccess: function () {
-        setIsLogined(true);
-        setSelectedMenu(1);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ username: loginFormData.username })
+        );
+        setUser(loginFormData.username);
+        navigate("/");
       },
     });
   };

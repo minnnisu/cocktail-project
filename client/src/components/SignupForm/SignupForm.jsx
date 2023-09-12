@@ -4,6 +4,7 @@ import Outer from "../UI/Outer/Outer";
 import Input from "../UI/Input/Input";
 import { useSignUpPostApi } from "../../hooks/useAuthApi";
 import Button from "../UI/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm() {
   const [signUpFormData, setsignUpFormData] = useState({
@@ -25,8 +26,11 @@ function SignupForm() {
 
   const signUpMutation = useSignUpPostApi();
 
+  const navigate = useNavigate();
+
   const handleSubmit = () => {
     signUpMutation.mutate(signUpFormData);
+    navigate("/");
   };
 
   return (

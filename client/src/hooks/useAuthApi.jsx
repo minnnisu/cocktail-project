@@ -14,7 +14,7 @@ export const useSignUpPostApi = () => {
 
 export const useLoginPostApi = () => {
   const onError = (error) => {
-    alert(error.response.data);
+    alert(error.response.data.message);
   };
 
   const onSuccess = (data) => {
@@ -26,7 +26,7 @@ export const useLoginPostApi = () => {
 
 export const useLogoutPostApi = () => {
   const onError = (error) => {
-    alert(error.response.data);
+    alert(error.response.data.message);
   };
 
   const onSuccess = (data) => {
