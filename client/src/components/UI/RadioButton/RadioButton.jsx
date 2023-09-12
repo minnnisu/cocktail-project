@@ -1,5 +1,5 @@
 import { useState } from "react";
-import style from "./RadioButton.module.css";
+import styles from "./RadioButton.module.css";
 
 function RadioButton({ selectedValue, onClickButton, children }) {
   const isSelected = children === selectedValue;
@@ -9,10 +9,10 @@ function RadioButton({ selectedValue, onClickButton, children }) {
   };
 
   return (
-    <div className={style.radio_button_container}>
-      <div className={style.outer_circle} onClick={handleButtonClick}>
-        {isSelected && <div className={style.button_on}></div>}
-        {!isSelected && <div className={style.button_off}></div>}
+    <div className={styles.radio_button_container}>
+      <div className={styles.outer_circle} onClick={handleButtonClick}>
+        {isSelected && <div className={styles.button_on}></div>}
+        {!isSelected && <div className={styles.button_off}></div>}
       </div>
       <div className="value">{children}</div>
     </div>

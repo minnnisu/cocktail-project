@@ -1,16 +1,16 @@
 import KeyValueItem from "../../UI/KeyValueItem/KeyValueItem";
 import Title from "../../UI/Title/Title";
-import style from "./CocktailAlcoholList.module.css";
+import styles from "./CocktailAlcoholList.module.css";
 
 function CocktailAlcoholList({ alcohols }) {
   return (
     <>
-      <div className={style.title_container}>
+      <div className={styles.title_container}>
         <Title size={4}>술</Title>
       </div>
-      <div className={style.alcohols_container}>
+      <div className={styles.alcohols_container}>
         {alcohols.map((alcohol, alcoholIndex) => (
-          <div key={alcoholIndex} className={style.alcohol_container}>
+          <div key={alcoholIndex} className={styles.alcohol_container}>
             {alcohol.subAlcoholName ? (
               <KeyValueItem
                 name={"이름"}

@@ -1,4 +1,4 @@
-import style from "./Textarea.module.css";
+import styles from "./Textarea.module.css";
 
 function Textarea({ onChangeTextarea }) {
   const handleTextareaChange = (e) => {
@@ -7,7 +7,7 @@ function Textarea({ onChangeTextarea }) {
 
   return (
     <textarea
-      className={style.textarea}
+      className={styles.textarea}
       onChange={handleTextareaChange}
     ></textarea>
   );

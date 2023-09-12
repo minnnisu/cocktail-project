@@ -1,5 +1,5 @@
 import Button from "../../Button/Button";
-import style from "./ImageList.module.css";
+import styles from "./ImageList.module.css";
 
 function ImgaeList({ images, setImages }) {
   const handleImageDelete = (index) => {
@@ -8,9 +8,9 @@ function ImgaeList({ images, setImages }) {
     setImages(newImages);
   };
   return (
-    <div className={style.image_list_container}>
+    <div className={styles.image_list_container}>
       {images.map((image, index) => (
-        <div className={style.image_wrapper} key={index}>
+        <div className={styles.image_wrapper} key={index}>
           <img src={URL.createObjectURL(image)} alt={`Image ${index}`} />
           <Button
             backgroundColor={"red"}

@@ -1,7 +1,12 @@
 .prepare_container {
+  margin-top: 200px;
   text-align: center;
 }
 
 .header {
   font-weight: 600;
+}
+
+.prepare_container img {
+  width: 300px;
 }

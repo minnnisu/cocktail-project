@@ -1,4 +1,4 @@
-import style from "./Logo.module.css";
+import styles from "./Logo.module.css";
 
 function Logo({ size = "big" }) {
   function getSize() {
@@ -15,7 +15,7 @@ function Logo({ size = "big" }) {
   }
 
   return (
-    <div className={style.logo_container} style={{ fontSize: getSize() }}>
+    <div className={styles.logo_container} styles={{ fontSize: getSize() }}>
       오늘의 한잔
     </div>
   );

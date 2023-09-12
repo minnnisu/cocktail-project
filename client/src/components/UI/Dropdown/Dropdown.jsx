@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import style from "./Dropdown.module.css";
+import styles from "./Dropdown.module.css";
 
 function Dropdown({ title, name, options, handleSelectedValueChange }) {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -10,10 +10,10 @@ function Dropdown({ title, name, options, handleSelectedValueChange }) {
   };
 
   return (
-    <div className={style.dropdown_container}>
-      <div className={style.dropdown_name}>{title}</div>
+    <div className={styles.dropdown_container}>
+      <div className={styles.dropdown_name}>{title}</div>
       <select
-        className={style.dropdown_value}
+        className={styles.dropdown_value}
         name={name}
         value={selectedOption}
         onChange={handleOptionChange}

@@ -1,6 +1,8 @@
-import style from "./AlcoholAppendContainerLayout.module.css";
+import styles from "./AlcoholAppendContainerLayout.module.css";
 
 function CocktailAppendContainerLayout({ children }) {
-  return <div className={style.cocktail_append_from_container}>{children}</div>;
+  return (
+    <div className={styles.cocktail_append_from_container}>{children}</div>
+  );
 }
 export default CocktailAppendContainerLayout;

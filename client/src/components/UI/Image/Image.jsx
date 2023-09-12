@@ -1,4 +1,4 @@
-import style from "./Image.module.css";
+import styles from "./Image.module.css";
 import ImagePreview from "./ImagePreview/ImagePreview";
 
 function Image({ ImageRef, image, setImage }) {
@@ -15,9 +15,9 @@ function Image({ ImageRef, image, setImage }) {
   };
 
   return (
-    <div className={style.image_container}>
+    <div className={styles.image_container}>
       <input
-        className={style.image_input}
+        className={styles.image_input}
         type="file"
         accept="image/*"
         ref={ImageRef}

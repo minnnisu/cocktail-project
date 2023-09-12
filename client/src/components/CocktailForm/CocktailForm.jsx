@@ -1,4 +1,4 @@
-import Outer from "../../layouts/AlcoholAppendFormLayout/Outer";
+import Outer from "../../components/UI/Outer/Outer";
 import Input from "../UI/Input/Input";
 import MultipleSelectChipForm from "../CocktailForm/MultipleSelectChipForm/MultipleSelectChipForm";
 import AlcoholIngredientForm from "../CocktailForm/IngredientForm/AlcoholIngredientForm";

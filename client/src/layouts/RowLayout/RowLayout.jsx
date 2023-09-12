@@ -1,7 +1,7 @@
-import style from "./RowLayout.module.css";
+import styles from "./RowLayout.module.css";
 
 function RowLayout({ children }) {
-  return <div className={style.scroll_container}>{children}</div>;
+  return <div className={styles.scroll_container}>{children}</div>;
 }
 
 export default RowLayout;

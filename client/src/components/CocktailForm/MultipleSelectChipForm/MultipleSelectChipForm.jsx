@@ -2,7 +2,7 @@ import { useState } from "react";
 import MultipleSelectChips from "../../UI/MultipleSelectChip/MultipleSelectChips/MultipleSelectChips";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
-import style from "./MultipleSelectChipForm.module.css";
+import styles from "./MultipleSelectChipForm.module.css";
 
 function MultipleSelectChipForm({ title, selectChips, setSelectChips }) {
   const [inputValue, setInputValue] = useState("");
@@ -29,8 +29,9 @@ function MultipleSelectChipForm({ title, selectChips, setSelectChips }) {
         name={title.en}
         value={inputValue}
         onChangeValue={handleInputValueChange}
+        isInlineFlex={true}
       />
-      <div className={style.button_container}>
+      <div className={styles.button_container}>
         <Button onClickButton={handleInputValueSubmit}>{"추가"}</Button>
       </div>
     </>

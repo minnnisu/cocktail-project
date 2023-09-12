@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Outer from "../../layouts/AlcoholAppendFormLayout/Outer";
+import Outer from "../../components/UI/Outer/Outer";
 import Input from "../UI/Input/Input";
 import SubAlcoholForm from "./SubAlcoholForm";
 import Button from "../UI/Button/Button";
-import style from "./AlcoholForm.module.css";
+import styles from "./AlcoholForm.module.css";
 import { useAlcoholPostApi } from "../../hooks/useAlcoholApi";
 
 function AlcoholForm() {
@@ -83,7 +83,7 @@ function AlcoholForm() {
         setSubAlcohols={setSubAlcohols}
       />
       <Button onClickButton={handleInputValueSubmit}>{"등록하기"}</Button>
-      <div className={style.caution}>
+      <div className={styles.caution}>
         주의! 하위 알코올이 있을 경우 상위 알코올의 도수는 공란으로 둬야합니다.
       </div>
     </Outer>

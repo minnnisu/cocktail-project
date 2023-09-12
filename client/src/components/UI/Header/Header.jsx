@@ -1,14 +1,11 @@
 import Logo from "./Logo/Logo";
 import Menu from "./Menu/Menu";
-import style from "./Header.module.css";
-import { useState } from "react";
+import styles from "./Header.module.css";
 
-function Header({ setSelectedMenu }) {
-  const [isLogined, setIsLogined] = useState(false);
-
+function Header({ setSelectedMenu, isLogined, setIsLogined }) {
   return (
-    <div className={style.header_container}>
-      <Logo />
+    <div className={styles.header_container}>
+      <Logo setSelectedMenu={setSelectedMenu} />
       <Menu
         isLogined={isLogined}
         setIsLogined={setIsLogined}

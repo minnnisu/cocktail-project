@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from "react";
-import style from "./DynamicInput.module.css";
+import styles from "./DynamicInput.module.css";
 import Button from "../../Button/Button";
 import Input from "../../Input/Input";
 import Title from "../../Title/Title";
@@ -30,7 +30,7 @@ function DyanmicInput({ headerTitle, inputField, forms, setForms }) {
 
   return (
     <div>
-      <div className={style.header}>
+      <div className={styles.header}>
         <Title size={4}>{headerTitle}</Title>
         <Button backgroundColor="blue" onClickButton={handleAddForm}>
           추가
@@ -41,7 +41,7 @@ function DyanmicInput({ headerTitle, inputField, forms, setForms }) {
           {inputField.map((field, indexField) => (
             <Fragment key={indexField}>
               {field.type === "dropdown" && (
-                <div className={style.input_container}>
+                <div className={styles.input_container}>
                   <Dropdown
                     title={field.title}
                     name={field.name}
@@ -51,7 +51,7 @@ function DyanmicInput({ headerTitle, inputField, forms, setForms }) {
                 </div>
               )}
               {!field.type && (
-                <div className={style.input_container}>
+                <div className={styles.input_container}>
                   <Input
                     title={field.title}
                     name={field.name}

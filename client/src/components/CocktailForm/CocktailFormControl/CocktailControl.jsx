@@ -4,7 +4,7 @@ import {
   useCocktailPostApi,
 } from "../../../hooks/useCocktailApi";
 import Button from "../../UI/Button/Button";
-import style from "./CocktailControl.module.css";
+import styles from "./CocktailControl.module.css";
 
 function CocktailControl({ submitData, submitImageData }) {
   const checkSubmitDataVaild = () => {
@@ -152,7 +152,7 @@ function CocktailControl({ submitData, submitImageData }) {
     }
   };
   return (
-    <div className={style.submit_button_container}>
+    <div className={styles.submit_button_container}>
       <Button onClickButton={handleAlcoholViewerMove}>저장된 정보 확인</Button>
       <Button onClickButton={handleCocktailSubmit}>칵테일 등록하기</Button>
     </div>

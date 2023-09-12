@@ -1,4 +1,4 @@
-import style from "./Title.module.css";
+import styles from "./Title.module.css";
 
 function Title({ size, children }) {
   const getTitleSize = () => {
@@ -21,7 +21,7 @@ function Title({ size, children }) {
   };
 
   return (
-    <div className={style.title} style={{ fontSize: `${getTitleSize()}px` }}>
+    <div className={styles.title} style={{ fontSize: `${getTitleSize()}px` }}>
       {children}
     </div>
   );

@@ -1,4 +1,4 @@
-import style from "./Buttons.module.css";
+import styles from "./Buttons.module.css";
 import Button from "../../../UI/Button/Button";
 
 function Buttons({ ImageRef, setImage }) {
@@ -16,7 +16,7 @@ function Buttons({ ImageRef, setImage }) {
   };
 
   return (
-    <div className={style.buttons_container}>
+    <div className={styles.buttons_container}>
       <Button onClickButton={handleImageApppendButtonClick}>{"추가"}</Button>
       <Button
         backgroundColor={"red"}

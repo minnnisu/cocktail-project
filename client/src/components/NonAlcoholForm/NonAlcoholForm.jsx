@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Outer from "../../layouts/AlcoholAppendFormLayout/Outer";
+import Outer from "../../components/UI/Outer/Outer";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import { useNonAlcoholPostApi } from "../../hooks/useNonAlcoholApi";

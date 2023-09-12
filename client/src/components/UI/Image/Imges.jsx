@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import style from "./Image.module.css";
+import styles from "./Image.module.css";
 import Button from "../Button/Button";
 import ImgaeList from "./ImageList/ImageList";
 
@@ -22,10 +22,10 @@ function Images({ images, setImages }) {
 
   return (
     <div>
-      <div className={style.image_container}>
+      <div className={styles.image_container}>
         <Button onClickButton={handleImageApppendButtonClick}>{"추가"}</Button>
         <input
-          className={style.image_input}
+          className={styles.image_input}
           type="file"
           accept="image/*"
           multiple

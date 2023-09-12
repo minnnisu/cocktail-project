@@ -1,5 +1,5 @@
 import MultipleSelectChip from "../MultipleSelectChip";
-import style from "./MultipleSelectChips.module.css";
+import styles from "./MultipleSelectChips.module.css";
 
 function MultipleSelectChips({ selectChips, setSelectChips }) {
   const handleRemoveButtonClick = (targetIndex) => {
@@ -7,7 +7,7 @@ function MultipleSelectChips({ selectChips, setSelectChips }) {
   };
 
   return (
-    <div className={style.multiple_select_chips_container}>
+    <div className={styles.multiple_select_chips_container}>
       {selectChips.map((selectChip, index) => (
         <div key={index} className="d-flex">
           <MultipleSelectChip

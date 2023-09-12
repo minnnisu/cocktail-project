@@ -1,4 +1,4 @@
-import style from "./PostUploader.module.css";
+import styles from "./PostUploader.module.css";
 
 function PostUploader(params) {
   const [title, setTitle] = useState("");
@@ -19,7 +19,7 @@ function PostUploader(params) {
   return (
     <>
       <div>
-        <div className={style.title_container}>
+        <div className={styles.title_container}>
           <Input
             title={"제목"}
             name={"title"}

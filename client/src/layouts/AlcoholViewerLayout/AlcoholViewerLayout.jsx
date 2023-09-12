@@ -1,7 +1,7 @@
-import style from "./AlcoholViewerLayout.module.css";
+import styles from "./AlcoholViewerLayout.module.css";
 
 function AlcoholViewerLayout({ children }) {
-  return <div className={style.alcohol_viewer_layout}>{children}</div>;
+  return <div className={styles.alcohol_viewer_layout}>{children}</div>;
 }
 
 export default AlcoholViewerLayout;

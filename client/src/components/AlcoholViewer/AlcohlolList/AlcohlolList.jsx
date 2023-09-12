@@ -5,10 +5,10 @@ import SubAlcoholEditor from "../../AlcoholEditor/SubAlcoholEditor";
 import Button from "../../UI/Button/Button";
 import KeyValueItem from "../../UI/KeyValueItem/KeyValueItem";
 import Title from "../../UI/Title/Title";
-import style from "./AlcohlolList.module.css";
+import styles from "./AlcohlolList.module.css";
 import SubAlcoholList from "./SubAlcoholList/SubAlcoholList";
 import IngredientCocktailMap from "../../IngredientCocktailMap/IngredientCocktailMap";
-import Outer from "../../../layouts/AlcoholAppendFormLayout/Outer";
+import Outer from "../../../components/UI/Outer/Outer";
 
 function AlcohlolList({ alcohols }) {
   const [showAbvEditor, setAbvEditorShow] = useState(false);
@@ -27,14 +27,14 @@ function AlcohlolList({ alcohols }) {
         setShow={setSubAlcoholEditorShow}
         id={alcoholID}
       />
-      <div className={style.title_container}>
+      <div className={styles.title_container}>
         <Title size={3}>술 목록</Title>
       </div>
       <RowLayout>
         {alcohols.map((alcohol, alcoholIndex) => (
           <Outer key={alcoholIndex} title={alcohol.name} size={4}>
             {alcohol.subAlcohols.length < 1 ? (
-              <div className={style.alcohol_container}>
+              <div className={styles.alcohol_container}>
                 <KeyValueItem name={"도수"} value={alcohol.abv} />
                 <IngredientCocktailMap cocktails={alcohol.cocktails} />
               </div>

@@ -1,6 +1,11 @@
-import style from "./Button.module.css";
+import styles from "./Button.module.css";
 
-function Button({ onClickButton, children, backgroundColor = "blue" }) {
+function Button({
+  onClickButton,
+  children,
+  backgroundColor = "blue",
+  buttonWidth,
+}) {
   const getBackgroundColorCode = () => {
     switch (backgroundColor) {
       case "blue":
@@ -12,13 +17,19 @@ function Button({ onClickButton, children, backgroundColor = "blue" }) {
     }
   };
 
+  const buttonClass = [styles.button_container];
+
+  if (buttonWidth === "large") {
+    buttonClass.push(styles.large);
+  }
+
   return (
     <div
       style={{ backgroundColor: `${getBackgroundColorCode()}` }}
-      className={style.button_container}
+      className={buttonClass.join(" ")}
       onClick={onClickButton}
     >
-      <div className={style.value}>{children}</div>
+      <div className={styles.value}>{children}</div>
     </div>
   );
 }

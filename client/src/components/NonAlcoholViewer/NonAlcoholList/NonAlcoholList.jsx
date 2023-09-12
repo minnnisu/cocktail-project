@@ -1,14 +1,13 @@
 import RowLayout from "../../../layouts/RowLayout/RowLayout";
 import IngredientCocktailMap from "../../IngredientCocktailMap/IngredientCocktailMap";
-import KeyValueItem from "../../UI/KeyValueItem/KeyValueItem";
 import Title from "../../UI/Title/Title";
-import style from "./NonAlcoholList.module.css";
+import styles from "./NonAlcoholList.module.css";
+import Outer from "../../../components/UI/Outer/Outer";
 
-import Outer from "../../../layouts/AlcoholAppendFormLayout/Outer";
 function NonAlcoholList({ nonAlcohols }) {
   return (
     <>
-      <div className={style.title_container}>
+      <div className={styles.title_container}>
         <Title size={3}>기타재료 목록</Title>
       </div>
       <RowLayout>
