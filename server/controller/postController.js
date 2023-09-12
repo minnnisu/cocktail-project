@@ -2,9 +2,14 @@ const fs = require("fs");
 const postModel = require("../models/post");
 const userModel = require("../models/user");
 const { ValidationError } = require("./ErrorHandler");
+const path = require("path");
 
 function readPostWithUserid(userId) {
   return postModel.find({ author: userId });
+}
+
+function readPostAll(userId) {
+  return postModel.find({});
 }
 
 function addPost(user, title, content, files) {
@@ -38,7 +43,10 @@ function addPost(user, title, content, files) {
 
 exports.getPost = async function (req, res, next) {
   try {
-    if (req.query.userId) {
+    if (Object.keys(req.query).length === 0) {
+      const posts = await readPostAll();
+      return res.status(200).send(posts);
+    } else if (req.query.userId) {
       const posts = await readPostWithUserid(query.userId);
       return res.status(200).send(posts);
     } else {
@@ -66,4 +74,20 @@ exports.postPost = async function (req, res, next) {
   } catch (error) {
     next(error);
   }
+};
+
+exports.getPostIamge = function (req, res) {
+  const imageName = req.params.imageName;
+  const imagePath = path.join("./static/image/post/", imageName);
+  console.log(imagePath);
+
+  fs.readFile(imagePath, (err, data) => {
+    if (err) {
+      res.status(404).send("Image not found");
+      console.log(err);
+    } else {
+      res.writeHead(200, { "Content-Type": "image/jpeg" }); // 이미지의 Content-Type을 설정
+      res.end(data); // 이미지 데이터를 클라이언트에게 전송
+    }
+  });
 };
