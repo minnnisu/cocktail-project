@@ -14,6 +14,9 @@ function Menu({ user, SetUser }) {
       <li className={styles.random} onClick={() => navigate("/random")}>
         랜덤
       </li>
+      <li className={styles.random} onClick={() => navigate("/post")}>
+        게시판
+      </li>
       {user ? (
         <LoginedMenu user={user} serUser={SetUser} />
       ) : (

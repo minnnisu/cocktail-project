@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Mypage from "../pages/MyPage/Mypage";
 import { useEffect, useState } from "react";
 import Header from "../components/UI/Header/Header";
+import PostPage from "../pages/PostPage/PostPage";
 
 function Router() {
   const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ function Router() {
           <Route path="/" element={<Home />} />
           <Route path="/random" element={<RandomPage />} />
           <Route path="/recipe" element={<RecipePage />} />
+          <Route path="/post" element={<PostPage />} />
           <Route path="/login" element={<LoginPage setUser={setUser} />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/mypage" element={<Mypage />} />

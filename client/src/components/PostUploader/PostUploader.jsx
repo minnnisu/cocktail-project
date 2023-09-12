@@ -1,4 +1,11 @@
+import { useState } from "react";
 import styles from "./PostUploader.module.css";
+import { usePostPostApi } from "../../hooks/usePostApi";
+import Input from "../../components/UI/Input/Input";
+import Textarea from "../../components/UI/Textarea/Textarea";
+import Button from "../../components/UI/Button/Button";
+import Images from "../../components/UI/Image/Imges";
+import Outer from "../../components/UI/Outer/Outer";
 
 function PostUploader(params) {
   const [title, setTitle] = useState("");
@@ -18,7 +25,7 @@ function PostUploader(params) {
   };
   return (
     <>
-      <div>
+      <Outer title={"게시물 등록"}>
         <div className={styles.title_container}>
           <Input
             title={"제목"}
@@ -30,9 +37,9 @@ function PostUploader(params) {
         <div>
           <Textarea onChangeTextarea={setContent} />
         </div>
+        <Images images={images} setImages={setImages} />
         <Button onClickButton={handlePostButtonClick}>게시물 등록</Button>
-      </div>
-      <Images images={images} setImages={setImages} />
+      </Outer>
     </>
   );
 }
