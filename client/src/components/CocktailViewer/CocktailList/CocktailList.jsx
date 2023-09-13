@@ -18,7 +18,7 @@ function CocktailList({ cocktails }) {
       <RowLayout>
         {cocktails.map((cocktail, cocktailIndex) => (
           <div key={cocktailIndex} className={styles.cocktail_container}>
-            <Outer size={4} title={cocktail.name}>
+            <Outer titleSize={4} title={cocktail.name}>
               <KeyArrayItem name={"맛"} array={cocktail.tastes} />
               <KeyArrayItem name={"가니쉬"} array={cocktail.garnishes} />
               <KeyTextItem name={"조주 기법"} text={cocktail.recipe} />

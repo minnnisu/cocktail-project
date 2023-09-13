@@ -1,7 +1,15 @@
-.items {
+.outer_container {
+  margin: 0 auto;
+}
+
+.outer_container.medium {
+  width: 500px;
+}
+
+.items_container > * {
   margin-top: 16px;
 }
 
-.large > * {
+.items_container.large > * {
   margin-top: 32px;
 }

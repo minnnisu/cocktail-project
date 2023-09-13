@@ -1,8 +1,15 @@
 import React from "react";
-import LoginForm from "../../components/LoginForm/LoginForm";
+import UserFind from "../../components/Login/UserFind/UserFind";
+import LoginForm from "../../components/Login/LoginForm/LoginForm";
+import Outer from "../../components/UI/Outer/Outer";
 
 function LoginPage() {
-  return <LoginForm />;
+  return (
+    <Outer title={"로그인"} widthSize={"medium"}>
+      <LoginForm />
+      <UserFind />
+    </Outer>
+  );
 }
 
 export default LoginPage;

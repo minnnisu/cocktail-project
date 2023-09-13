@@ -1,0 +1,13 @@
+.find_container {
+  margin: 16px 0 0 0;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.find_container > * {
+  margin: 0 10px;
+  font-size: 0.8em;
+  cursor: pointer;
+}

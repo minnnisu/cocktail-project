@@ -3,14 +3,18 @@ import Title from "../Title/Title";
 import Card from "../Wrapper/Card/Card";
 import styles from "./Outer.module.css";
 
-function Outer({ size = 3, title, children, gap }) {
+function Outer({ title, titleSize = 3, children, gap, widthSize }) {
   return (
-    <Card>
-      {title && <Title size={size}>{title}</Title>}
-      {React.Children.map(children, (child) => (
-        <div className={`${styles.items} ${styles[gap]}`}>{child}</div>
-      ))}
-    </Card>
+    <div className={`${styles.outer_container} ${styles[widthSize]}`}>
+      <Card>
+        {title && <Title size={titleSize}>{title}</Title>}
+        <div className={`${styles.items_container} ${styles[gap]}`}>
+          {React.Children.map(children, (child) => (
+            <>{child}</>
+          ))}
+        </div>
+      </Card>
+    </div>
   );
 }
 

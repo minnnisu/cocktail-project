@@ -7,13 +7,13 @@ import { AuthContext } from "../../../../../contexts/AuthContext";
 function LoginedMenu() {
   const navigate = useNavigate();
   const logoutMutation = useLogoutPostApi();
-  const auth = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   const handleLogoutButtonClick = () => {
     logoutMutation.mutate(null, {
       onSuccess: function () {
-        localStorage.removeItem("user");
-        auth.logout();
+        localStorage.removeItem("id");
+        setUser(false);
         navigate("/");
       },
     });
@@ -25,7 +25,7 @@ function LoginedMenu() {
 
   return (
     <>
-      <li className={styles.username}>{auth.user}</li>
+      <li className={styles.username}>{user}</li>
       <li className={styles.mypage} onClick={handleMypageButtonClick}>
         마이페이지
       </li>
