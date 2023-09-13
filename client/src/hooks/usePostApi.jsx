@@ -20,3 +20,7 @@ export const usePostPostApi = () => {
 export const usePostGetApi = () => {
   return useApiGetQuery("getAlcohol", "/api/post", filterPost);
 };
+
+export const usePostAllGetApi = () => {
+  return useApiGetQuery("getAlcohol", "/api/post/all", filterPost);
+};

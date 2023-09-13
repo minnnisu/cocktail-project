@@ -43,15 +43,21 @@ function addPost(user, title, content, files) {
 
 exports.getPost = async function (req, res, next) {
   try {
-    if (Object.keys(req.query).length === 0) {
-      const posts = await readPostAll();
-      return res.status(200).send(posts);
-    } else if (req.query.userId) {
+    if (req.query.userId) {
       const posts = await readPostWithUserid(query.userId);
       return res.status(200).send(posts);
     } else {
       next(new ValidationError("올바르지 않은 쿼리입니다."));
     }
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getPostAll = async function (req, res, next) {
+  try {
+    const posts = await readPostAll();
+    return res.status(200).send(posts);
   } catch (error) {
     next(error);
   }

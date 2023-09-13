@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLoginPostApi } from "../../hooks/useAuthApi";
 import styles from "./LoginForm.module.css";
 import Input from "../UI/Input/Input";
 import Outer from "../UI/Outer/Outer";
 import Button from "../UI/Button/Button";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
-function LoginForm({ setUser }) {
+function LoginForm() {
   const [loginFormData, setLoginFormData] = useState({
     username: "",
     password: "",
@@ -23,14 +24,12 @@ function LoginForm({ setUser }) {
   const loginMutation = useLoginPostApi();
   const navigate = useNavigate();
 
+  const auth = useContext(AuthContext);
+
   const handleSubmit = () => {
     loginMutation.mutate(loginFormData, {
       onSuccess: function () {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ username: loginFormData.username })
-        );
-        setUser(loginFormData.username);
+        auth.login(loginFormData.username);
         navigate("/");
       },
     });

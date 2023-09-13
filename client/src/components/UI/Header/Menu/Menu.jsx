@@ -2,9 +2,12 @@ import styles from "./Menu.module.css";
 import LoginedMenu from "./LoginedMenu/LoginedMenu";
 import NonLoginedMenu from "./NonLoginedMenu/NonLoginedMenu";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../contexts/AuthContext";
+import { useContext } from "react";
 
-function Menu({ user, SetUser }) {
+function Menu() {
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   return (
     <ul className={styles.menu_container}>
@@ -17,11 +20,7 @@ function Menu({ user, SetUser }) {
       <li className={styles.random} onClick={() => navigate("/post")}>
         게시판
       </li>
-      {user ? (
-        <LoginedMenu user={user} serUser={SetUser} />
-      ) : (
-        <NonLoginedMenu />
-      )}
+      {auth.user ? <LoginedMenu /> : <NonLoginedMenu />}
     </ul>
   );
 }

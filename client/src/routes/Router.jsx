@@ -8,37 +8,31 @@ import AlcoholAppendFormPage from "../pages/AlcoholAppendFormPage/AlcoholAppendF
 import AlcoholViewerPage from "../pages/AlcoholViewerPage/AlcoholViewerPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Mypage from "../pages/MyPage/Mypage";
-import { useEffect, useState } from "react";
 import Header from "../components/UI/Header/Header";
 import PostPage from "../pages/PostPage/PostPage";
+import { AuthProvider } from "../contexts/AuthContext";
 
 function Router() {
   const queryClient = new QueryClient();
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser).username);
-    }
-  }, []);
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Header user={user} setUser={setUser} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/random" element={<RandomPage />} />
-          <Route path="/recipe" element={<RecipePage />} />
-          <Route path="/post" element={<PostPage />} />
-          <Route path="/login" element={<LoginPage setUser={setUser} />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/alcohol/form" element={<AlcoholAppendFormPage />} />
-          <Route path="/alcohol/viewer" element={<AlcoholViewerPage />} />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/random" element={<RandomPage />} />
+            <Route path="/recipe" element={<RecipePage />} />
+            <Route path="/post" element={<PostPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/mypage" element={<Mypage />} />
+            <Route path="/alcohol/form" element={<AlcoholAppendFormPage />} />
+            <Route path="/alcohol/viewer" element={<AlcoholViewerPage />} />
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 
