@@ -1,7 +1,7 @@
 import { useState } from "react";
-import MyPost from "../../components/MyPost/MyPost";
-import PostUploader from "../../components/PostUploader/PostUploader";
-import Allpost from "../../components/AllPost/AllPost";
+import MyPost from "../../components/Post/MyPost/MyPost";
+import PostUploader from "../../components/Post/PostUploader/PostUploader";
+import Allpost from "../../components/Post/AllPost/AllPost";
 
 function PostPage() {
   const [selectedMenu, setSelectedMenu] = useState(0);

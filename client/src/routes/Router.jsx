@@ -20,7 +20,7 @@ function Router() {
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route exact path="/" element={<Home />} />
             <Route path="/random" element={<RandomPage />} />
             <Route path="/recipe" element={<RecipePage />} />
             <Route path="/post" element={<PostPage />} />

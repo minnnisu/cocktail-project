@@ -1,22 +1,12 @@
-import { useContext } from "react";
-import { useLogoutPostApi } from "../../../../../hooks/useAuthApi";
 import styles from "./LoginedMenu.module.css";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../../../contexts/AuthContext";
+import { useAuthHandler } from "../../../../../hooks/useAuthHandler";
 
 function LoginedMenu() {
   const navigate = useNavigate();
-  const logoutMutation = useLogoutPostApi();
-  const { user, setUser } = useContext(AuthContext);
-
+  const { user, logout } = useAuthHandler();
   const handleLogoutButtonClick = () => {
-    logoutMutation.mutate(null, {
-      onSuccess: function () {
-        localStorage.removeItem("id");
-        setUser(false);
-        navigate("/");
-      },
-    });
+    logout();
   };
 
   const handleMypageButtonClick = () => {

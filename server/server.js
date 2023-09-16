@@ -6,7 +6,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 // pass the session to the connect sqlite3 module
 // allowing it to inherit from session.Store
-var SQLiteStore = require("connect-sqlite3")(session);
+const SQLiteStore = require("connect-sqlite3")(session);
+// const MemoryStore = require("memorystore")(session);
 const passport = require("passport");
 const passportConfig = require("./api/passport");
 const config = require("./config/config");
@@ -30,6 +31,7 @@ app.use(
     secret: config.cookie_id,
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // don't create session until something stored
+    // store: new MemoryStore({ checkPeriod: 1000 * 60 * 20 }),
     store: new SQLiteStore({ db: "sessions.db", dir: "./sessions" }),
     cookie: { maxAge: 3600000 }, // 1 hours (= 1 * 60 * 60 * 1000 ms)
   })
@@ -76,7 +78,9 @@ app.use("/api/post", postRouter);
 // error handling 미들웨어
 app.use((err, req, res, next) => {
   if (err.name === "ValidationError") {
-    return res.status(403).json({ name: err.name, message: err.message });
+    return res
+      .status(403)
+      .json({ name: err.name, message: err.message, code: err.code });
   } else if (err.name === "MongoServerError" && err.code === 11000) {
     if (Object.values(err.keyValue)[0]) {
       return res.status(403).json({

@@ -1,15 +1,31 @@
 const fs = require("fs");
 const postModel = require("../models/post");
 const userModel = require("../models/user");
-const { ValidationError } = require("./ErrorHandler");
 const path = require("path");
 
-function readPostWithUserid(userId) {
-  return postModel.find({ author: userId });
-}
+async function readPost({ author, summary }) {
+  const qurey = {};
+  if (author) {
+    qurey["author.id"] = author;
+  }
 
-function readPostAll(userId) {
-  return postModel.find({});
+  const posts = await postModel.find(qurey);
+  return posts.map((post) => {
+    const filteredPost = {
+      nickname: post.author.nickname,
+      title: post.title,
+      content: post.content,
+      images: post.images,
+      heartSize: post.hearts.length,
+      created_at: post.created_at,
+    };
+
+    if (!summary) {
+      filteredPost["comments"] = post.comments;
+    }
+
+    return filteredPost;
+  });
 }
 
 function addPost(user, title, content, files) {
@@ -43,20 +59,7 @@ function addPost(user, title, content, files) {
 
 exports.getPost = async function (req, res, next) {
   try {
-    if (req.query.userId) {
-      const posts = await readPostWithUserid(query.userId);
-      return res.status(200).send(posts);
-    } else {
-      next(new ValidationError("올바르지 않은 쿼리입니다."));
-    }
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.getPostAll = async function (req, res, next) {
-  try {
-    const posts = await readPostAll();
+    const posts = await readPost(req.query);
     return res.status(200).send(posts);
   } catch (error) {
     next(error);

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styles from "./PostUploader.module.css";
-import { usePostPostApi } from "../../hooks/usePostApi";
-import Input from "../../components/UI/Input/Input";
-import Textarea from "../../components/UI/Textarea/Textarea";
-import Button from "../../components/UI/Button/Button";
-import Images from "../../components/UI/Image/Imges";
-import Outer from "../../components/UI/Outer/Outer";
+import { usePostPostApi } from "../../../hooks/usePostApi";
+import Outer from "../../UI/Outer/Outer";
+import Input from "../../UI/Input/Input";
+import Textarea from "../../UI/Textarea/Textarea";
+import Images from "../../UI/Image/Imges";
+import Button from "../../UI/Button/Button";
 
 function PostUploader(params) {
   const [title, setTitle] = useState("");

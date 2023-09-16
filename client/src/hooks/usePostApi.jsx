@@ -17,10 +17,6 @@ export const usePostPostApi = () => {
   return useApiPostQuery("/api/post", onSuccess, onError);
 };
 
-export const usePostGetApi = () => {
-  return useApiGetQuery("getAlcohol", "/api/post", filterPost);
-};
-
-export const usePostAllGetApi = () => {
-  return useApiGetQuery("getAlcohol", "/api/post/all", filterPost);
+export const usePostGetApi = (query) => {
+  return useApiGetQuery("getAlcohol", "/api/post", query, filterPost);
 };
