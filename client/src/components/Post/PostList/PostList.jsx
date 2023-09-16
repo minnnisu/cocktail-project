@@ -1,7 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { url } from "../../../apis/config/domain";
 import Outer from "../../UI/Outer/Outer";
 
 function PostList({ posts }) {
+  const navigate = useNavigate();
+  const handlePostDetailButtonClick = (postId) => {
+    navigate(`/post/${postId}`);
+  };
+
   return posts.map((post, index) => {
     return (
       <Outer key={index} title={post.title}>
@@ -23,6 +29,9 @@ function PostList({ posts }) {
               );
             })}
         </div>
+        <button onClick={() => handlePostDetailButtonClick(post.postId)}>
+          자세히보기
+        </button>
       </Outer>
     );
   });

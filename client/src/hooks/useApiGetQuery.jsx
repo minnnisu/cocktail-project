@@ -17,16 +17,21 @@ function objectToQueryString(obj) {
   return `?${queryString.join("&")}`;
 }
 
-const fetchData = async (path, query) => {
-  return axios.get(`${url}${path}${query ? objectToQueryString(query) : ""}`, {
-    "Content-Type": "application/json",
-    withCredentials: true,
-  });
+const fetchData = async (path, id, query) => {
+  return axios.get(
+    `${url}${path}${id ? `/${id}` : ""}${
+      query ? objectToQueryString(query) : ""
+    }`,
+    {
+      "Content-Type": "application/json",
+      withCredentials: true,
+    }
+  );
 };
 
-function useApiGetQuery(queryKey, path, query, filterData) {
+function useApiGetQuery(queryKey, path, id, query, filterData) {
   return useQuery([queryKey, path], () =>
-    fetchData(path, query).then((res) => filterData(res.data))
+    fetchData(path, id, query).then((res) => filterData(res.data))
   );
 }
 

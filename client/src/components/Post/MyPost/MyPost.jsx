@@ -6,7 +6,7 @@ import PostList from "../PostList/PostList";
 
 function MyPost() {
   const { user } = useAuthHandler();
-  const { isLoading, isSuccess, isError, data } = usePostGetApi({
+  const { isLoading, isSuccess, isError, data } = usePostGetApi(null, {
     author: user,
     summary: true,
   });

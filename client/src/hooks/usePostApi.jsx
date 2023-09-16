@@ -1,5 +1,6 @@
 import useApiGetQuery from "./useApiGetQuery";
 import useApiPostQuery from "./useApiPostQuery";
+import useApiPatchQuery from "./useApiPatchQuery";
 
 const filterPost = (alcohols) => {
   return alcohols;
@@ -17,6 +18,16 @@ export const usePostPostApi = () => {
   return useApiPostQuery("/api/post", onSuccess, onError);
 };
 
-export const usePostGetApi = (query) => {
-  return useApiGetQuery("getAlcohol", "/api/post", query, filterPost);
+export const usePostGetApi = (postId, query) => {
+  return useApiGetQuery("getAlcohol", "/api/post", postId, query, filterPost);
+};
+
+export const usePostPatchApi = (postId) => {
+  const onError = (error) => {
+    alert(error.response.data.message);
+  };
+
+  const onSuccess = () => {};
+
+  return useApiPatchQuery("/api/post", postId, onSuccess, onError);
 };

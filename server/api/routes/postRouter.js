@@ -6,12 +6,21 @@ const { postsImageUpload } = require("../middlewares/imageUploader");
 const router = express.Router();
 
 router
-  .get("/", authMiddleware.isLoggedIn, postController.getPost)
+  .get("/", postController.getPost)
   .post(
     "/",
     authMiddleware.isLoggedIn,
     postsImageUpload.array("images", 10),
     postController.postPost
+  );
+
+router
+  .get("/:id", postController.getPost)
+  .patch(
+    "/:id",
+    authMiddleware.isLoggedIn,
+    postsImageUpload.array("images", 10),
+    postController.patchPostById
   );
 
 module.exports = router;

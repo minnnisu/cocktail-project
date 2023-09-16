@@ -3,16 +3,21 @@ const postModel = require("../models/post");
 const userModel = require("../models/user");
 const path = require("path");
 
-async function readPost({ author, summary }) {
+async function readPost(postId, { author, summary }) {
   const qurey = {};
   if (author) {
     qurey["author.id"] = author;
   }
 
+  if (postId) {
+    qurey["_id"] = postId;
+  }
+
   const posts = await postModel.find(qurey);
   return posts.map((post) => {
     const filteredPost = {
-      nickname: post.author.nickname,
+      postId: post._id,
+      author: post.author,
       title: post.title,
       content: post.content,
       images: post.images,
@@ -57,9 +62,76 @@ function addPost(user, title, content, files) {
   });
 }
 
+// title, content, image, heart 수정 가능
+// image는 imageRemoveTarget, files로 구성
+
+async function updatePost(userId, postId, payload, files) {
+  const post = await postModel.findById(postId);
+  if (payload.title) {
+    post.title = payload.title;
+  }
+
+  if (payload.content) {
+    post.content = payload.content;
+  }
+
+  if (payload.heart) {
+    const index = post.hearts.indexOf(userId);
+    if (index === -1) {
+      post.hearts.push(userId);
+    } else {
+      post.hearts.splice(index);
+    }
+  }
+
+  if (payload.imageRemoveTarget) {
+    Promise.all(
+      payload.imageRemoveTarget.map(async (image) => {
+        fs.unlink(`static/image/post/${image}`, function (err) {
+          if (err) {
+            console.error("이미지 삭제 에러: ", err);
+          }
+        });
+      })
+    );
+
+    payload.imageRemoveTarget.map((image) => {
+      const index = post.images.indexOf(image);
+      if (index !== -1) {
+        const tmp = post.images.splice(index);
+        console.log(`삭제된 이미지: ${tmp}`);
+      }
+    });
+  }
+
+  if (files) {
+    const fileNames = files.map((file) => file.filename);
+    post.images = [...post.images, ...fileNames];
+    console.log(`files: ${post.images}`);
+  }
+
+  console.log(post);
+
+  return post.save().catch((error) => {
+    if (files) {
+      Promise.all(
+        post.images.map(async (filename) => {
+          fs.unlink(`static/image/post/${filename}`, function (err) {
+            if (err) {
+              console.error("이미지 삭제 에러: ", err);
+            }
+          });
+        })
+      );
+    }
+
+    throw error;
+  });
+}
+
 exports.getPost = async function (req, res, next) {
   try {
-    const posts = await readPost(req.query);
+    const posts = await readPost(req.params.id, req.query);
     return res.status(200).send(posts);
   } catch (error) {
     next(error);
@@ -73,13 +145,27 @@ exports.postPost = async function (req, res, next) {
     const user = { id, nickname };
 
     if (req.files && req.files.length > 0) {
-      // 이미지 이름을 미리 처리
       await addPost(user, title, content, req.files);
     } else {
       await addPost(user, title, content);
     }
 
-    res.status(200).send();
+    res.status(201).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.patchPostById = async function (req, res, next) {
+  try {
+    const savedPost = await updatePost(
+      req.user.id,
+      req.params.id,
+      JSON.parse(req.body.data),
+      req.files
+    );
+
+    return res.status(201).send(savedPost);
   } catch (error) {
     next(error);
   }

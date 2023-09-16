@@ -7,10 +7,6 @@ const CommentSchema = new Schema({
   created_at: { type: Date, default: Date.now, required: true },
 });
 
-const HeartSchema = new Schema({
-  userid: { type: Schema.Types.ObjectId, ref: "User", required: true },
-});
-
 // Define Schemes
 const PostSchema = new Schema(
   {
@@ -21,7 +17,7 @@ const PostSchema = new Schema(
     title: { type: String, required: true },
     content: { type: String, required: true, sparse: true },
     comments: [CommentSchema],
-    hearts: [HeartSchema],
+    hearts: { type: Array },
     images: { type: Array },
     created_at: { type: Date, default: Date.now, required: true },
   },
