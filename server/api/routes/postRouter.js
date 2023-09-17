@@ -20,8 +20,16 @@ router
     "/:id",
     authMiddleware.isLoggedIn,
     postsImageUpload.array("images", 10),
-    postController.patchPostById
+    postController.patchPost
   )
-  .delete("/:id", authMiddleware.isLoggedIn, postController.deletePostById);
+  .delete("/:id", authMiddleware.isLoggedIn, postController.deletePost);
+
+router
+  .post("/:id/comment", authMiddleware.isLoggedIn, postController.postComment)
+  .delete(
+    "/:postId/comment/:commentId",
+    authMiddleware.isLoggedIn,
+    postController.deleteComment
+  );
 
 module.exports = router;

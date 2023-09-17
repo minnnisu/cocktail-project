@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const Schema = require("mongoose").Schema;
 
 const CommentSchema = new Schema({
-  author: { type: String, require: true },
+  author: {
+    id: { type: String, required: true },
+    nickname: { type: String, required: true },
+  },
   content: { type: String, required: true, sparse: true },
   created_at: { type: Date, default: Date.now, required: true },
 });

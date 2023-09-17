@@ -63,24 +63,21 @@ function addPost(user, title, content, files) {
   });
 }
 
-// title, content, image, heart 수정 가능
-// image는 imageRemoveTarget, files로 구성
-
-async function updatePost(userId, postId, payload, files) {
+async function updatePost(userId, postId, body, files) {
   const post = await postModel.findById(postId);
   if (userId !== post.author.id) {
     throw new ValidationError("작성자만 수정이 가능합니다.");
   }
 
-  if (payload.title) {
-    post.title = payload.title;
+  if (body.title) {
+    post.title = body.title;
   }
 
-  if (payload.content) {
-    post.content = payload.content;
+  if (body.content) {
+    post.content = body.content;
   }
 
-  if (payload.heart) {
+  if (body.heart) {
     const index = post.hearts.indexOf(userId);
     if (index === -1) {
       post.hearts.push(userId);
@@ -89,9 +86,9 @@ async function updatePost(userId, postId, payload, files) {
     }
   }
 
-  if (payload.imageRemoveTarget) {
+  if (body.imageRemoveTarget) {
     Promise.all(
-      payload.imageRemoveTarget.map(async (image) => {
+      body.imageRemoveTarget.map(async (image) => {
         fs.unlink(`static/image/post/${image}`, function (err) {
           if (err) {
             console.error("이미지 삭제 에러: ", err);
@@ -100,11 +97,10 @@ async function updatePost(userId, postId, payload, files) {
       })
     );
 
-    payload.imageRemoveTarget.map((image) => {
+    body.imageRemoveTarget.map((image) => {
       const index = post.images.indexOf(image);
       if (index !== -1) {
-        const tmp = post.images.splice(index);
-        console.log(`삭제된 이미지: ${tmp}`);
+        post.images.splice(index);
       }
     });
   }
@@ -112,10 +108,7 @@ async function updatePost(userId, postId, payload, files) {
   if (files) {
     const fileNames = files.map((file) => file.filename);
     post.images = [...post.images, ...fileNames];
-    console.log(`files: ${post.images}`);
   }
-
-  console.log(post);
 
   return post.save().catch((error) => {
     if (files) {
@@ -153,6 +146,88 @@ async function removePost(userId, postId) {
   await postModel.deleteOne({ _id: postId });
 }
 
+async function addComment(userId, postId, body) {
+  const user = await userModel.findOne({ id: userId });
+  if (!user || user.length < 1) {
+    throw new ValidationError("유저 정보가 없습니다.");
+  }
+
+  const post = await postModel.findById(postId);
+  if (!post || post.length < 1) {
+    throw new ValidationError("게시물이 없습니다.");
+  }
+
+  if (!body.content) {
+    throw new ValidationError("댓글의 내용이 없습니다.");
+  }
+
+  const newCommnet = {
+    author: { id: user.id, nickname: user.nickname },
+    content: body.content,
+  };
+
+  post.comments.push(newCommnet);
+
+  return post.save();
+}
+
+async function updateComment(userId, postId, commentId, body) {
+  const post = await postModel.findById(postId);
+  if (!post || post.length < 1) {
+    throw new ValidationError("게시물이 없습니다.");
+  }
+
+  if (!body.content) {
+    throw new ValidationError("댓글의 내용이 없습니다.");
+  }
+
+  let isFindSameComment = false;
+
+  post.comments.map((comment) => {
+    if (comment._id.equals(commentId)) {
+      isFindSameComment = true;
+      if (comment.author.id !== userId) {
+        throw new ValidationError("작성자만 수정이 가능합니다.");
+      }
+
+      comment.content = body.content;
+    }
+  });
+
+  if (!isFindSameComment) {
+    throw new ValidationError("댓글이 없습니다.");
+  }
+
+  return post.save();
+}
+
+async function removeComment(userId, postId, commentId) {
+  const post = await postModel.findById(postId);
+  if (!post || post.length < 1) {
+    throw new ValidationError("게시물이 없습니다.");
+  }
+
+  let isFindSameComment = false;
+
+  post.comments = post.comments.filter((comment) => {
+    if (comment._id.equals(commentId)) {
+      isFindSameComment = true;
+      if (comment.author.id !== userId) {
+        throw new ValidationError("작성자만 삭제 가능합니다.");
+      }
+      return false;
+    }
+
+    return true;
+  });
+
+  if (!isFindSameComment) {
+    throw new ValidationError("댓글이 없습니다.");
+  }
+
+  return post.save();
+}
+
 exports.getPost = async function (req, res, next) {
   try {
     const posts = await readPost(req.params.id, req.query);
@@ -180,7 +255,7 @@ exports.postPost = async function (req, res, next) {
   }
 };
 
-exports.patchPostById = async function (req, res, next) {
+exports.patchPost = async function (req, res, next) {
   try {
     const savedPost = await updatePost(
       req.user.id,
@@ -195,7 +270,7 @@ exports.patchPostById = async function (req, res, next) {
   }
 };
 
-exports.deletePostById = async function (req, res, next) {
+exports.deletePost = async function (req, res, next) {
   try {
     await removePost(req.user.id, req.params.id);
     return res.status(204).send();
@@ -218,4 +293,36 @@ exports.getPostIamge = function (req, res) {
       res.end(data); // 이미지 데이터를 클라이언트에게 전송
     }
   });
+};
+
+exports.postComment = async function (req, res, next) {
+  try {
+    await addComment(req.user.id, req.params.id, req.body);
+    res.status(201).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.patchComment = async function (req, res, next) {
+  try {
+    await updateComment(
+      req.user.id,
+      req.params.postId,
+      req.params.commentId,
+      req.body
+    );
+    res.status(201).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.deleteComment = async function (req, res, next) {
+  try {
+    await removeComment(req.user.id, req.params.postId, req.params.commentId);
+    return res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
 };
