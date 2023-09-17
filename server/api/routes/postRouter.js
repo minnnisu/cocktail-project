@@ -21,6 +21,7 @@ router
     authMiddleware.isLoggedIn,
     postsImageUpload.array("images", 10),
     postController.patchPostById
-  );
+  )
+  .delete("/:id", authMiddleware.isLoggedIn, postController.deletePostById);
 
 module.exports = router;

@@ -1,5 +1,9 @@
-import { useParams } from "react-router-dom";
-import { usePostGetApi, usePostPatchApi } from "../../../hooks/usePostApi";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  usePostDeleteApi,
+  usePostGetApi,
+  usePostPatchApi,
+} from "../../../hooks/usePostApi";
 import { url } from "../../../apis/config/domain";
 import { useAuthHandler } from "../../../hooks/useAuthHandler";
 import { useEffect, useState } from "react";
@@ -8,6 +12,7 @@ import Images from "../../UI/Image/Imges";
 function PostDetail() {
   let post = {};
   const { id } = useParams();
+  const navigate = useNavigate();
   const { isLoading, isSuccess, isError, data } = usePostGetApi(id, {
     summary: true,
   });
@@ -35,7 +40,8 @@ function PostDetail() {
     }
   }, [data]);
 
-  const postMutation = usePostPatchApi(id);
+  const postPatchMutation = usePostPatchApi(id);
+  const postDeleteMutation = usePostDeleteApi(id);
 
   const { user } = useAuthHandler();
 
@@ -47,7 +53,7 @@ function PostDetail() {
     const formData = new FormData();
     formData.append("data", JSON.stringify({ heart: true }));
 
-    postMutation.mutate(formData);
+    postPatchMutation.mutate(formData);
   };
 
   const handleModifyButtonClick = () => {
@@ -67,8 +73,6 @@ function PostDetail() {
       return { remained: newRemained, removed: newRemoved };
     });
   };
-
-  console.log(newImageData);
 
   const handleModifiedDataSubmit = (e) => {
     if (!user) {
@@ -92,7 +96,20 @@ function PostDetail() {
       formData.append("images", newImageData[i]);
     }
 
-    postMutation.mutate(formData);
+    postPatchMutation.mutate(formData);
+  };
+
+  const handlePostDelete = () => {
+    if (!user) {
+      return alert("로그인 해주세요");
+    }
+
+    if (user !== data[0].author.id) {
+      return alert("작성자만 수정가능합니다");
+    }
+
+    postDeleteMutation.mutate();
+    navigate("/post");
   };
 
   return (
@@ -166,7 +183,11 @@ function PostDetail() {
             <textarea />
             <button>댓글 등록</button>
             {isModifiedButtonClick && (
-              <button onClick={handleModifiedDataSubmit}>수정하기</button>
+              <>
+                {" "}
+                <button onClick={handleModifiedDataSubmit}>수정하기</button>
+                <button onClick={handlePostDelete}>삭제하기</button>
+              </>
             )}
           </div>
           <div>

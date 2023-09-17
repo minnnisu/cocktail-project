@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-const { url } = require("../../src/apis/config/domain");
+const { url } = require("../apis/config/domain");
 
 function objectToQueryString(obj) {
   const queryString = [];

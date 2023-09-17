@@ -1,6 +1,7 @@
 const { ValidationError } = require("../../controller/ErrorHandler");
 
 exports.isLoggedIn = (req, res, next) => {
+  console.log(req.header("Cookie"));
   if (req.isAuthenticated()) {
     return next();
   }

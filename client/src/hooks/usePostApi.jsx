@@ -1,6 +1,7 @@
 import useApiGetQuery from "./useApiGetQuery";
 import useApiPostQuery from "./useApiPostQuery";
 import useApiPatchQuery from "./useApiPatchQuery";
+import useApiDeleteQuery from "./useApiDeleteQuery";
 
 const filterPost = (alcohols) => {
   return alcohols;
@@ -30,4 +31,14 @@ export const usePostPatchApi = (postId) => {
   const onSuccess = () => {};
 
   return useApiPatchQuery("/api/post", postId, onSuccess, onError);
+};
+
+export const usePostDeleteApi = (postId) => {
+  const onError = (error) => {
+    alert(error.response.data.message);
+  };
+
+  const onSuccess = () => {};
+
+  return useApiDeleteQuery("/api/post", postId, onSuccess, onError);
 };

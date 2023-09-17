@@ -2,6 +2,7 @@ const fs = require("fs");
 const postModel = require("../models/post");
 const userModel = require("../models/user");
 const path = require("path");
+const { ValidationError } = require("./ErrorHandler");
 
 async function readPost(postId, { author, summary }) {
   const qurey = {};
@@ -67,6 +68,10 @@ function addPost(user, title, content, files) {
 
 async function updatePost(userId, postId, payload, files) {
   const post = await postModel.findById(postId);
+  if (userId !== post.author.id) {
+    throw new ValidationError("작성자만 수정이 가능합니다.");
+  }
+
   if (payload.title) {
     post.title = payload.title;
   }
@@ -129,6 +134,25 @@ async function updatePost(userId, postId, payload, files) {
   });
 }
 
+async function removePost(userId, postId) {
+  const post = await postModel.findById(postId);
+  if (userId !== post.author.id) {
+    throw new ValidationError("작성자만 삭제가 가능합니다.");
+  }
+
+  Promise.all(
+    post.images.map(async (image) => {
+      fs.unlink(`static/image/post/${image}`, function (err) {
+        if (err) {
+          console.error("이미지 삭제 에러: ", err);
+        }
+      });
+    })
+  );
+
+  await postModel.deleteOne({ _id: postId });
+}
+
 exports.getPost = async function (req, res, next) {
   try {
     const posts = await readPost(req.params.id, req.query);
@@ -166,6 +190,15 @@ exports.patchPostById = async function (req, res, next) {
     );
 
     return res.status(201).send(savedPost);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.deletePostById = async function (req, res, next) {
+  try {
+    await removePost(req.user.id, req.params.id);
+    return res.status(204).send();
   } catch (error) {
     next(error);
   }
