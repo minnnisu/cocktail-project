@@ -2,9 +2,35 @@ import useApiGetQuery from "./useApiGetQuery";
 import useApiPostQuery from "./useApiPostQuery";
 import useApiPatchQuery from "./useApiPatchQuery";
 import useApiDeleteQuery from "./useApiDeleteQuery";
+import { QueryClient, useQueryClient } from "react-query";
 
 const filterPost = (alcohols) => {
   return alcohols;
+};
+
+function objectToQueryString(obj) {
+  const queryString = [];
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+      queryString.push(
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+      );
+    }
+  }
+
+  return `?${queryString.join("&")}`;
+}
+
+export const usePostGetApi = (postId, query) => {
+  return useApiGetQuery(
+    "getAlcohol",
+    `/api/post/${postId ? postId : ""}${
+      query ? objectToQueryString(query) : ""
+    }`,
+    filterPost
+  );
 };
 
 export const usePostPostApi = () => {
@@ -19,26 +45,41 @@ export const usePostPostApi = () => {
   return useApiPostQuery("/api/post", onSuccess, onError);
 };
 
-export const usePostGetApi = (postId, query) => {
-  return useApiGetQuery("getAlcohol", "/api/post", postId, query, filterPost);
-};
-
 export const usePostPatchApi = (postId) => {
   const onError = (error) => {
     alert(error.response.data.message);
   };
 
-  const onSuccess = () => {};
+  const onSuccess = () => {
+    alert("게시물을 수정하였습니다.");
+  };
 
-  return useApiPatchQuery("/api/post", postId, onSuccess, onError);
+  return useApiPatchQuery(`/api/post/${postId}`, onSuccess, onError);
 };
 
 export const usePostDeleteApi = (postId) => {
+  const queryClient = useQueryClient();
+
   const onError = (error) => {
     alert(error.response.data.message);
   };
 
-  const onSuccess = () => {};
+  const onSuccess = () => {
+    alert("게시물을 삭제하였습니다.");
+    queryClient.invalidQueries("getAlcohol");
+  };
 
-  return useApiDeleteQuery("/api/post", postId, onSuccess, onError);
+  return useApiDeleteQuery(`/api/post/${postId}`, onSuccess, onError);
+};
+
+export const useCommentPostApi = (postId) => {
+  const onError = (error) => {
+    alert(error.response.data.message);
+  };
+
+  const onSuccess = () => {
+    alert("댓글을 등록하였습니다.");
+  };
+
+  return useApiPostQuery(`/api/post/${postId}/comment`, onSuccess, onError);
 };

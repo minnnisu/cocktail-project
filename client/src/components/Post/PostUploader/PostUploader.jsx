@@ -4,7 +4,7 @@ import { usePostPostApi } from "../../../hooks/usePostApi";
 import Outer from "../../UI/Outer/Outer";
 import Input from "../../UI/Input/Input";
 import Textarea from "../../UI/Textarea/Textarea";
-import Images from "../../UI/Image/Imges";
+import Images from "../../UI/Image/Images";
 import Button from "../../UI/Button/Button";
 
 function PostUploader(params) {

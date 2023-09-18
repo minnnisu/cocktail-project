@@ -1,18 +1,23 @@
-import { url } from "../../../apis/config/domain";
 import { useAuthHandler } from "../../../hooks/useAuthHandler";
 import { usePostGetApi } from "../../../hooks/usePostApi";
-import Outer from "../../UI/Outer/Outer";
 import PostList from "../PostList/PostList";
 
 function MyPost() {
   const { user } = useAuthHandler();
-  const { isLoading, isSuccess, isError, data } = usePostGetApi(null, {
+  const { isLoading, isError, data } = usePostGetApi(null, {
     author: user,
     summary: true,
   });
   console.log(data);
 
-  return <>{data && <PostList posts={data} />}</>;
+  return (
+    <>
+      {isLoading && <div>데이터를 불러오는 중 입니다.</div>}
+      {isError && <div>데이터를 불러오는 과정에서 에러가 발생하였습니다.</div>}
+      {data && data.length < 1 && <div>게시물이 없습니다.</div>}
+      {data && data.length > 0 && <PostList posts={data} />}
+    </>
+  );
 }
 
 export default MyPost;

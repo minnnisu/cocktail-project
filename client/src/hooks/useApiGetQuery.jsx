@@ -2,36 +2,16 @@ import axios from "axios";
 import { useQuery } from "react-query";
 const { url } = require("../apis/config/domain");
 
-function objectToQueryString(obj) {
-  const queryString = [];
-
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      const value = obj[key];
-      queryString.push(
-        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-      );
-    }
-  }
-
-  return `?${queryString.join("&")}`;
-}
-
-const fetchData = async (path, id, query) => {
-  return axios.get(
-    `${url}${path}${id ? `/${id}` : ""}${
-      query ? objectToQueryString(query) : ""
-    }`,
-    {
-      "Content-Type": "application/json",
-      withCredentials: true,
-    }
-  );
+const fetchData = async (path) => {
+  return axios.get(`${url}${path}`, {
+    "Content-Type": "application/json",
+    withCredentials: true,
+  });
 };
 
-function useApiGetQuery(queryKey, path, id, query, filterData) {
+function useApiGetQuery(queryKey, path, filterData) {
   return useQuery([queryKey, path], () =>
-    fetchData(path, id, query).then((res) => filterData(res.data))
+    fetchData(path).then((res) => filterData(res.data))
   );
 }
 
