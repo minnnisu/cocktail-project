@@ -1,3 +1,8 @@
 .post_list {
-  width: 30%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.post_list > * {
+  margin: 0 calc(10% / 6) calc(10% / 6) calc(10% / 6);
 }

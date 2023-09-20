@@ -6,12 +6,7 @@ function PostList({ posts, setSelectedPost }) {
     <div className={styles.post_list}>
       {posts.map((post, index) => {
         return (
-          <PostItem
-            key={index}
-            post={post}
-            index={index}
-            setSelectedPost={setSelectedPost}
-          />
+          <PostItem key={index} post={post} setSelectedPost={setSelectedPost} />
         );
       })}
     </div>

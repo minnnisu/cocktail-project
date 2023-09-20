@@ -1,11 +1,15 @@
+import { useCommentGetApi } from "../../../../hooks/usePostApi";
 import CommentDetailItem from "../CommentDetailItem/CommentDetailItem";
+import styles from "./CommentDetailList.module.css";
 
-function CommentDetailList({ comments }) {
+function CommentDetailList({ postId }) {
+  const { data } = useCommentGetApi(postId);
+  console.log(data);
   return (
-    <div>
-      {comments &&
-        comments.length > 0 &&
-        comments.map((comment, index) => (
+    <div className={styles.comment_list}>
+      {data &&
+        data.length > 0 &&
+        data.map((comment, index) => (
           <CommentDetailItem key={index} comment={comment} />
         ))}
     </div>

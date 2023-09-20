@@ -1,0 +1,24 @@
+.footer {
+  display: flex;
+  justify-content: right;
+}
+
+.heart {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.heart .heart_icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+}
+
+.detail_button {
+  border: none;
+  background: none;
+  color: #4083e0;
+  font-weight: 600;
+  padding: 0;
+}

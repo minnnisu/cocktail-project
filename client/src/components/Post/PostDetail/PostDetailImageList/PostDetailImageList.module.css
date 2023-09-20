@@ -1,0 +1,7 @@
+.image_list {
+  margin-top: 50px;
+}
+
+.image_list > * {
+  margin-bottom: 50px;
+}

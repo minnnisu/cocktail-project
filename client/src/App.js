@@ -1,10 +1,13 @@
 import MainRouter from "./routes/MainRouter";
 import "./App.css";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
     <div className="App">
-      <MainRouter />
+      <AuthProvider>
+        <MainRouter />
+      </AuthProvider>
     </div>
   );
 }

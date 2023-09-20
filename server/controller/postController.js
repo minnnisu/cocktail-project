@@ -34,6 +34,17 @@ async function readPost(postId, { author, summary }) {
   });
 }
 
+async function readComment(postId) {
+  const qurey = {};
+
+  if (postId) {
+    qurey["_id"] = postId;
+  }
+
+  const comments = await postModel.findOne(qurey, ["comments"]);
+  return comments.comments;
+}
+
 function addPost(user, title, content, files) {
   const newPost = new postModel({
     author: { id: user.id, nickname: user.nickname },
@@ -293,6 +304,15 @@ exports.getPostIamge = function (req, res) {
       res.end(data); // 이미지 데이터를 클라이언트에게 전송
     }
   });
+};
+
+exports.getComment = async function (req, res, next) {
+  try {
+    const posts = await readComment(req.params.id);
+    return res.status(200).send(posts);
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.postComment = async function (req, res, next) {

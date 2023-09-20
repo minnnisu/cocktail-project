@@ -9,9 +9,10 @@
 }
 
 .header_right .nickname {
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 .header_right .created_at {
+  margin-right: 10px;
   font-size: 0.9em;
 }

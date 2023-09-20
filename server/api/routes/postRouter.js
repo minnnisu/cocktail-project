@@ -25,6 +25,7 @@ router
   .delete("/:id", authMiddleware.isLoggedIn, postController.deletePost);
 
 router
+  .get("/:id/comment", postController.getComment)
   .post("/:id/comment", authMiddleware.isLoggedIn, postController.postComment)
   .delete(
     "/:postId/comment/:commentId",

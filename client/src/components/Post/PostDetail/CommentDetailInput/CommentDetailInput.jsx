@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
 import { useCommentPostApi } from "../../../../hooks/usePostApi";
 import { useAuthHandler } from "../../../../hooks/useAuthHandler";
 import { useState } from "react";
+import styles from "./CommentDetailInput.module.css";
 
 function CommentDetailInput({ postId }) {
   const { user } = useAuthHandler();
@@ -26,9 +26,16 @@ function CommentDetailInput({ postId }) {
     );
   };
   return (
-    <div>
-      <textarea value={comment} onChange={handleCommentChange} />
-      <button onClick={handleCommentSubmit}>댓글 등록</button>
+    <div className={styles.comment_input}>
+      <input
+        placeholder="댓글 작성"
+        className={styles.input}
+        value={comment}
+        onChange={handleCommentChange}
+      />
+      <button className={styles.button} onClick={handleCommentSubmit}>
+        등록
+      </button>
     </div>
   );
 }

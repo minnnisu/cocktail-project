@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  align-items: end;
+}
+
+.nickname {
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.created_at {
+  font-size: 0.9em;
+}

@@ -1,0 +1,7 @@
+.comment_list > * {
+  margin-bottom: 20px;
+}
+
+.comment_list > *:last-child {
+  margin-bottom: 0;
+}

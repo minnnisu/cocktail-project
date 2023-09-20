@@ -1,16 +1,14 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthHandler } from "../../../../hooks/useAuthHandler";
-import {
-  usePostDeleteApi,
-  usePostPatchApi,
-} from "../../../../hooks/usePostApi";
+import { usePostDeleteApi } from "../../../../hooks/usePostApi";
 import Title from "../../../UI/Title/Title";
 import styles from "./PostDetailHeader.module.css";
 
-function PostDetailHeader({ postId, title, author, createdAt, heartSize }) {
+function PostDetailHeader({ postId, title, author, createdAt }) {
   const { user } = useAuthHandler();
   const navigate = useNavigate();
-  const postPatchMutation = usePostPatchApi(postId);
+  const date = new Date(createdAt);
+
   const postDeleteMutation = usePostDeleteApi(postId);
 
   const handlePostDelete = () => {
@@ -26,24 +24,16 @@ function PostDetailHeader({ postId, title, author, createdAt, heartSize }) {
     navigate("/post");
   };
 
-  const handleHeartClick = () => {
-    if (!user) {
-      return alert("로그인 해주세요");
-    }
-
-    const formData = new FormData();
-    formData.append("data", JSON.stringify({ heart: true }));
-
-    postPatchMutation.mutate(formData);
-  };
-
   return (
-    <div className={styles.header_container}>
-      <Title>{title}</Title>
-      <div className={styles.nickname}>{author.nickname}</div>
-      <div className={styles.created_at}>{createdAt}</div>
-      <div onClick={handleHeartClick}>하트 {heartSize}</div>
-      <button onClick={handlePostDelete}>삭제하기</button>
+    <div className={styles.header}>
+      <Title size={5}>{title}</Title>
+      <div className={styles.header_right}>
+        <div className={styles.nickname}>{author.nickname}</div>
+        <div className={styles.created_at}>{`${date.getFullYear()}/${
+          date.getMonth() + 1
+        }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`}</div>
+        {/* <button onClick={handlePostDelete}>삭제하기</button> */}
+      </div>
     </div>
   );
 }

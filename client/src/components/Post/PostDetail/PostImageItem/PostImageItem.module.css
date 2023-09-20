@@ -1,0 +1,7 @@
+.image {
+  width: 50%;
+  height: 500px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}

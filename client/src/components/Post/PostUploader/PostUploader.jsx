@@ -6,8 +6,9 @@ import Input from "../../UI/Input/Input";
 import Textarea from "../../UI/Textarea/Textarea";
 import Images from "../../UI/Image/Images";
 import Button from "../../UI/Button/Button";
+import PostHeader from "../PostHeader/PostHeader";
 
-function PostUploader(params) {
+function PostUploader() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
@@ -24,23 +25,22 @@ function PostUploader(params) {
     postMutation.mutate(formData);
   };
   return (
-    <>
-      <Outer title={"게시물 등록"}>
-        <div className={styles.title_container}>
-          <Input
-            title={"제목"}
-            name={"title"}
-            value={title}
-            onChangeValue={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <Textarea onChangeTextarea={setContent} />
-        </div>
-        <Images images={images} setImages={setImages} />
-        <Button onClickButton={handlePostButtonClick}>게시물 등록</Button>
-      </Outer>
-    </>
+    <div>
+      <PostHeader />
+      <div className={styles.title_container}>
+        <Input
+          title={"제목"}
+          name={"title"}
+          value={title}
+          onChangeValue={(e) => setTitle(e.target.value)}
+        />
+      </div>
+      <div>
+        <Textarea onChangeTextarea={setContent} />
+      </div>
+      <Images images={images} setImages={setImages} />
+      <Button onClickButton={handlePostButtonClick}>게시물 등록</Button>
+    </div>
   );
 }
 

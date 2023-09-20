@@ -72,6 +72,14 @@ export const usePostDeleteApi = (postId) => {
   return useApiDeleteQuery(`/api/post/${postId}`, onSuccess, onError);
 };
 
+export const useCommentGetApi = (postId) => {
+  return useApiGetQuery(
+    "getAlcohol",
+    `/api/post/${postId}/comment`,
+    filterPost
+  );
+};
+
 export const useCommentPostApi = (postId) => {
   const onError = (error) => {
     alert(error.response.data.message);
