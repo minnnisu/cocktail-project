@@ -1,5 +1,5 @@
-import styles from "./Image.module.css";
-import ImagePreview from "./ImagePreview/ImagePreview";
+import styles from "./SingleImageUploader.module.css";
+import SingleImageItem from "../../ImageItem/SingleImageItem/SingleImageItem";
 
 function Image({ ImageRef, image, setImage }) {
   const handleImageChange = (e) => {
@@ -14,6 +14,8 @@ function Image({ ImageRef, image, setImage }) {
     }
   };
 
+  console.log(image);
+
   return (
     <div className={styles.image_container}>
       <input
@@ -23,7 +25,7 @@ function Image({ ImageRef, image, setImage }) {
         ref={ImageRef}
         onChange={handleImageChange}
       />
-      <ImagePreview image={image.preview_URL} />
+      <SingleImageItem src={image.preview_URL} />
     </div>
   );
 }

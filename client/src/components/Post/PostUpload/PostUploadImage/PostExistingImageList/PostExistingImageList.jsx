@@ -1,7 +1,7 @@
-import { url } from "../../../../apis/config/domain";
-import PostImageModifyItem from "../PostImageModifyItem/PostImageModifyItem";
+import { url } from "../../../../../apis/config/domain";
+import MultipleImageItem from "../../../../UI/Image/ImageItem/MultipleImageItem/MultipleImageItem";
 
-function PostImageModifyList({ originalImages, setOriginalImages }) {
+function PostExistingImageList({ originalImages, setOriginalImages }) {
   const handleExistingImageDelete = (index) => {
     setOriginalImages((prev) => {
       const newRemained = [...prev.remained];
@@ -17,7 +17,7 @@ function PostImageModifyList({ originalImages, setOriginalImages }) {
       {originalImages.remained &&
         originalImages.remained.length > 0 &&
         originalImages.remained.map((image, index) => (
-          <PostImageModifyItem
+          <MultipleImageItem
             key={index}
             src={`${url}/static/image/post/${image}`}
             index={index}
@@ -28,4 +28,4 @@ function PostImageModifyList({ originalImages, setOriginalImages }) {
   );
 }
 
-export default PostImageModifyList;
+export default PostExistingImageList;

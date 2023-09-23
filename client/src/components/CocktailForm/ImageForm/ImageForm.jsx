@@ -1,4 +1,4 @@
-import Image from "../../UI/Image/Image";
+import Image from "../../UI/Image/ImageUploader/SingleImageUploader/SingleImageUploader";
 import { useRef } from "react";
 import Buttons from "./Buttons/Buttons";
 import Title from "../../UI/Title/Title";

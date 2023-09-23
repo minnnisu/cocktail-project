@@ -1,0 +1,19 @@
+.post_upload {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  height: calc(100vh - 140px);
+}
+
+.post_upload .left {
+  width: 60%;
+  padding: 20px;
+  background-color: #222;
+  margin-right: 10px;
+  border-radius: 15px;
+}
+
+.button_container {
+  display: flex;
+  justify-content: end;
+}

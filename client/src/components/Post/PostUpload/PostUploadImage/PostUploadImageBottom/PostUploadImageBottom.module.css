@@ -1,0 +1,7 @@
+.image_input {
+  display: none;
+}
+.bottom {
+  display: flex;
+  justify-content: end;
+}

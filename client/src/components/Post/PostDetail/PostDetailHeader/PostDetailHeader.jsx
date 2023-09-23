@@ -9,19 +9,23 @@ function PostDetailHeader({ postId, title, author, createdAt }) {
   const navigate = useNavigate();
   const date = new Date(createdAt);
 
-  const postDeleteMutation = usePostDeleteApi(postId);
+  // const postDeleteMutation = usePostDeleteApi(postId);
 
-  const handlePostDelete = () => {
-    if (!user) {
-      return alert("로그인 해주세요");
-    }
+  // const handlePostDelete = () => {
+  //   if (!user) {
+  //     return alert("로그인 해주세요");
+  //   }
 
-    if (user !== author.id) {
-      return alert("작성자만 수정가능합니다");
-    }
+  //   if (user !== author.id) {
+  //     return alert("작성자만 수정가능합니다");
+  //   }
 
-    postDeleteMutation.mutate();
-    navigate("/post");
+  //   postDeleteMutation.mutate();
+  //   navigate("/post");
+  // };
+
+  const handlePostModify = () => {
+    navigate("modify");
   };
 
   return (
@@ -32,7 +36,11 @@ function PostDetailHeader({ postId, title, author, createdAt }) {
         <div className={styles.created_at}>{`${date.getFullYear()}/${
           date.getMonth() + 1
         }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`}</div>
-        {/* <button onClick={handlePostDelete}>삭제하기</button> */}
+        {author.id === user && (
+          <button className={styles.delete_button} onClick={handlePostModify}>
+            수정하기
+          </button>
+        )}
       </div>
     </div>
   );

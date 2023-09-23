@@ -1,10 +1,9 @@
 import { useState } from "react";
 import styles from "./PostUploader.module.css";
 import { usePostPostApi } from "../../../hooks/usePostApi";
-import Outer from "../../UI/Outer/Outer";
 import Input from "../../UI/Input/Input";
 import Textarea from "../../UI/Textarea/Textarea";
-import Images from "../../UI/Image/Images";
+import MultipleImageUploader from "../../UI/Image/ImageUploader/MultipleImageUploader/MultipleImageUploader";
 import Button from "../../UI/Button/Button";
 import PostHeader from "../PostHeader/PostHeader";
 
@@ -38,7 +37,7 @@ function PostUploader() {
       <div>
         <Textarea onChangeTextarea={setContent} />
       </div>
-      <Images images={images} setImages={setImages} />
+      <MultipleImageUploader images={images} setImages={setImages} />
       <Button onClickButton={handlePostButtonClick}>게시물 등록</Button>
     </div>
   );

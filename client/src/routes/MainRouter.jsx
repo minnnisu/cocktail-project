@@ -15,6 +15,8 @@ import MyPost from "../components/Post/MyPost/MyPost";
 import PostUploader from "../components/Post/PostUploader/PostUploader";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import PostUpload from "../components/Post/PostUpload/PostUpload";
+import PostModifier from "../components/Post/PostModifier/PostModifier";
 
 function MainRouter() {
   const queryClient = new QueryClient();
@@ -31,6 +33,7 @@ function MainRouter() {
           <Route path="/post/upload" element={<PostUploader />} />
           <Route path={`/post/${user}`} element={<MyPost />} />
           <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/post/:id/modify" element={<PostModifier />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/mypage" element={<Mypage />} />

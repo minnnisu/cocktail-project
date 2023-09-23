@@ -1,0 +1,8 @@
+.image_list_container {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  height: calc(100% - 56px);
+  overflow: scroll;
+}
