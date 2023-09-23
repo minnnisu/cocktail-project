@@ -19,6 +19,13 @@ function LoginForm() {
   };
 
   const handleSubmit = () => {
+    if (loginFormData.username === "") {
+      return alert("아이디를 입력해주세요");
+    }
+
+    if (loginFormData.password === "") {
+      return alert("비밀번호를 입력해주세요");
+    }
     login(loginFormData);
   };
 

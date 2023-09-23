@@ -11,7 +11,7 @@ exports.localLogin = function (req, res, next) {
     }
 
     if (!user) {
-      return res.status(403).send(info.message);
+      return next(new ValidationError(info.message));
     }
 
     // user정보 session storage에 저장
