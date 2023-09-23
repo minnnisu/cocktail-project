@@ -5,11 +5,11 @@ import PostUploadImage from "./PostUploadImage/PostUploadImage";
 import Button from "../../UI/Button/Button";
 import { useState } from "react";
 
-function PostUpload({ id, user, hookFunc }) {
+function PostUpload({ id, user, hookFunc, type }) {
   const [newImages, setNewImages] = useState([]);
 
   const [data, setData, originalImages, setOriginalImages, handleDataSubmit] =
-    hookFunc(id, user, newImages);
+    hookFunc({ id, user, newImages });
 
   const handleDataChange = (e) => {
     console.log(e.target.name);
@@ -22,7 +22,9 @@ function PostUpload({ id, user, hookFunc }) {
         <PostUploadTitle value={data.title} onChange={handleDataChange} />
         <PostUploadContent value={data.content} onChange={handleDataChange} />
         <div className={styles.button_container}>
-          <Button onClickButton={handleDataSubmit}>수정하기</Button>
+          <Button onClickButton={handleDataSubmit}>
+            {type === "upload" ? "업로드" : "수정하기"}
+          </Button>
         </div>
       </div>
       <div className={styles.right}>

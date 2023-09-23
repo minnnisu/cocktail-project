@@ -2,14 +2,13 @@ import { useParams } from "react-router-dom";
 import PostUpload from "../PostUpload/PostUpload";
 import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
-import { usePostUpload } from "../../../hooks/usePostUpload";
+import { usePostModify } from "../../../hooks/usePostModify";
 
 function PostModifier() {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
-  console.log(id);
 
-  return <PostUpload id={id} user={user} hookFunc={usePostUpload} />;
+  return <PostUpload id={id} user={user} hookFunc={usePostModify} />;
 }
 
 export default PostModifier;

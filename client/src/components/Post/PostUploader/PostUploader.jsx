@@ -1,45 +1,16 @@
-import { useState } from "react";
-import styles from "./PostUploader.module.css";
-import { usePostPostApi } from "../../../hooks/usePostApi";
-import Input from "../../UI/Input/Input";
-import Textarea from "../../UI/Textarea/Textarea";
-import MultipleImageUploader from "../../UI/Image/ImageUploader/MultipleImageUploader/MultipleImageUploader";
-import Button from "../../UI/Button/Button";
+import PostUpload from "../PostUpload/PostUpload";
+import { useContext } from "react";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { usePostUpload } from "../../../hooks/usePostUpload";
 import PostHeader from "../PostHeader/PostHeader";
 
 function PostUploader() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [images, setImages] = useState([]);
-
-  const postMutation = usePostPostApi();
-
-  const handlePostButtonClick = () => {
-    const formData = new FormData();
-    formData.append("data", JSON.stringify({ title, content }));
-    for (let i = 0; i < images.length; i++) {
-      formData.append("images", images[i]);
-    }
-
-    postMutation.mutate(formData);
-  };
+  const { user } = useContext(AuthContext);
   return (
-    <div>
+    <>
       <PostHeader />
-      <div className={styles.title_container}>
-        <Input
-          title={"제목"}
-          name={"title"}
-          value={title}
-          onChangeValue={(e) => setTitle(e.target.value)}
-        />
-      </div>
-      <div>
-        <Textarea onChangeTextarea={setContent} />
-      </div>
-      <MultipleImageUploader images={images} setImages={setImages} />
-      <Button onClickButton={handlePostButtonClick}>게시물 등록</Button>
-    </div>
+      <PostUpload user={user} hookFunc={usePostUpload} type={"upload"} />;
+    </>
   );
 }
 
