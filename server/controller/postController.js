@@ -93,11 +93,14 @@ async function updatePost(userId, postId, body, files) {
     if (index === -1) {
       post.hearts.push(userId);
     } else {
-      post.hearts.splice(index);
+      post.hearts.splice(index, 1);
     }
   }
 
-  if (body.imageRemoveTarget) {
+  console.log(`기존 이미지: ${post.images}`);
+  console.log(`삭제 할 이미지: ${body.imageRemoveTarget}`);
+
+  if (body.imageRemoveTarget && body.imageRemoveTarget.length > 0) {
     Promise.all(
       body.imageRemoveTarget.map(async (image) => {
         fs.unlink(`static/image/post/${image}`, function (err) {
@@ -111,7 +114,7 @@ async function updatePost(userId, postId, body, files) {
     body.imageRemoveTarget.map((image) => {
       const index = post.images.indexOf(image);
       if (index !== -1) {
-        post.images.splice(index);
+        post.images.splice(index, 1);
       }
     });
   }
@@ -120,6 +123,8 @@ async function updatePost(userId, postId, body, files) {
     const fileNames = files.map((file) => file.filename);
     post.images = [...post.images, ...fileNames];
   }
+
+  console.log(`수정 후 이미지: ${post.images}`);
 
   return post.save().catch((error) => {
     if (files) {
