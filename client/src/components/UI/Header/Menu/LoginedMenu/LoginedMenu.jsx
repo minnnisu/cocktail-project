@@ -15,9 +15,8 @@ function LoginedMenu() {
 
   return (
     <>
-      <li className={styles.username}>{user}</li>
-      <li className={styles.mypage} onClick={handleMypageButtonClick}>
-        마이페이지
+      <li onClick={handleMypageButtonClick} className={styles.username}>
+        {user}
       </li>
       <li className={styles.logout} onClick={handleLogoutButtonClick}>
         로그아웃
