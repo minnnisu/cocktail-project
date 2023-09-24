@@ -1,13 +1,26 @@
 .header {
   display: flex;
+  justify-content: space-between;
+}
+.header .left {
+  display: flex;
   align-items: end;
 }
 
-.nickname {
+.header .left .nickname {
   font-weight: 600;
   margin-right: 8px;
 }
 
-.created_at {
+.header .left .created_at {
   font-size: 0.9em;
+}
+
+.header .right {
+  display: flex;
+  align-items: end;
+}
+
+.header .right .wrapper {
+  cursor: pointer;
 }

@@ -1,0 +1,10 @@
+.wrapper > * {
+  border-bottom: 1px solid #434343;
+}
+.wrapper > *:last-child {
+  border-bottom: none;
+}
+
+.task {
+  padding: 10px;
+}

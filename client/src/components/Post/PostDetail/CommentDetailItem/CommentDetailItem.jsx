@@ -2,10 +2,11 @@ import CommentDetailItemContent from "./CommentDetailItemContent/CommentDetailIt
 import CommentDetailItemHeader from "./CommentDetailItemHeader/CommentDetailItemHeader";
 import styles from "./CommentDetailItem.module.css";
 
-function CommentDetailItem({ comment }) {
+function CommentDetailItem({ comment, HandleMoreTaskShow }) {
   return (
     <div className={styles.comment_item}>
       <CommentDetailItemHeader
+        HandleMoreTaskShow={HandleMoreTaskShow}
         nickname={comment.author.nickname}
         created_at={comment.created_at}
       />
