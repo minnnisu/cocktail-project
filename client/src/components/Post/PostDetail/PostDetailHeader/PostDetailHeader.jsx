@@ -1,32 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import { useAuthHandler } from "../../../../hooks/useAuthHandler";
-import { usePostDeleteApi } from "../../../../hooks/usePostApi";
 import Title from "../../../UI/Title/Title";
 import styles from "./PostDetailHeader.module.css";
 
-function PostDetailHeader({ postId, title, author, createdAt }) {
+function PostDetailHeader({ title, author, createdAt, HandleMoreTaskShow }) {
   const { user } = useAuthHandler();
-  const navigate = useNavigate();
   const date = new Date(createdAt);
-
-  // const postDeleteMutation = usePostDeleteApi(postId);
-
-  // const handlePostDelete = () => {
-  //   if (!user) {
-  //     return alert("로그인 해주세요");
-  //   }
-
-  //   if (user !== author.id) {
-  //     return alert("작성자만 수정가능합니다");
-  //   }
-
-  //   postDeleteMutation.mutate();
-  //   navigate("/post");
-  // };
-
-  const handlePostModify = () => {
-    navigate("modify");
-  };
 
   return (
     <div className={styles.header}>
@@ -37,9 +15,14 @@ function PostDetailHeader({ postId, title, author, createdAt }) {
           date.getMonth() + 1
         }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`}</div>
         {author.id === user && (
-          <button className={styles.delete_button} onClick={handlePostModify}>
-            수정하기
-          </button>
+          <div className={styles.wrapper}>
+            <span
+              onClick={() => HandleMoreTaskShow()}
+              className="material-symbols-outlined"
+            >
+              more_horiz
+            </span>
+          </div>
         )}
       </div>
     </div>

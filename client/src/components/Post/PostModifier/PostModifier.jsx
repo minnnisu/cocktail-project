@@ -8,7 +8,9 @@ function PostModifier() {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
 
-  return <PostUpload id={id} user={user} hookFunc={usePostModify} />;
+  return (
+    <PostUpload id={id} user={user} hookFunc={usePostModify} type={"modify"} />
+  );
 }
 
 export default PostModifier;

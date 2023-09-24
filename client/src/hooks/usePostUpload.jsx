@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { usePostPostApi } from "./usePostApi";
+import { useNavigate } from "react-router-dom";
 
 export const usePostUpload = ({ user, newImages }) => {
   const [data, setData] = useState({
@@ -11,9 +12,11 @@ export const usePostUpload = ({ user, newImages }) => {
     removed: [],
   });
 
+  const navigate = useNavigate();
+
   const postMutation = usePostPostApi();
 
-  const handleDataSubmit = (e) => {
+  const handlePostSubmit = (e) => {
     if (!user) {
       return alert("로그인 해주세요");
     }
@@ -27,8 +30,12 @@ export const usePostUpload = ({ user, newImages }) => {
       formData.append("images", newImages[i]);
     }
 
-    postMutation.mutate(formData);
+    postMutation.mutate(formData, {
+      onSuccess: function () {
+        navigate("/post");
+      },
+    });
   };
 
-  return [data, setData, originalImages, setOriginalImages, handleDataSubmit];
+  return { data, setData, originalImages, setOriginalImages, handlePostSubmit };
 };

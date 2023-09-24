@@ -4,7 +4,7 @@
 }
 .header .left {
   display: flex;
-  align-items: end;
+  align-items: center;
 }
 
 .header .left .nickname {
@@ -16,11 +16,8 @@
   font-size: 0.9em;
 }
 
-.header .right {
-  display: flex;
-  align-items: end;
-}
-
 .header .right .wrapper {
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }

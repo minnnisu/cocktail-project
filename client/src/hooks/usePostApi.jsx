@@ -3,6 +3,7 @@ import useApiPostQuery from "./useApiPostQuery";
 import useApiPatchQuery from "./useApiPatchQuery";
 import useApiDeleteQuery from "./useApiDeleteQuery";
 import { QueryClient, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 const filterPost = (alcohols) => {
   return alcohols;
@@ -59,6 +60,7 @@ export const usePostPatchApi = (postId) => {
 
 export const usePostDeleteApi = (postId) => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const onError = (error) => {
     alert(error.response.data.message);
@@ -66,7 +68,7 @@ export const usePostDeleteApi = (postId) => {
 
   const onSuccess = () => {
     alert("게시물을 삭제하였습니다.");
-    queryClient.invalidQueries("getAlcohol");
+    navigate("/post");
   };
 
   return useApiDeleteQuery(`/api/post/${postId}`, onSuccess, onError);

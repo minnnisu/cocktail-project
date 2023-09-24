@@ -4,11 +4,13 @@ import styles from "./PostUpload.module.css";
 import PostUploadImage from "./PostUploadImage/PostUploadImage";
 import Button from "../../UI/Button/Button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PostUpload({ id, user, hookFunc, type }) {
   const [newImages, setNewImages] = useState([]);
+  const navigate = useNavigate;
 
-  const [data, setData, originalImages, setOriginalImages, handleDataSubmit] =
+  const { data, setData, originalImages, setOriginalImages, handlePostSubmit } =
     hookFunc({ id, user, newImages });
 
   const handleDataChange = (e) => {
@@ -22,7 +24,7 @@ function PostUpload({ id, user, hookFunc, type }) {
         <PostUploadTitle value={data.title} onChange={handleDataChange} />
         <PostUploadContent value={data.content} onChange={handleDataChange} />
         <div className={styles.button_container}>
-          <Button onClickButton={handleDataSubmit}>
+          <Button onClickButton={handlePostSubmit}>
             {type === "upload" ? "업로드" : "수정하기"}
           </Button>
         </div>

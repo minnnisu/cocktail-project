@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePostGetApi, usePostPatchApi } from "./usePostApi";
+import { useNavigate } from "react-router-dom";
 
 export const usePostModify = ({ id, user, newImages }) => {
   const [data, setData] = useState({
@@ -11,6 +12,7 @@ export const usePostModify = ({ id, user, newImages }) => {
     removed: [],
   });
 
+  const navigate = useNavigate();
   const postPatchMutation = usePostPatchApi(id);
   const { data: prevData } = usePostGetApi(id);
 
@@ -25,7 +27,7 @@ export const usePostModify = ({ id, user, newImages }) => {
     }
   }, [prevData]);
 
-  const handleDataSubmit = (e) => {
+  const handlePostSubmit = (e) => {
     if (!user) {
       return alert("로그인 해주세요");
     }
@@ -47,8 +49,18 @@ export const usePostModify = ({ id, user, newImages }) => {
       formData.append("images", newImages[i]);
     }
 
-    postPatchMutation.mutate(formData);
+    postPatchMutation.mutate(formData, {
+      onSuccess: function () {
+        navigate(`/post/${id}`);
+      },
+    });
   };
 
-  return [data, setData, originalImages, setOriginalImages, handleDataSubmit];
+  return {
+    data,
+    setData,
+    originalImages,
+    setOriginalImages,
+    handlePostSubmit,
+  };
 };
