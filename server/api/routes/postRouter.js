@@ -26,7 +26,14 @@ router
 
 router
   .get("/:id/comment", postController.getComment)
-  .post("/:id/comment", authMiddleware.isLoggedIn, postController.postComment)
+  .post("/:id/comment", authMiddleware.isLoggedIn, postController.postComment);
+
+router
+  .patch(
+    "/:postId/comment/:commentId",
+    authMiddleware.isLoggedIn,
+    postController.patchComment
+  )
   .delete(
     "/:postId/comment/:commentId",
     authMiddleware.isLoggedIn,

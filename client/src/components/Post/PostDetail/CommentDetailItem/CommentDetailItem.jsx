@@ -7,8 +7,7 @@ function CommentDetailItem({ comment, HandleMoreTaskShow }) {
     <div className={styles.comment_item}>
       <CommentDetailItemHeader
         HandleMoreTaskShow={HandleMoreTaskShow}
-        nickname={comment.author.nickname}
-        created_at={comment.created_at}
+        comment={comment}
       />
       <CommentDetailItemContent content={comment.content} />
     </div>

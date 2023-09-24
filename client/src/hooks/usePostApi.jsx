@@ -91,3 +91,37 @@ export const useCommentPostApi = (postId) => {
 
   return useApiPostQuery(`/api/post/${postId}/comment`, onSuccess, onError);
 };
+
+export const useCommentPatchApi = (postId, commentId) => {
+  const onError = (error) => {
+    alert(error.response.data.message);
+  };
+
+  const onSuccess = () => {
+    alert("댓글을 수정하였습니다.");
+  };
+
+  return useApiPatchQuery(
+    `/api/post/${postId}/comment/${commentId}`,
+    onSuccess,
+    onError
+  );
+};
+
+export const useCommentDeleteApi = (postId, commentId) => {
+  const queryClient = useQueryClient();
+
+  const onError = (error) => {
+    alert(error.response.data.message);
+  };
+
+  const onSuccess = () => {
+    alert("댓글을 삭제하였습니다.");
+  };
+
+  return useApiDeleteQuery(
+    `/api/post/${postId}/comment/${commentId}`,
+    onSuccess,
+    onError
+  );
+};
