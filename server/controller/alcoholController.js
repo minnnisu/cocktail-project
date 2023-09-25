@@ -5,6 +5,7 @@ const { ValidationError } = require("./ErrorHandler");
 const alcoholModel = require("../models/alcohol");
 const nonAlcoholModel = require("../models/nonAlcohol");
 const cocktailModel = require("../models/cocktail");
+const alcohol = require("../models/alcohol");
 
 function makeFilter(filter) {
   const { id, name } = filter;
@@ -38,8 +39,33 @@ async function addAlcohol(data) {
   }
 }
 
-function readAlcohol(query) {
-  return alcoholModel.find(makeFilter(query)).exec();
+async function readAlcohol(query) {
+  const alcohols = await alcoholModel.find(makeFilter(query)).exec();
+  if (query.summary === "true") {
+    const summaryAlcohols = alcohols.map((alcohol) => {
+      if (alcohol.subAlcohols && alcohol.subAlcohols.length > 0) {
+        const filteredSubAlcohols = alcohol.subAlcohols.map((subAlcohol) => {
+          const filteredCocktails = subAlcohol.cocktails.map((cocktail) => {
+            return cocktail.cocktailID;
+          });
+
+          return { name: subAlcohol.name, cocktails: filteredCocktails };
+        });
+
+        return { name: alcohol.name, subAlcohols: filteredSubAlcohols };
+      }
+
+      const filteredCocktails = alcohol.cocktails.map((cocktail) => {
+        return cocktail.cocktailID;
+      });
+
+      return { name: alcohol.name, cocktails: filteredCocktails };
+    });
+
+    return summaryAlcohols;
+  }
+
+  return alcohols;
 }
 
 async function updateAlcohol(filter, update) {
@@ -99,8 +125,19 @@ async function addNonAlcohol(data) {
   return nonAlcohol.save();
 }
 
-function readNonAlcohol(query) {
-  return nonAlcoholModel.find(makeFilter(query)).exec();
+async function readNonAlcohol(query) {
+  const nonAlcohols = await nonAlcoholModel.find(makeFilter(query)).exec();
+  if (query.summary === "true") {
+    const summaryNonAlcohols = nonAlcohols.map((nonAlcohol) => {
+      const filteredCocktails = nonAlcohol.cocktails.map((cocktail) => {
+        return cocktail.cocktailID;
+      });
+
+      return { name: nonAlcohol.name, cocktails: filteredCocktails };
+    });
+
+    return summaryNonAlcohols;
+  }
 }
 
 async function addCocktail(data) {
