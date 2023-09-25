@@ -17,20 +17,20 @@ function Button({
     }
   };
 
-  const buttonClass = [styles.button_container];
+  const buttonClass = [styles.button];
 
   if (buttonWidth === "large") {
     buttonClass.push(styles.large);
   }
 
   return (
-    <div
+    <button
       style={{ backgroundColor: `${getBackgroundColorCode()}` }}
       className={buttonClass.join(" ")}
       onClick={onClickButton}
     >
-      <div className={styles.value}>{children}</div>
-    </div>
+      {children}
+    </button>
   );
 }
 
