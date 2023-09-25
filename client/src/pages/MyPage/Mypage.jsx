@@ -1,9 +1,29 @@
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 import Button from "../../components/UI/Button/Button";
 import Outer from "../../components/UI/Outer/Outer";
-import { useUserDataGetApi } from "../../hooks/useUserApi";
+import {
+  useUserDataDeleteApi,
+  useUserDataGetApi,
+} from "../../hooks/useUserApi";
+import { useNavigate } from "react-router-dom";
 
 function Mypage() {
   const { isLoading, isSuccess, isError, data } = useUserDataGetApi();
+  const { setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const userDeleteMutation = useUserDataDeleteApi();
+
+  const handleUserDelete = () => {
+    userDeleteMutation.mutate(null, {
+      onSuccess: function () {
+        localStorage.removeItem("id");
+        setUser(null);
+        navigate("/");
+      },
+    });
+  };
 
   return (
     <div>
@@ -31,7 +51,9 @@ function Mypage() {
             <span>이메일 </span>
             <span>{data.email}</span>
           </div>
-          <Button backgroundColor="red">회원탈퇴</Button>
+          <Button backgroundColor="red" onClickButton={handleUserDelete}>
+            회원탈퇴
+          </Button>
         </Outer>
       )}
     </div>
