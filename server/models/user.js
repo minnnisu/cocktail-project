@@ -20,6 +20,7 @@ const UserSchema = new Schema(
     telephone: { type: String, required: true },
     email: { type: String, required: true },
     makedCocktails: [CocktailSchema],
+    isAdmin: { type: Boolean, required: false },
     created_at: { type: Date, default: Date.now, required: true },
   },
   {

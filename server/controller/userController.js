@@ -5,8 +5,15 @@ const { NotFoundError } = require("./ErrorHandler");
 // 패스워드 해시값은 제외하고 전달!!!!!
 exports.getUser = async function (req, res, next) {
   try {
-    const { id, username, nickname, telephone, email, makedCocktails } =
-      await userModel.findOne({ id: req.user.id });
+    const {
+      id,
+      username,
+      nickname,
+      telephone,
+      email,
+      makedCocktails,
+      isAdmin,
+    } = await userModel.findOne({ id: req.user.id });
     const sendData = {
       id,
       username,
@@ -14,6 +21,7 @@ exports.getUser = async function (req, res, next) {
       telephone,
       email,
       makedCocktails,
+      isAdmin,
     };
     res.status(200).send(sendData);
   } catch (error) {

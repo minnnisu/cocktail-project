@@ -6,11 +6,12 @@ const filterNonAlcohol = (alcohols) => {
   return alcohols;
 };
 
-export const useNonAlcoholGetApi = () => {
+export const useNonAlcoholGetApi = (query, options) => {
   return useApiGetQuery(
     "getNonAlcohol",
-    "/api/alcohol-management/non-alcohol",
-    filterNonAlcohol
+    `/api/alcohol-management/non-alcohol${query ? query : ""}`,
+    filterNonAlcohol,
+    options
   );
 };
 

@@ -138,6 +138,8 @@ async function readNonAlcohol(query) {
 
     return summaryNonAlcohols;
   }
+
+  return nonAlcohols;
 }
 
 async function addCocktail(data) {

@@ -9,9 +9,11 @@ const fetchData = async (path) => {
   });
 };
 
-function useApiGetQuery(queryKey, path, filterData) {
-  return useQuery([queryKey, path], () =>
-    fetchData(path).then((res) => filterData(res.data))
+function useApiGetQuery(queryKey, path, filterData, options) {
+  return useQuery(
+    [queryKey, path],
+    () => fetchData(path).then((res) => filterData(res.data)),
+    options
   );
 }
 

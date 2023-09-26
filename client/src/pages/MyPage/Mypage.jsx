@@ -25,6 +25,10 @@ function Mypage() {
     });
   };
 
+  const handleAlcoholManagementPageMove = () => {
+    navigate("/alcohol/form");
+  };
+
   return (
     <div>
       {isLoading && <div>유저정보를 불러오는 중입니다.</div>}
@@ -54,6 +58,11 @@ function Mypage() {
           <Button backgroundColor="red" onClickButton={handleUserDelete}>
             회원탈퇴
           </Button>
+          {data.isAdmin && (
+            <Button onClickButton={handleAlcoholManagementPageMove}>
+              주류 관리
+            </Button>
+          )}
         </Outer>
       )}
     </div>
