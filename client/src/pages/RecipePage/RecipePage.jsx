@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import Outer from "../../components/UI/Outer/Outer";
 import { useAlcoholGetApi } from "../../hooks/useAlcoholApi";
 import { useNonAlcoholGetApi } from "../../hooks/useNonAlcoholApi";
 import AlcoholList from "./AlcoholList/AlcoholList";
@@ -15,7 +14,6 @@ function RecipePage() {
   });
 
   const [ingredientList, setIngredientList] = useState(null);
-
   const [selectedAlcohol, setSelectedAlcohol] = useState([]);
   const [selectedNonAlcohol, setSelectedNonAlcohol] = useState([]);
 

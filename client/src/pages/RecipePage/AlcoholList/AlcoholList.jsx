@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import AlcoholItem from "../AlcoholItem/AlcoholItem";
 import styles from "./AlcoholList.module.css";
 import Title from "../../../components/UI/Title/Title";
+import SubAlcoholList from "../SubAlcoholList/SubAlcoholList";
 
 function AlcoholList({
   ingredientList,
@@ -9,6 +10,11 @@ function AlcoholList({
   setSelectedAlcohol,
   alcohols,
 }) {
+  const [subAlcoholComponent, setSubAlcoholComponent] = useState({
+    state: false,
+    data: { alcoholName: "", subAlcohols: [] },
+  });
+
   const handleAlcoholClick = (selectedAlcohol) => {
     const alcohol = ingredientList.alcohols.find(
       (alcohol) => alcohol.name === selectedAlcohol.alcoholName
@@ -57,11 +63,19 @@ function AlcoholList({
             <AlcoholItem
               key={index}
               alcohol={alcohol}
+              setSubAlcoholComponent={setSubAlcoholComponent}
               handleAlcoholClick={handleAlcoholClick}
             />
           );
         })}
       </div>
+      {subAlcoholComponent.state && (
+        <SubAlcoholList
+          alcoholName={subAlcoholComponent.data.alcoholName}
+          subAlcohols={subAlcoholComponent.data.subAlcohols}
+          handleAlcoholClick={handleAlcoholClick}
+        />
+      )}
     </div>
   );
 }

@@ -1,12 +1,33 @@
-import { useState } from "react";
-import SubAlcoholList from "../SubAlcoholList/SubAlcoholList";
 import styles from "../shared/Item.module.css";
 
-function AlcoholItem({ alcohol, handleAlcoholClick }) {
-  const [subAlcoholShow, setSubAlcoholShow] = useState(false);
-
+function AlcoholItem({ alcohol, setSubAlcoholComponent, handleAlcoholClick }) {
   const handleSubAlcoholToggle = () => {
-    setSubAlcoholShow((prev) => !prev);
+    setSubAlcoholComponent((prev) => {
+      if (prev.data.alcoholName === alcohol.name) {
+        if (prev.state) {
+          return {
+            state: false,
+            data: { alcoholName: "", subAlcohols: [] },
+          };
+        }
+
+        return {
+          state: true,
+          data: {
+            alcoholName: alcohol.name,
+            subAlcohols: alcohol.subAlcohols,
+          },
+        };
+      }
+
+      return {
+        state: true,
+        data: {
+          alcoholName: alcohol.name,
+          subAlcohols: alcohol.subAlcohols,
+        },
+      };
+    });
   };
 
   return (
@@ -16,13 +37,6 @@ function AlcoholItem({ alcohol, handleAlcoholClick }) {
           <div className={styles.item} onClick={handleSubAlcoholToggle}>
             {alcohol.name}
           </div>
-          {subAlcoholShow && (
-            <SubAlcoholList
-              alcoholName={alcohol.name}
-              subAlcohols={alcohol.subAlcohols}
-              handleAlcoholClick={handleAlcoholClick}
-            />
-          )}
         </>
       ) : (
         <div
