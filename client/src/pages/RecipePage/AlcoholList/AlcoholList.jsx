@@ -1,5 +1,7 @@
 import React from "react";
 import AlcoholItem from "../AlcoholItem/AlcoholItem";
+import styles from "./AlcoholList.module.css";
+import Title from "../../../components/UI/Title/Title";
 
 function AlcoholList({
   ingredientList,
@@ -20,8 +22,6 @@ function AlcoholList({
       if (subAlcohol.isSelect) {
         setSelectedAlcohol((prev) =>
           prev.filter((alcohol) => {
-            console.log(alcohol?.subAlcoholName);
-            console.log(selectedAlcohol?.subAlcoholName);
             return !(
               alcohol.alcoholName === selectedAlcohol.alcoholName &&
               alcohol?.subAlcoholName === selectedAlcohol.subAlcoholName
@@ -49,17 +49,20 @@ function AlcoholList({
   };
 
   return (
-    <>
-      {alcohols.map((alcohol, index) => {
-        return (
-          <AlcoholItem
-            key={index}
-            alcohol={alcohol}
-            handleAlcoholClick={handleAlcoholClick}
-          />
-        );
-      })}
-    </>
+    <div className={styles.alcohol_list}>
+      <Title size={5}>술 목록</Title>
+      <div className={styles.alcohol_list_wrapper}>
+        {alcohols.map((alcohol, index) => {
+          return (
+            <AlcoholItem
+              key={index}
+              alcohol={alcohol}
+              handleAlcoholClick={handleAlcoholClick}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 }
 

@@ -1,9 +1,9 @@
-import styles from "./SubAlcoholItem.module.css";
+import styles from "../shared/Item.module.css";
 
 function SubAlcoholItem({ alcoholName, subAlcohol, handleAlcoholClick }) {
   return (
     <div
-      className={`${subAlcohol?.isSelect ? styles.active : ""}`}
+      className={`${subAlcohol.isSelect ? styles.active : ""} ${styles.item}`}
       onClick={() =>
         handleAlcoholClick({
           alcoholName: alcoholName,

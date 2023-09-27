@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SubAlcoholList from "../SubAlcoholList/SubAlcoholList";
-import styles from "./AlcoholItem.module.css";
+import styles from "../shared/Item.module.css";
 
 function AlcoholItem({ alcohol, handleAlcoholClick }) {
   const [subAlcoholShow, setSubAlcoholShow] = useState(false);
@@ -13,7 +13,9 @@ function AlcoholItem({ alcohol, handleAlcoholClick }) {
     <>
       {alcohol.subAlcohols && alcohol.subAlcohols.length > 0 ? (
         <>
-          <div onClick={handleSubAlcoholToggle}>{alcohol.name}</div>
+          <div className={styles.item} onClick={handleSubAlcoholToggle}>
+            {alcohol.name}
+          </div>
           {subAlcoholShow && (
             <SubAlcoholList
               alcoholName={alcohol.name}
@@ -24,7 +26,7 @@ function AlcoholItem({ alcohol, handleAlcoholClick }) {
         </>
       ) : (
         <div
-          className={`${alcohol?.isSelect ? styles.active : ""}`}
+          className={`${alcohol?.isSelect ? styles.active : ""} ${styles.item}`}
           onClick={() => {
             handleAlcoholClick &&
               handleAlcoholClick({

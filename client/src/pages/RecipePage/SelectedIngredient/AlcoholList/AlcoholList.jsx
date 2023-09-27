@@ -4,8 +4,8 @@ import AlcoholItem from "../AlcoholItem/AlcoholItem";
 function AlcoholList({
   ingredientList,
   setIngredientList,
+  selectedAlcohol,
   setSelectedAlcohol,
-  alcohols,
 }) {
   const handleAlcoholClick = (selectedAlcohol) => {
     const alcohol = ingredientList.alcohols.find(
@@ -47,18 +47,15 @@ function AlcoholList({
 
     setIngredientList((prev) => ({ ...prev, alcohol }));
   };
-
   return (
     <>
-      {alcohols.map((alcohol, index) => {
-        return (
-          <AlcoholItem
-            key={index}
-            alcohol={alcohol}
-            handleAlcoholClick={handleAlcoholClick}
-          />
-        );
-      })}
+      {selectedAlcohol.map((selectedAlcohol, index) => (
+        <AlcoholItem
+          key={index}
+          selectedAlcohol={selectedAlcohol}
+          handleAlcoholClick={handleAlcoholClick}
+        />
+      ))}
     </>
   );
 }

@@ -1,10 +1,12 @@
-import styles from "./NonAlcoholItem.module.css";
+import styles from "../shared/Item.module.css";
 
 function NonAlcoholItem({ nonAlcohol, handleNonAlcoholClick }) {
   return (
     <>
       <div
-        className={`${nonAlcohol?.isSelect ? styles.active : ""}`}
+        className={`${nonAlcohol?.isSelect ? styles.active : ""} ${
+          styles.item
+        }`}
         onClick={() => {
           handleNonAlcoholClick({
             nonAlcoholName: nonAlcohol.name,

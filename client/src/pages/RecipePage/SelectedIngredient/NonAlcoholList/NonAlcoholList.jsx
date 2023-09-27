@@ -1,13 +1,12 @@
 import React from "react";
-import NonAlcoholItem from "../NonAlcoholItem/NonAlcoholItem";
 import styles from "./NonAlcoholList.module.css";
-import Title from "../../../components/UI/Title/Title";
+import NonAlcoholItem from "../NonAlcoholItem/NonAlcoholItem";
 
 function NonAlcoholList({
   ingredientList,
   setIngredientList,
+  selectedNonAlcohol,
   setSelectedNonAlcohol,
-  nonAlcohols,
 }) {
   const handleNonAlcoholClick = (selectedNonAlcohol) => {
     const nonAlcohol = ingredientList.nonAlcohols.find(
@@ -28,21 +27,15 @@ function NonAlcoholList({
 
     setIngredientList((prev) => ({ ...prev, nonAlcohol }));
   };
-
   return (
     <>
-      <Title size={5}>기타 재료</Title>
-      <div className={styles.non_alcohol_list_wrapper}>
-        {nonAlcohols.map((nonAlcohol, index) => {
-          return (
-            <NonAlcoholItem
-              key={index}
-              nonAlcohol={nonAlcohol}
-              handleNonAlcoholClick={handleNonAlcoholClick}
-            />
-          );
-        })}
-      </div>
+      {selectedNonAlcohol.map((selectedNonAlcohol, index) => (
+        <NonAlcoholItem
+          key={index}
+          selectedNonAlcohol={selectedNonAlcohol}
+          handleNonAlcoholClick={handleNonAlcoholClick}
+        />
+      ))}
     </>
   );
 }
