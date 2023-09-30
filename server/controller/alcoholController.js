@@ -6,6 +6,7 @@ const alcoholModel = require("../models/alcohol");
 const nonAlcoholModel = require("../models/nonAlcohol");
 const cocktailModel = require("../models/cocktail");
 const alcohol = require("../models/alcohol");
+const cocktail = require("../models/cocktail");
 
 function makeFilter(filter) {
   const { id, name } = filter;
@@ -257,7 +258,32 @@ async function addCocktail(data) {
 }
 
 function readCocktail(query) {
-  return cocktailModel.find(makeFilter(query)).exec();
+  try {
+    if (query.cocktails) {
+      const parsedCocktails = JSON.parse(query.cocktails);
+      if (!Array.isArray(parsedCocktails)) {
+        throw new ValidationError("cocktails의 값은 배열이여야만 합니다.");
+      }
+
+      if (parsedCocktails.length < 1) {
+        throw new ValidationError("cocktails 배열 내 원소가 없습니다");
+      }
+
+      const filter = parsedCocktails.map((cocktail) => ({
+        _id: cocktail,
+      }));
+
+      return cocktailModel
+        .find({
+          $or: filter,
+        })
+        .exec();
+    }
+
+    return cocktailModel.find(makeFilter(query)).exec();
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function addCocktailImage(filter, file) {

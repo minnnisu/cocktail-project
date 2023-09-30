@@ -1,0 +1,10 @@
+.cocktail_item {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  height: 300px;
+  padding: 10px;
+  margin: 20px auto 0 auto;
+  border-radius: 10px;
+  background-color: #222;
+}

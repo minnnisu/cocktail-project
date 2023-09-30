@@ -1,5 +1,5 @@
 .header_container {
-  width: 1400px;
+  max-width: 1400px;
   height: 5em;
   display: flex;
   justify-content: space-between;

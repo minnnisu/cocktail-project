@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./NonAlcoholList.module.css";
 import NonAlcoholItem from "../NonAlcoholItem/NonAlcoholItem";
 
 function NonAlcoholList({

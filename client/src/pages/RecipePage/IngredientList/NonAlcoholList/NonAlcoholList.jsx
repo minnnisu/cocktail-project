@@ -1,7 +1,7 @@
 import React from "react";
 import NonAlcoholItem from "../NonAlcoholItem/NonAlcoholItem";
 import styles from "./NonAlcoholList.module.css";
-import Title from "../../../components/UI/Title/Title";
+import Title from "../../../../components/UI/Title/Title";
 
 function NonAlcoholList({
   ingredientList,

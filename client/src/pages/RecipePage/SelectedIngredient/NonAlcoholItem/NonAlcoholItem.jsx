@@ -1,4 +1,4 @@
-import styles from "../../shared/Item.module.css";
+import styles from "../../shared/SelectedItem.module.css";
 
 function NonAlcoholItem({ selectedNonAlcohol, handleNonAlcoholClick }) {
   return (

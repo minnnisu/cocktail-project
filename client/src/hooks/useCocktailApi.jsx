@@ -6,10 +6,10 @@ const filterCocktail = (alcohols) => {
   return alcohols;
 };
 
-export const useCocktailGetApi = (qurey = "") => {
+export const useCocktailGetApi = (query = "") => {
   return useApiGetQuery(
     "getCocktail",
-    `/api/alcohol-management/cocktail${qurey}`,
+    `/api/alcohol-management/cocktail${query}`,
     filterCocktail
   );
 };

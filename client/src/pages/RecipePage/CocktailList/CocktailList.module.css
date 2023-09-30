@@ -1,0 +1,8 @@
+.cocktail_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cocktail_list > * {
+  width: 33%;
+}

@@ -2,7 +2,6 @@ import styles from "./SubAlcoholList.module.css";
 import Title from "../../../UI/Title/Title";
 import KeyValueItem from "../../../UI/KeyValueItem/KeyValueItem";
 import IngredientCocktailMap from "../../../IngredientCocktailMap/IngredientCocktailMap";
-import { Fragment } from "react";
 
 function SubAlcoholList({ subAlcohols }) {
   return (
