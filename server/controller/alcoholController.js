@@ -5,8 +5,6 @@ const { ValidationError } = require("./ErrorHandler");
 const alcoholModel = require("../models/alcohol");
 const nonAlcoholModel = require("../models/nonAlcohol");
 const cocktailModel = require("../models/cocktail");
-const alcohol = require("../models/alcohol");
-const cocktail = require("../models/cocktail");
 
 function makeFilter(filter) {
   const { id, name } = filter;
@@ -259,6 +257,10 @@ async function addCocktail(data) {
 
 function readCocktail(query) {
   try {
+    if (query.type === "random") {
+      return cocktailModel.aggregate([{ $sample: { size: 1 } }]).exec();
+    }
+
     if (query.cocktails) {
       const parsedCocktails = JSON.parse(query.cocktails);
       if (!Array.isArray(parsedCocktails)) {

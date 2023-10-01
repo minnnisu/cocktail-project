@@ -1,8 +1,17 @@
-import Header from "../../components/UI/Header/Header";
-import Prepare from "../../components/UI/Prepare/Prepare";
+import CocktailDetailContainer from "../../components/CocktailDetail/CocktailDetailContainer/CocktailDetailContainer";
+import { useCocktailGetApi } from "../../hooks/useCocktailApi";
 
 function RandomPage() {
-  return <Prepare />;
+  const { data: cockail } = useCocktailGetApi("?type=random");
+  console.log(cockail);
+
+  return (
+    <>
+      {cockail && cockail.length > 0 && (
+        <CocktailDetailContainer cockail={cockail[0]} />
+      )}
+    </>
+  );
 }
 
 export default RandomPage;
