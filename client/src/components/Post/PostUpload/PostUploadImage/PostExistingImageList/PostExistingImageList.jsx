@@ -1,4 +1,4 @@
-import { url } from "../../../../../apis/config/domain";
+import { serverUrl } from "../../../../../apis/config/domain";
 import MultipleImageItem from "../../../../UI/Image/ImageItem/MultipleImageItem/MultipleImageItem";
 
 function PostExistingImageList({ originalImages, setOriginalImages }) {
@@ -19,7 +19,7 @@ function PostExistingImageList({ originalImages, setOriginalImages }) {
         originalImages.remained.map((image, index) => (
           <MultipleImageItem
             key={index}
-            src={`${url}/static/image/post/${image}`}
+            src={`${serverUrl}/static/image/post/${image}`}
             index={index}
             onClickDeleteButton={handleExistingImageDelete}
           />

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-const { url } = require("../../src/apis/config/domain");
+const { serverUrl } = require("../../src/apis/config/domain");
 
 const putData = (path, body) => {
-  return axios.put(`${url}${path}`, body);
+  return axios.put(`${serverUrl}${path}`, body);
 };
 
 function useApiPutQuery(path, onSuccess, onError) {

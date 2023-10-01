@@ -7,7 +7,7 @@ import CocktailAlcoholList from "../CocktailAlcoholList/CocktailAlcoholList";
 import CocktailImage from "../CocktailImage/CocktailImage";
 import CocktailNonAlcoholList from "../CocktailNonAlcoholList/CocktailNonAlcoholList";
 import styles from "./CocktailList.module.css";
-const { url } = require("../../../apis/config/domain");
+const { serverUrl } = require("../../../apis/config/domain");
 
 function CocktailList({ cocktails }) {
   return (
@@ -24,7 +24,7 @@ function CocktailList({ cocktails }) {
               <KeyTextItem name={"조주 기법"} text={cocktail.recipe} />
               <CocktailAlcoholList alcohols={cocktail.alcohols} />
               <CocktailNonAlcoholList nonAlcohols={cocktail.nonAlcohols} />
-              <CocktailImage src={`${url}/${cocktail.image_path}`} />
+              <CocktailImage src={`${serverUrl}/${cocktail.image_path}`} />
             </Outer>
           </div>
         ))}

@@ -2,9 +2,9 @@ const { default: axios } = require("axios");
 const domain = require("../config/domain");
 // import {getItem} from "@SessionStorage"
 
-const BASE_URL = domain.url;
+const BASE_URL = domain.serverUrl;
 
-const axiosApi = (url, options) => {
+const axiosApi = (serverUrl, options) => {
   const instance = axios.create({ baseURL: url, ...options });
   return instance;
 };

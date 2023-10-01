@@ -1,0 +1,10 @@
+.recipe_wrapper {
+  background-color: #222;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}

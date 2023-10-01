@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-const { url } = require("../apis/config/domain");
+const { serverUrl } = require("../apis/config/domain");
 
 const deleteData = (path) => {
-  return axios.delete(`${url}${path}`, {
+  return axios.delete(`${serverUrl}${path}`, {
     withCredentials: true,
   });
 };

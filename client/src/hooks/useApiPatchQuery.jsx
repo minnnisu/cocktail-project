@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-const { url } = require("../../src/apis/config/domain");
+const { serverUrl } = require("../../src/apis/config/domain");
 
 const patchData = (path, body) => {
-  return axios.patch(`${url}${path}`, body, {
+  return axios.patch(`${serverUrl}${path}`, body, {
     withCredentials: true,
   });
 };

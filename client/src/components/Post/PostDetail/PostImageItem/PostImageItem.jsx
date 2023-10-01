@@ -1,4 +1,4 @@
-import { url } from "../../../../apis/config/domain";
+import { serverUrl } from "../../../../apis/config/domain";
 import styles from "./PostImageItem.module.css";
 
 function PostImageItem({ index, imageName }) {
@@ -6,7 +6,7 @@ function PostImageItem({ index, imageName }) {
     <img
       className={styles.image}
       key={index}
-      src={`${url}/static/image/post/${imageName}`}
+      src={`${serverUrl}/static/image/post/${imageName}`}
       alt={`게시물 이미지 ${index}`}
     />
   );

@@ -17,6 +17,7 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import PostUpload from "../components/Post/PostUpload/PostUpload";
 import PostModifier from "../components/Post/PostModifier/PostModifier";
+import CocktailDetailPage from "../pages/CocktailDetailPage/CocktailDetailPage";
 
 function MainRouter() {
   const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ function MainRouter() {
           <Route exact path="/" element={<Home />} />
           <Route path="/random" element={<RandomPage />} />
           <Route path="/recipe" element={<RecipePage />} />
+          <Route path="/recipe/:id" element={<CocktailDetailPage />} />
           <Route path="/post" element={<AllPost />} />
           <Route path="/post/upload" element={<PostUploader />} />
           <Route path={`/post/${user}`} element={<MyPost />} />

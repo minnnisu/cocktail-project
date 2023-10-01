@@ -1,8 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./CocktailItemSummary.module.css";
+import { clientUrl, serverUrl } from "../../../../apis/config/domain";
 
 function CocktailItemSummary({ id, name, tastes, alcohols, nonAlcohols }) {
+  const navigate = useNavigate();
   const handleTitleClick = () => {
-    console.log(id);
+    // navigate(`${id}`);
+    window.open(`${clientUrl}/recipe/${id}`, "_blank");
   };
   return (
     <div className={styles.cocktail_item_summary}>
