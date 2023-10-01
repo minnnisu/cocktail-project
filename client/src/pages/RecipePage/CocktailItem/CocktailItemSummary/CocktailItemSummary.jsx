@@ -3,9 +3,7 @@ import styles from "./CocktailItemSummary.module.css";
 import { clientUrl, serverUrl } from "../../../../apis/config/domain";
 
 function CocktailItemSummary({ id, name, tastes, alcohols, nonAlcohols }) {
-  const navigate = useNavigate();
   const handleTitleClick = () => {
-    // navigate(`${id}`);
     window.open(`${clientUrl}/recipe/${id}`, "_blank");
   };
   return (
