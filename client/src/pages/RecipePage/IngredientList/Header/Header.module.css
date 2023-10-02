@@ -1,0 +1,18 @@
+.header {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+
+.item {
+  font-size: 18px;
+  color: #bcbcbc;
+  font-weight: 600;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.active {
+  color: #4083e0;
+}

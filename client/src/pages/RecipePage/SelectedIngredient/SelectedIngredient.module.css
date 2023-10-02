@@ -4,12 +4,6 @@
   border-bottom: 2px solid #222;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .selected_ingredient_wrapper {
   display: flex;
   flex-wrap: wrap;

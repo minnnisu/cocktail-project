@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AlcoholItem from "../AlcoholItem/AlcoholItem";
 import styles from "./AlcoholList.module.css";
-import Title from "../../../../components/UI/Title/Title";
 import SubAlcoholList from "../SubAlcoholList/SubAlcoholList";
 
 function AlcoholList({
@@ -56,7 +55,6 @@ function AlcoholList({
 
   return (
     <div className={styles.alcohol_list}>
-      <Title size={5}>술 목록</Title>
       <div className={styles.alcohol_list_wrapper}>
         {alcohols.map((alcohol, index) => {
           return (

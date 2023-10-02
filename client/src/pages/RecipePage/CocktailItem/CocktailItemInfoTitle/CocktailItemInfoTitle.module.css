@@ -1,0 +1,11 @@
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #d3d3d3;
+  padding-bottom: 3px;
+}
+
+.title:hover {
+  border-bottom: 1px solid #d3d3d3;
+}

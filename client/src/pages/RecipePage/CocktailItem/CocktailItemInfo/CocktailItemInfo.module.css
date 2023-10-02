@@ -1,0 +1,9 @@
+.cocktail_item_summary {
+  width: 50%;
+  overflow: scroll;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: auto auto;
+}

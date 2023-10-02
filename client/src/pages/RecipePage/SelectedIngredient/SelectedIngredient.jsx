@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "./SelectedIngredient.module.css";
-import Title from "../../../components/UI/Title/Title";
 import AlcoholList from "./AlcoholList/AlcoholList";
 import NonAlcoholList from "./NonAlcoholList/NonAlcoholList";
-import Button from "../../../components/UI/Button/Button";
+import Header from "./Header/Header";
 
 function SelectedIngredient({
   ingredientList,
@@ -16,10 +15,7 @@ function SelectedIngredient({
 }) {
   return (
     <div className={styles.selected_ingredient}>
-      <div className={styles.header}>
-        <Title size={5}>선택된 재료</Title>
-        <Button onClickButton={handleSearchButtonClick}>검색</Button>
-      </div>
+      <Header handleSearchButtonClick={handleSearchButtonClick} />
       <div className={styles.selected_ingredient_wrapper}>
         <AlcoholList
           ingredientList={ingredientList}

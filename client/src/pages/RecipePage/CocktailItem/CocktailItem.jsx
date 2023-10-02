@@ -1,5 +1,5 @@
 import CocktailItemImage from "./CocktailItemImage/CocktailItemImage";
-import CocktailItemSummary from "./CocktailItemSummary/CocktailItemSummary";
+import CocktailItemInfo from "./CocktailItemInfo/CocktailItemInfo";
 import styles from "./CocktailItem.module.css";
 
 function CocktailItem({ cocktail }) {
@@ -7,7 +7,7 @@ function CocktailItem({ cocktail }) {
     <div className={styles.cocktail_item_wrapper}>
       <div className={styles.cocktail_item}>
         <CocktailItemImage image_path={cocktail.image_path} />
-        <CocktailItemSummary
+        <CocktailItemInfo
           id={cocktail._id}
           name={cocktail.name}
           tastes={cocktail.tastes}
