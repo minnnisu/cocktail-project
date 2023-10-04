@@ -2,7 +2,7 @@ import CocktailItemImage from "./CocktailItemImage/CocktailItemImage";
 import CocktailItemInfo from "./CocktailItemInfo/CocktailItemInfo";
 import styles from "./CocktailItem.module.css";
 
-function CocktailItem({ cocktail }) {
+function CocktailItem({ cocktail, selectedAlcohol, selectedNonAlcohol }) {
   return (
     <div className={styles.cocktail_item_wrapper}>
       <div className={styles.cocktail_item}>
@@ -13,6 +13,8 @@ function CocktailItem({ cocktail }) {
           tastes={cocktail.tastes}
           alcohols={cocktail.alcohols}
           nonAlcohols={cocktail.nonAlcohols}
+          selectedAlcohol={selectedAlcohol}
+          selectedNonAlcohol={selectedNonAlcohol}
         />
       </div>
     </div>

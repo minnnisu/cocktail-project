@@ -11,11 +11,15 @@ function SelectedIngredient({
   setSelectedAlcohol,
   selectedNonAlcohol,
   setSelectedNonAlcohol,
-  handleSearchButtonClick,
+  setCocktailQueryParameter,
 }) {
   return (
     <div className={styles.selected_ingredient}>
-      <Header handleSearchButtonClick={handleSearchButtonClick} />
+      <Header
+        selectedNonAlcohol={selectedNonAlcohol}
+        selectedAlcohol={selectedAlcohol}
+        setCocktailQueryParameter={setCocktailQueryParameter}
+      />
       <div className={styles.selected_ingredient_wrapper}>
         <AlcoholList
           ingredientList={ingredientList}

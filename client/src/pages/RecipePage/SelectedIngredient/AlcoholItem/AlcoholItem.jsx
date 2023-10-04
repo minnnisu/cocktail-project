@@ -5,10 +5,10 @@ function AlcoholItem({ selectedAlcohol, handleAlcoholClick }) {
     <div
       className={styles.item}
       onClick={() => handleAlcoholClick(selectedAlcohol)}
-    >{`${selectedAlcohol.alcoholName}${
+    >{`${
       selectedAlcohol.subAlcoholName
-        ? `(${selectedAlcohol.subAlcoholName})`
-        : ""
+        ? `${selectedAlcohol.subAlcoholName}`
+        : selectedAlcohol.alcoholName
     }`}</div>
   );
 }

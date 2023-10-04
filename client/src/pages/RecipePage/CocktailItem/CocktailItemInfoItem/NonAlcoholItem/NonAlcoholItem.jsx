@@ -1,7 +1,13 @@
 import styles from "../CocktailItemInfoItem.module.css";
 
-function NonAlcoholItem({ item }) {
-  return <span className={styles.item}>{item.name}</span>;
+function NonAlcoholItem({ item, isInclude }) {
+  return (
+    <div>
+      <span className={`${styles.item} ${isInclude ? styles.include : ""}`}>
+        {item.name}
+      </span>
+    </div>
+  );
 }
 
 export default NonAlcoholItem;

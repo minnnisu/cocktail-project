@@ -1,11 +1,20 @@
 import styles from "./Header.module.css";
-import Button from "../../../../components/UI/Button/Button";
+import Left from "./Left/Left";
+import Right from "./Right/Right";
 
-function Header({ handleSearchButtonClick }) {
+function Header({
+  selectedAlcohol,
+  selectedNonAlcohol,
+  setCocktailQueryParameter,
+}) {
   return (
     <div className={styles.header}>
-      <div className={styles.title}>선택된 재료</div>
-      <Button onClickButton={handleSearchButtonClick}>검색</Button>
+      <Left />
+      <Right
+        selectedAlcohol={selectedAlcohol}
+        selectedNonAlcohol={selectedNonAlcohol}
+        setCocktailQueryParameter={setCocktailQueryParameter}
+      />
     </div>
   );
 }
