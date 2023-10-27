@@ -75,24 +75,30 @@ app.use("/api/user", userRouter);
 app.use("/api/post", postRouter);
 
 // error handling 미들웨어
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   if (err.name === "ValidationError") {
     return res
       .status(403)
       .json({ name: err.name, message: err.message, code: err.code });
-  } else if (err.name === "MongoServerError" && err.code === 11000) {
+  }
+
+  if (err.name === "MongoServerError" && err.code === 11000) {
     if (Object.values(err.keyValue)[0]) {
-      return res.status(403).json({
+      return res.status(409).json({
         name: "DuplicationError",
         message: `${Object.values(err.keyValue)[0]}는 이미 있습니다.`,
       });
     }
     return res
-      .status(403)
+      .status(409)
       .json({ name: "DuplicationError", message: "중복되는 값이 있습니다" });
-  } else if (err.name === "MongoError") {
+  }
+
+  if (err.name === "MongoError") {
     return res.status(400).json({ message: err.message });
-  } else if (err.name === "NotFoundError") {
+  }
+
+  if (err.name === "NotFoundError") {
     return res.status(404).json({ NotFoundError: err.message });
   }
 
